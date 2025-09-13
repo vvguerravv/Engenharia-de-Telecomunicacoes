@@ -1,0 +1,15 @@
+amplitude_1 = 5;
+freq_1 = 5;
+amplitude_2 = 2;
+freq_2 = 50;
+Fs = 1000;
+time = 0:1/Fs:(1-1/Fs);
+sine_1 = amplitude_1*sin(2*pi*freq_1.*time);
+sine_2 = amplitude_2*sin(2*pi*freq_2.*time);
+noise = randn(1,length(time));
+x_clean = sine_1 + sine_2;
+x_noisy = x_clean + noise;
+figure(9);
+plot(time,x_clean);
+figure(10);
+plot(time,x_noisy);
