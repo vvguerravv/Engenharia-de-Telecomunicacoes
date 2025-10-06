@@ -1,5 +1,5 @@
 
     
 start:
-  inc r16
+  inc r3
   rjmp start
