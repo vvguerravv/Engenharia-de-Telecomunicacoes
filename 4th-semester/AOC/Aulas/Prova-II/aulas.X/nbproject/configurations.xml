@@ -77,7 +77,7 @@
         <AVR-Global>
         </AVR-Global>
       </item>
-      <item path="2025-10-28/atv_pt1.asm" ex="true" overriding="false">
+      <item path="2025-10-28/atv_pt2.asm" ex="true" overriding="false">
       </item>
       <AVR-ASM>
         <property key="hex-format" value="I"/>
