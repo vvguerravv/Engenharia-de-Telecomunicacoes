@@ -32,6 +32,8 @@
     
  
 sub_32bits:
+    
+    ; salvar contexto
     PUSH R0
     PUSH R1
     PUSH R16
@@ -65,6 +67,8 @@ sub_32bits:
 	
     
 zera_32bits:
+    
+    ; salvar contexto
     
     PUSH R16
     PUSH R17

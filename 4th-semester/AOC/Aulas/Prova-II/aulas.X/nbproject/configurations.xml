@@ -14,6 +14,7 @@
                    projectFiles="true">
       <itemPath>2025-10-28/atv_pt1.asm</itemPath>
       <itemPath>2025-10-22/sum_with_sub_routine.asm</itemPath>
+      <itemPath>2025-10-28/atv_pt2.asm</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -71,6 +72,12 @@
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <item path="2025-10-22/sum_with_sub_routine.asm" ex="true" overriding="false">
+        <AVR-ASM>
+        </AVR-ASM>
+        <AVR-Global>
+        </AVR-Global>
+      </item>
+      <item path="2025-10-28/atv_pt1.asm" ex="true" overriding="false">
       </item>
       <AVR-ASM>
         <property key="hex-format" value="I"/>
