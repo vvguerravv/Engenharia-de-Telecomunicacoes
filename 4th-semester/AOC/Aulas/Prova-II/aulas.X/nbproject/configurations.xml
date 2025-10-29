@@ -15,6 +15,7 @@
       <itemPath>2025-10-28/atv_pt1.asm</itemPath>
       <itemPath>2025-10-22/sum_with_sub_routine.asm</itemPath>
       <itemPath>2025-10-28/atv_pt2.asm</itemPath>
+      <itemPath>2025-10-29/vetores.asm</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -27,6 +28,7 @@
     <Elem>2025-10-21</Elem>
     <Elem>2025-10-22</Elem>
     <Elem>2025-10-28</Elem>
+    <Elem>2025-10-29</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -76,6 +78,8 @@
         </AVR-ASM>
         <AVR-Global>
         </AVR-Global>
+      </item>
+      <item path="2025-10-28/atv_pt1.asm" ex="true" overriding="false">
       </item>
       <item path="2025-10-28/atv_pt2.asm" ex="true" overriding="false">
         <AVR-ASM>
