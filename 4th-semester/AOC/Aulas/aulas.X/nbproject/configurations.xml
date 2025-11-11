@@ -12,8 +12,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>2025-11-04/led.asm</itemPath>
       <itemPath>2025-11-05/botao.asm</itemPath>
+      <itemPath>2025-11-11/correcao_botao.asm</itemPath>
+      <itemPath>2025-11-11/correcao_botao-subroutine.asm</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -29,6 +30,7 @@
     <Elem>2025-10-29</Elem>
     <Elem>2025-11-04</Elem>
     <Elem>2025-11-05</Elem>
+    <Elem>2025-11-11</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -41,7 +43,7 @@
         <platformTool>Simulator</platformTool>
         <languageToolchain>AVRASM</languageToolchain>
         <languageToolchainVersion>2.2.7</languageToolchainVersion>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <packs>
         <pack name="ATmega_DFP" vendor="Microchip" version="3.0.158"/>
@@ -73,7 +75,13 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="2025-11-04/led.asm" ex="true" overriding="false">
+      <item path="2025-11-05/botao.asm" ex="true" overriding="false">
+      </item>
+      <item path="2025-11-11/correcao_botao.asm" ex="false" overriding="false">
+        <AVR-ASM>
+        </AVR-ASM>
+        <AVR-Global>
+        </AVR-Global>
       </item>
       <AVR-ASM>
         <property key="hex-format" value="I"/>
