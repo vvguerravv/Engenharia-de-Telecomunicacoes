@@ -86,3 +86,5 @@ loop:
 
   ret
   
+  
+  ; LEMBRAR DE USAR STIMULUS

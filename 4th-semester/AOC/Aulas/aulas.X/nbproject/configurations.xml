@@ -12,7 +12,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>2025-11-12/int1.asm</itemPath>
       <itemPath>2025-11-12/atividade.asm</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -29,7 +28,6 @@
     <Elem>2025-10-29</Elem>
     <Elem>2025-11-04</Elem>
     <Elem>2025-11-05</Elem>
-    <Elem>2025-11-11</Elem>
     <Elem>2025-11-12</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
@@ -43,7 +41,7 @@
         <platformTool>Simulator</platformTool>
         <languageToolchain>AVRASM</languageToolchain>
         <languageToolchainVersion>2.2.7</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <packs>
         <pack name="ATmega_DFP" vendor="Microchip" version="3.0.158"/>
@@ -75,8 +73,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="2025-11-12/int1.asm" ex="true" overriding="false">
-      </item>
       <AVR-ASM>
         <property key="hex-format" value="I"/>
         <property key="unsupported-instructions" value="e"/>
