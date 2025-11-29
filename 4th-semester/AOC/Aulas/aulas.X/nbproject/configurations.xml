@@ -77,6 +77,10 @@
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <item path="2025-11-25/tc0.asm" ex="true" overriding="false">
+        <AVR-ASM>
+        </AVR-ASM>
+        <AVR-Global>
+        </AVR-Global>
       </item>
       <AVR-ASM>
         <property key="hex-format" value="I"/>

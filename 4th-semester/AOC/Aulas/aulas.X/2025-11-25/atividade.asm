@@ -73,7 +73,11 @@
 	fim1:
 	    ; Atualiza a variável intervalo
 	    sts  intervalo, R16
-
+	    
+	    ; Zera a contagem
+	    ldi R16, 0
+	    sts contagem, R16
+	    
 	    ; Restaurar contexto 
 	    pop  R16
 	    out  SREG, r16
