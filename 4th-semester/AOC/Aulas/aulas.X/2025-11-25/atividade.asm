@@ -61,7 +61,10 @@
 
 	; Subtrai 6 (próximo estágio)
 	subi R16, 6      
-
+	 
+	; Os estágios foram cálculados foram 31 (inicial), 25, 19, 13 e 7
+	; Cada um deles foram encontrados fazendo uma regra de 3 simples.
+	
 	; Se passou do limite (ficou menor que 7), volta para 31
 	cpi  R16, 7
 	BRSH fim1
