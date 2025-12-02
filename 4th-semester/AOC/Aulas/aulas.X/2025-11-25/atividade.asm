@@ -37,9 +37,9 @@
 	
 	LDI R16, 1
 	sts TIMSK0, R16 ; habilita int. do TC0B (TIMSK0(0)=TOIE0 <- 1)
-	
-	ldi R16, 0b00000010
-	sts EICRA, R16
+
+	ldi R16, 0b00000010 
+	sts EICRA, R16 
 	sbi EIMSK, INT0 ; Habilita a interrupção 0
 	
 	sei  ; Habilita a interrupção global
