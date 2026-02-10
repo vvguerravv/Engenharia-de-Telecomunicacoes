@@ -1,0 +1,61 @@
+.INCLUDE <m328Pdef.inc>
+
+.DSEG
+.ORG SRAM_START          ; Início da SRAM = 0x0100
+
+A: .BYTE 1               ; Variável A -> 0x0100
+B: .BYTE 1               ; Variável B -> 0x0101
+C: .BYTE 1               ; Variável C -> 0x0102
+
+.CSEG
+.ORG 0x0000
+RJMP MAIN
+
+; ENDEREÇAMENTO DIRETO 
+MAIN:
+    ; Inicializa valores
+    LDI R16, 10          ; A = 10
+    LDI R17, 20          ; B = 20
+    STS A, R16
+    STS B, R17
+
+    ; Soma A + B e guarda em C
+    LDS R18, A
+    LDS R19, B
+    ADD R18, R19
+    STS C, R18
+
+; ENDEREÇAMENTO INDIRETO 
+INDIRETO:
+    ; Ponteiro X -> A
+    LDI XL, LOW(A)
+    LDI XH, HIGH(A)
+    LD  R20, X           ; R20 = A
+    INC XL               ; X -> B
+    LD  R21, X           ; R21 = B
+    ADD R20, R21
+    INC XL               ; X -> C
+    ST  X, R20
+
+; INDIRETO COM PÓS-INCREMENTO 
+POST_INC:
+    ; Ponteiro Y -> A
+    LDI YL, LOW(A)
+    LDI YH, HIGH(A)
+    LD  R22, Y+          ; R22 = A, Y -> B
+    LD  R23, Y+          ; R23 = B, Y -> C
+    ADD R22, R23
+    ST  Y, R22           ; Armazena em C (Y já aponta para C)
+
+; MODO 4: INDIRETO COM DESLOCAMENTO
+DESLOCAMENTO:
+    ; Ponteiro Z -> A
+    LDI ZL, LOW(A)
+    LDI ZH, HIGH(A)
+    LDD R24, Z+0         ; R24 = A
+    LDD R25, Z+1         ; R25 = B
+    ADD R24, R25
+    STD Z+2, R24         ; C = A + B
+
+FIM:
+    RJMP MAIN
