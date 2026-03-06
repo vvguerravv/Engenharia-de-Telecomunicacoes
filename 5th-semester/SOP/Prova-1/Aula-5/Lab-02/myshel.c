@@ -6,7 +6,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <stdlib.h>
-
+#include <time.h>
 
 // man 2 cwd
 // Returns current working directory (CWD)
@@ -26,8 +26,16 @@ int myCwd() {
 
 
 // man 2 mkdir
+// Creates a new directory
 
-int myMkdir(char *name) {
+int myMkdir() {
+
+    char name[256];
+
+    if (scanf("%s", name) != 1) {
+        printf("Missing directory name\n");
+        return 1;
+    }
 
     if (mkdir(name, 0700) != 0) {
         perror("Unable to create directory");
@@ -37,7 +45,18 @@ int myMkdir(char *name) {
     return 0;
 }
 
-int myRmdir(char *name) {
+
+// man 2 rmdir
+// Removes a directory
+
+int myRmdir() {
+
+    char name[256];
+
+    if (scanf("%s", name) != 1) {
+        printf("Missing directory name\n");
+        return 1;
+    }
 
     if (rmdir(name) != 0) {
         perror("Unable to remove directory");
@@ -47,14 +66,17 @@ int myRmdir(char *name) {
     return 0;
 }
 
-int myCd(char *path) {
 
-    if (path == NULL || path[0] == '\0') {
-        path = getenv("HOME");
-        if (path == NULL) {
-            perror("Unable to get home directory");
-            return 1;
-        }
+// man 2 chdir
+// Changes the current working directory
+
+int myCd() {
+
+    char path[256];
+
+    if (scanf("%s", path) != 1) {
+        printf("Missing directory name\n");
+        return 1;
     }
 
     if (chdir(path) != 0) {
@@ -65,9 +87,21 @@ int myCd(char *path) {
     return 0;
 }
 
-int myStat(char *file) {
 
+// man 2 stat
+// Displays file metadata (size and permissions)
+
+#include <time.h>
+
+int myStat() {
+
+    char file[256];
     struct stat st;
+
+    if (scanf("%s", file) != 1) {
+        printf("Missing file name\n");
+        return 1;
+    }
 
     if (stat(file, &st) != 0) {
         perror("Unable to stat file");
@@ -78,19 +112,34 @@ int myStat(char *file) {
     printf("Size: %ld bytes\n", st.st_size);
     printf("Permissions: %o\n", st.st_mode & 0777);
 
+    char buffer[100];
+    struct tm *tm_info;
+
+    tm_info = localtime(&st.st_atime);
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", tm_info);
+    printf("Access: %s\n", buffer);
+
+    tm_info = localtime(&st.st_mtime);
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", tm_info);
+    printf("Modify: %s\n", buffer);
+
+    tm_info = localtime(&st.st_ctime);
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", tm_info);
+    printf("Change: %s\n", buffer);
+
     return 0;
 }
 
-int myLs(char *dirname) {
+
+// man 3 readdir
+// Lists entries in the current directory
+
+int myLs() {
 
     struct dirent *dir;
     DIR *d;
 
-    if (dirname == NULL || dirname[0] == '\0') {
-        dirname = ".";
-    }
-
-    d = opendir(dirname);
+    d = opendir(".");
 
     if (d == NULL) {
         perror("Unable to open directory");
@@ -98,6 +147,10 @@ int myLs(char *dirname) {
     }
 
     while ((dir = readdir(d)) != NULL) {
+        if (strcmp(dir->d_name, ".") == 0 || strcmp(dir->d_name, "..") == 0) {
+            continue;
+        }
+
         printf("%s\n", dir->d_name);
     }
 
@@ -111,46 +164,39 @@ int main (int argc, char** argv) {
     bool teste = true;
 
     while (teste) {
-        char line[256];
         char command[256];
-        char arg[256];
 
         printf("gsh> ");
-        if (fgets(line, sizeof(line), stdin) == NULL) {
+        if (scanf("%s", command) != 1) {
             break;
         }
-        line[strcspn(line, "\n")] = 0;
-
-        int num = sscanf(line, "%s %s", command, arg);
-        if (num < 1) continue;
-        if (num == 1) arg[0] = '\0';
 
         if (strcmp(command, "exit") == 0) {
             teste = false;
-        } else if (strcmp(command, "myCwd") == 0) {
+        } 
+        
+        else if (strcmp(command, "myCwd") == 0) {
             myCwd();
-        } else if (strcmp(command, "myMkdir") == 0) {
-            if (arg[0] == '\0') {
-                printf("Missing directory name\n");
-            } else {
-                myMkdir(arg);
-            }
-        } else if (strcmp(command, "myRmdir") == 0) {
-            if (arg[0] == '\0') {
-                printf("Missing directory name\n");
-            } else {
-                myRmdir(arg);
-            }
-        } else if (strcmp(command, "myCd") == 0) {
-            myCd(arg);
-        } else if (strcmp(command, "myStat") == 0) {
-            if (arg[0] == '\0') {
-                printf("Missing file name\n");
-            } else {
-                myStat(arg);
-            }
-        } else if (strcmp(command, "myLs") == 0) {
-            myLs(arg);
+        } 
+        
+        else if (strcmp(command, "myMkdir") == 0) {
+            myMkdir();
+        } 
+        
+        else if (strcmp(command, "myRmdir") == 0) {
+            myRmdir();
+        } 
+        
+        else if (strcmp(command, "myCd") == 0) {
+            myCd();
+        } 
+        
+        else if (strcmp(command, "myStat") == 0) {
+            myStat();
+        } 
+        
+        else if (strcmp(command, "myLs") == 0) {
+            myLs();
         } else {
             printf("Invalid command\n");
         }
