@@ -1,36 +1,76 @@
-// ex2: fork/wait "compartilhando" dados
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
 #include <sys/wait.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
-int ex3()
-{
-    int pid, status, k=0;
-    printf("processo %d\t antes do fork\n", getpid());
-    pid = fork();
-    printf("processo %d\t depois do fork\n", getpid());
+int ex3() {
 
-    if(pid == -1) // fork falhou
-    {
-        perror("fork falhou!");
-        exit(-1);
+    char comando[256];
+    int pid, status;
+    int background;
+
+    while (1) {
+        printf("$ ");
+        fflush(stdout);
+
+        if (fgets(comando, sizeof(comando), stdin) == NULL) {
+            break;  // EOF
+        }
+
+        size_t len = strlen(comando);
+        if (len > 0 && comando[len - 1] == '\n') {
+            comando[len - 1] = '\0';
+            len--;
+        }
+
+        if (len == 0) {
+            continue;
+        }
+
+        if (strcmp(comando, "sair") == 0) {
+            printf("Saindo do terminal...\n");
+            break;
+        }
+
+        background = 0;
+        if (len > 0 && comando[len - 1] == '&') {
+            background = 1;
+            comando[len - 1] = '\0';  
+            while (len > 0 && comando[len - 1] == ' ') {
+                comando[--len] = '\0';
+            }
+        }
+
+        pid = fork();
+        if (pid == -1) {
+            perror("Fork falhou");
+            continue;
+        } else if (pid == 0) {
+            // Processo filho: executa o comando
+            // execve espera um array de argumentos 
+            char *argv[] = {comando, NULL};
+            char *envp[] = {NULL};
+
+            if (execve(comando, argv, envp) == -1) {
+                perror("Erro ao executar");
+                exit(1);
+            }
+        } else {
+            // Processo pai
+            if (background) {
+                printf("[PID %d] Executando em background\n", pid);
+            } else {
+                // Aguarda o término do processo filho
+                wait(&status);
+                if (WIFEXITED(status)) {
+                    printf("[PID %d] Saída: %d\n", pid, WEXITSTATUS(status));
+                } else if (WIFSIGNALED(status)) {
+                    printf("[PID %d] Terminado por sinal %d\n", pid, WTERMSIG(status));
+                }
+            }
+        }
     }
-    else if(pid == 0) // Este é o processo filho
-    {
-        k += 1000;
-        printf("processo filho\t pid: %d\t K: %d\n", getpid(), k);
-        // exit(0);
-    }
-    else // Este é o processo pai
-    {
-        wait(&status);
-        k += 10;
-        printf("processo pai\t pid: %d\t K: %d\n", getpid(), k);
-        // exit(0);
-    }
-    k += 10;
-    printf("processo %d\t K: %d\n", getpid(), k);
-    exit(0);
+
+    return 0;
 }
