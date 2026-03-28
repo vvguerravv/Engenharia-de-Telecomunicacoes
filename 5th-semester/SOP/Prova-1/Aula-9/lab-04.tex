@@ -1,0 +1,93 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=2.5cm}
+
+\lstset{
+  backgroundcolor=\color{gray!10},
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{gray!40},
+  xleftmargin=4pt,
+  xrightmargin=4pt,
+  aboveskip=8pt,
+  belowskip=8pt,
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Sistemas Operacionais}
+\lhead{IFSC -- Campus São José}
+\rfoot{\thepage}
+
+% ── Preencha aqui ──
+\newcommand{\aluno}{Victor E. L. Guerra}
+\newcommand{\dataPratica}{27/03/2026}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+{\Large\textbf{Instituto Federal de Santa Catarina}\\Campus São José\par}
+\vspace{0.5cm}
+{\large Curso de Engenharia de Telecomunicações\par}
+\vspace{3cm}
+{\LARGE\textbf{Prática 2 -- Gestão de Tarefas}\par}
+\vspace{0.5cm}
+{\large Questionário de Entrega\par}
+\vspace{3cm}
+{\large\textbf{Aluno:} \aluno\par}
+\vspace{0.5cm}
+{\large\textbf{Professor:} Rogério Pereira Junior\par}
+\vspace{3cm}
+{\large São José, \dataPratica\par}
+\end{titlepage}
+
+\section*{Questionário de Entrega}
+
+\subsection*{1. Qual a diferença entre os estados Ready (Pronto) e Running (Executando) observada durante o uso do comando top?}
+
+No estado \textbf{Ready (Pronto)}, o processo está carregado na memória e apto a executar, porém aguarda que o escalonador lhe atribua a CPU. No estado \textbf{Running (Executando)}, o processo está efetivamente utilizando a CPU naquele instante.
+
+No \texttt{top}, ambos os estados aparecem com o código \texttt{R}, pois o Linux agrupa processos prontos e em execução sob a mesma classificação. A alternância constante na ordem dos processos reflete as trocas de contexto realizadas pelo escalonador: a cada fatia de tempo, um processo diferente pode estar de fato na CPU, enquanto os demais aguardam na fila de prontos.
+
+\subsection*{2. Ao executar pstree, você notou que o xeyes é filho de qual processo?}
+
+O \texttt{xeyes} é filho do processo \texttt{bash}, que é o shell a partir do qual o comando foi executado. A hierarquia típica observada é:
+
+\begin{lstlisting}
+systemd -> terminal -> bash -> xeyes
+\end{lstlisting}
+
+Isso ocorre porque, no Linux, todo processo é criado por outro processo (seu pai) através da chamada de sistema \texttt{fork()}, formando uma árvore hierárquica.
+
+\subsection*{3. Explique por que, ao aumentarmos o valor de nice para 15, o processo tende a usar menos CPU quando há outros processos ativos.}
+
+O escalonador CFS (\textit{Completely Fair Scheduler}) do Linux utiliza o valor de \textit{nice} para calcular o peso relativo de cada processo na distribuição de tempo de CPU. O valor de \textit{nice} varia de $-20$ (maior prioridade) a $+19$ (menor prioridade), sendo 0 o padrão.
+
+Com nice = 15, o processo recebe um peso significativamente menor em comparação com processos de nice = 0. Quando há outros processos ativos competindo pela CPU, o escalonador atribui fatias de tempo proporcionais ao peso de cada processo, fazendo com que o processo com nice 15 receba consideravelmente menos tempo de CPU.
+
+Vale notar que, em um sistema ocioso (sem concorrência), mesmo um processo com nice alto pode utilizar toda a CPU disponível, pois não há outros processos disputando o recurso.
+
+\subsection*{4. O que acontece com o registro de um processo no SO quando enviamos um sinal kill -9?}
+
+O sinal \texttt{SIGKILL} (9) é tratado diretamente pelo kernel e não pode ser interceptado, bloqueado ou ignorado pelo processo. Ao recebê-lo, o kernel encerra o processo imediatamente, sem permitir a execução de \textit{handlers} de limpeza. Em seguida, o sistema operacional:
+
+\begin{enumerate}
+  \item Libera todos os recursos alocados ao processo (memória, arquivos abertos, conexões de rede);
+  \item Notifica o processo pai através do sinal \texttt{SIGCHLD};
+  \item Remove a entrada do processo na tabela de processos (PCB).
+\end{enumerate}
+
+Se o processo pai não executar a chamada \texttt{wait()} para recolher o código de saída do filho, o processo encerrado permanece temporariamente no estado \textit{zumbi} (\texttt{Z}) até ser recolhido.
+
+\end{document}

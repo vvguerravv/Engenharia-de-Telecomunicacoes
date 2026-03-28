@@ -1,0 +1,80 @@
+    1	ls -l /usr/bin/nano
+    2	nano desafio.txt
+    3	ps -o pid,stat,comm | grep nano
+    4	fg
+    5	ps aux
+    6	top
+    7	htop
+    8	xeyes &
+    9	xeyes &
+   10	xeyes &
+   11	ps -C xeyes
+   12	pstree
+   13	pstree -p
+   14	sleep 300 &
+   15	ps -ef
+   16	ps -o pid,ppid,stat,cmd
+   17	sleep 1000 &
+   18	jobs
+   19	yes > /dev/null &
+   20	yes > /dev/null &
+   21	yes > /dev/null &
+   22	top
+   23	nice -n 10 yes > /dev/null &
+   24	nice -n -5 yes > /dev/null &
+   25	top
+   26	ps -eLf
+   27	top -H
+   28	kill $(pgrep xeyes | head -1)
+   29	kill -9 $(pgrep xeyes | head -1)
+   30	pkill xeyes
+   31	xeyes &
+   32	top
+   33	free
+   34	ps aux
+   35	yes > /dev/null
+   36	ps aux | grep yes
+   37	ps -o pid,ppid,stat,comm | grep yes
+   38	top -b -n1 -d 10 | head -30
+   39	ps aux | grep terminal
+   40	ps aux | grep $(whoami) > tarefas-aluno.txt
+   41	cat tarefas-aluno.txt
+   42	pluma tarefas-aluno.txt &
+   43	ps aux | grep pluma
+   44	kill $(pgrep pluma)
+   45	xeyes &
+   46	ps aux | grep xeyes
+   47	kill -SIGSTOP $(pgrep xeyes)
+   48	jobs
+   49	fg
+   50	kill -SIGCONT $(pgrep xeyes)
+   51	kill $(pgrep xeyes)
+   52	xeyes &
+   53	kill -SIGSTOP $(pgrep xeyes)
+   54	kill -SIGCONT $(pgrep xeyes)
+   55	kill $(pgrep xeyes)
+   56	nano nice-renice.txt
+   57	nice -n 19 yes > /dev/null &
+   58	xeyes &
+   59	renice -n 25 -p $(pgrep xeyes)
+   60	htop
+   61	renice -n 7 -p $(pgrep xeyes)
+   62	htop
+   63	kill $(pgrep xeyes) $(pgrep yes)
+   64	pstree
+   65	firefox &
+   66	xeyes &
+   67	xeyes &
+   68	pluma &
+   69	yes > /dev/null &
+   70	htop
+   71	ps -eLf
+   72	nano cpu_bound.c
+   73	gcc cpu_bound.c -o cpu_bound
+   74	./cpu_bound &
+   75	top
+   76	cat /proc/$(pgrep cpu_bound)/status
+   77	cat /proc/$(pgrep cpu_bound)/maps | head -20
+   78	ls /proc/$(pgrep cpu_bound)/fd
+   79	kill $(pgrep cpu_bound)
+   80	history > pratica2_victor.txt
