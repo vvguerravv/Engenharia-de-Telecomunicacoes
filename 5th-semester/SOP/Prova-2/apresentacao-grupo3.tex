@@ -1,0 +1,162 @@
+% ------------------------------------------------------------%
+% Apresentação - Grupo 3: Microserviços e Escala (5 min)
+% Tema: RabbitMQ e Apache Kafka (Message Brokers)
+% Disciplina: Sistemas Operacionais - IFSC
+% ------------------------------------------------------------%
+\documentclass[10pt,aspectratio=169]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+
+\usetheme{Madrid}
+\usecolortheme{seahorse}
+\useinnertheme{rounded}
+\useoutertheme{infolines}
+
+\definecolor{ifscverde}{RGB}{0,102,51}
+\definecolor{destaque}{RGB}{204,85,0}
+\setbeamercolor{structure}{fg=ifscverde}
+\setbeamercolor{title}{fg=white,bg=ifscverde}
+\setbeamercolor{frametitle}{fg=white,bg=ifscverde}
+\setbeamercolor{block title}{bg=ifscverde,fg=white}
+\setbeamercolor{block body}{bg=ifscverde!10}
+
+\title[IPC: Message Brokers]{Comunicação entre Tarefas}
+\subtitle{Grupo 3 -- Microserviços e Escala: RabbitMQ / Apache Kafka}
+\author[Grupo 3]{Grupo 3}
+\institute[IFSC]{IFSC -- Campus São José \\ Sistemas Operacionais}
+\date{\today}
+
+\begin{document}
+
+% ------------------------------------------------------------
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% ------------------------------------------------------------
+\begin{frame}{O Problema}
+    \begin{block}{Pergunta-chave}
+        Como Netflix, Amazon e iFood garantem que uma mensagem de
+        \textbf{pagamento não se perca} se um servidor cair?
+    \end{block}
+
+    \vspace{0.2cm}
+    \textbf{Comunicação direta falha quando:}
+    \begin{itemize}
+        \item O receptor está fora do ar $\rightarrow$ mensagem perdida
+        \item Produtor e consumidor têm velocidades diferentes
+        \item Há picos de carga (Black Friday, lançamentos)
+    \end{itemize}
+
+    \vspace{0.2cm}
+    \textbf{Solução:} inserir um intermediário confiável entre eles -- o \emph{Message Broker}.
+\end{frame}
+
+% ------------------------------------------------------------
+\begin{frame}{Message Broker -- Persistência e Mailboxes}
+    \begin{columns}[T]
+        \begin{column}{0.55\textwidth}
+            \textbf{O que é?} \emph{Middleware} que recebe, armazena e entrega mensagens entre processos.
+
+            \vspace{0.25cm}
+            \textbf{Buffer ``infinito'' (persistência):}
+            \begin{itemize}
+                \item Mensagens gravadas em \textbf{disco}
+                \item \textbf{Replicação} em cluster (failover)
+                \item \textbf{ACK} garante entrega
+            \end{itemize}
+
+            \vspace{0.2cm}
+            \textbf{Comunicação indireta (mailboxes):}
+            \begin{itemize}
+                \item Produtor envia para a \textbf{fila}, não para um processo
+                \item Desacoplamento total
+                \item Escala horizontal -- basta adicionar consumidores
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.42\textwidth}
+            \begin{center}
+            \begin{tikzpicture}[node distance=0.7cm]
+                \node[draw, fill=ifscverde!20, rounded corners, minimum width=2.2cm] (p) {Produtor};
+                \node[draw, fill=destaque!25, below=of p, minimum width=3.2cm, minimum height=1.6cm, align=center] (b) {Broker\\\textbf{Fila Persistente}\\$[m_1, m_2, m_3, ...]$};
+                \node[draw, fill=ifscverde!20, rounded corners, below=of b, minimum width=2.2cm] (c) {Consumidor};
+                \draw[-Stealth, thick] (p) -- (b);
+                \draw[-Stealth, thick] (b) -- (c);
+            \end{tikzpicture}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% ------------------------------------------------------------
+\begin{frame}{Produtor mais rápido que o Consumidor}
+    \begin{alertblock}{Back-Pressure}
+        E quando chegam mais mensagens do que o consumidor consegue processar?
+    \end{alertblock}
+
+    \vspace{0.2cm}
+    \textbf{O broker absorve o pico:}
+    \begin{itemize}
+        \item A \textbf{fila cresce em disco} -- nada se perde
+        \item Consumidores podem ser \textbf{escalados horizontalmente} (mais workers)
+        \item \textbf{Kafka} mantém o histórico por tempo configurado: consumidor lento não trava produtor
+        \item \textbf{RabbitMQ} usa TTL, limites de fila e \emph{dead-letter queue} para proteção
+    \end{itemize}
+
+    \vspace{0.2cm}
+    \centering\textit{Falhas locais viram apenas atrasos -- o sistema global continua estável.}
+\end{frame}
+
+% ------------------------------------------------------------
+\begin{frame}{Diagrama de Fluxo -- Pagamento em E-commerce}
+    \begin{center}
+    \begin{tikzpicture}[
+        node distance=1.1cm and 1.4cm,
+        box/.style={draw, rounded corners, minimum width=2.4cm, minimum height=0.9cm, align=center, font=\small},
+        emissor/.style={box, fill=ifscverde!25},
+        canal/.style={box, fill=destaque!25, minimum width=3.2cm},
+        receptor/.style={box, fill=blue!15},
+        seta/.style={-Stealth, thick}
+    ]
+        \node[emissor] (checkout) {Checkout\\(Emissor)};
+        \node[canal, right=of checkout] (broker) {\textbf{Broker}\\Fila: \texttt{pagamentos}};
+        \node[receptor, right=of broker, yshift=1.0cm] (pag) {Pagamento};
+        \node[receptor, right=of broker, yshift=-1.0cm] (audit) {Auditoria};
+
+        \draw[seta] (checkout) -- node[above, font=\tiny]{publish} (broker);
+        \draw[seta] (broker) -- node[above, font=\tiny, sloped]{consume} (pag);
+        \draw[seta] (broker) -- node[below, font=\tiny, sloped]{consume} (audit);
+    \end{tikzpicture}
+    \end{center}
+
+    \vspace{0.1cm}
+    \centering
+    \small\textbf{Propriedades:} Indireta $\bullet$ Assíncrona $\bullet$ Por mensagens $\bullet$ Confiável (persistente)
+
+    \vspace{0.2cm}
+    \scriptsize
+    Checkout publica \texttt{PagamentoSolicitado} $\rightarrow$ broker persiste $\rightarrow$ Pagamento e Auditoria consomem em paralelo. Se um serviço cai, a mensagem espera na fila.
+\end{frame}
+
+% ------------------------------------------------------------
+\begin{frame}{Conclusão}
+    \begin{itemize}
+        \item \textbf{Message Broker} = comunicação \emph{indireta}, \emph{assíncrona}, \emph{por mensagens} e \emph{confiável}.
+        \item \textbf{Persistência em disco} é o ``buffer infinito'' que absorve picos e tolera falhas.
+        \item \textbf{Mailboxes} desacoplam produtores e consumidores -- base da escala horizontal.
+        \item \textbf{RabbitMQ}: comandos/tarefas. \textbf{Kafka}: streams de eventos de alta vazão.
+    \end{itemize}
+
+    \vspace{0.5cm}
+    \begin{center}
+        {\Large \textbf{Obrigado!}} \\[0.2cm]
+        \textit{Perguntas?}
+    \end{center}
+\end{frame}
+
+\end{document}
