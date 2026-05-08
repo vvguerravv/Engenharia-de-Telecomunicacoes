@@ -1,0 +1,268 @@
+% =====================================================================
+% Conteudo das secoes para colar no documento da faculdade
+% (sem preambulo, sem capa, sem \begin{document})
+%
+% Pre-requisitos no preambulo do .tex principal:
+%   \usepackage{enumitem}
+%   \usepackage{booktabs}
+% =====================================================================
+
+\section{Mutex e Semáforo em Java}
+
+A linguagem Java oferece, no pacote \texttt{java.util.concurrent}, as
+classes \texttt{ReentrantLock} e \texttt{Semaphore}, que correspondem
+diretamente ao \texttt{pthread\_mutex\_t} e ao \texttt{sem\_t} de POSIX.
+A correspondência entre as primitivas é direta:
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{C / POSIX} & \textbf{Java / \texttt{java.util.concurrent}} \\
+\midrule
+\texttt{pthread\_mutex\_t lock;}        & \texttt{ReentrantLock lock = new ReentrantLock();} \\
+\texttt{pthread\_mutex\_lock(\&lock);}  & \texttt{lock.lock();} \\
+\texttt{pthread\_mutex\_unlock(\&lock);}& \texttt{lock.unlock();} \\
+\texttt{sem\_t s; sem\_init(\&s,0,N);}  & \texttt{Semaphore s = new Semaphore(N);} \\
+\texttt{sem\_wait(\&s);}                & \texttt{s.acquire();} \\
+\texttt{sem\_post(\&s);}                & \texttt{s.release();} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+A diferença prática é que em Java o \texttt{unlock()} (ou o \texttt{release()})
+deve ficar em um bloco \texttt{finally} --- assim o lock é liberado mesmo se
+a seção crítica lançar exceção, evitando deadlocks por vazamento.
+
+\subsection{Mutex com \texttt{ReentrantLock}}
+
+Reescrita do \texttt{m8-mutex.c}: 100 \textit{threads} incrementam um
+contador 100\,000 vezes cada uma. Sem proteção, várias atualizações são
+perdidas; com \texttt{ReentrantLock} o resultado fecha em
+$100\,000 \times 100 = 10\,000\,000$. O código (\texttt{MutexExemplo.java})
+segue o padrão \texttt{lock.lock()} antes da seção crítica e
+\texttt{lock.unlock()} dentro de um \texttt{finally}.
+
+\subsection{Semáforo binário com \texttt{Semaphore(1)}}
+
+Reescrita do \texttt{m5-semaforo.c}. Com uma única ``permissão'' o semáforo
+funciona como um mutex: a primeira \textit{thread} a chamar
+\texttt{s.acquire()} consome a vaga; as demais ficam bloqueadas até o
+\texttt{s.release()} correspondente. O programa
+(\texttt{SemaforoExemplo.java}) executa as mesmas 100 \textit{threads}
+$\times$ 100\,000 incrementos do exemplo anterior e também alcança o
+total esperado de 10\,000\,000.
+
+\subsection{Semáforo contador com \texttt{Semaphore(3)}}
+
+Reescrita do \texttt{m6-semaforo.c}. O valor inicial $N=3$ permite no
+máximo três \textit{threads} simultaneamente dentro da seção crítica
+--- útil para limitar acesso concorrente a um recurso (banco de dados,
+\textit{pool} de conexões, vagas de estacionamento). Em
+\texttt{BancoConexoes.java} criei o semáforo como
+\texttt{new Semaphore(3, true)} (modo \textit{fair}), o que serve as
+\textit{threads} em ordem de chegada e reduz \textit{starvation} ao custo
+de um pouco de \textit{throughput}. Nos testes com 10 \textit{threads},
+nunca houve mais que 3 conectadas ao mesmo tempo.
+
+% =====================================================================
+\section{Conta bancária}
+
+O \texttt{conta.c} original tem uma condição de disputa: a função
+\texttt{depositar} faz três passos (ler, somar, escrever) com um
+\texttt{usleep(100)} entre eles, forçando a troca de contexto. Em Java
+reproduzi a mesma ideia com \texttt{Thread.sleep(0, 100\_000)}
+(100\,$\mu$s de pausa entre a leitura e a escrita do saldo). A seguir
+comparo a versão sem proteção contra as três soluções pedidas.
+
+\subsection{Sem proteção --- a disputa exposta}
+
+\texttt{ContaProblema.java} reproduz o cenário do \texttt{conta.c}: duas
+\textit{threads} depositam simultaneamente em uma mesma variável
+\texttt{saldo}, sem nenhum mecanismo de sincronização. Como
+\texttt{t1} lê \texttt{saldo=100}, dorme, e nesse intervalo \texttt{t2}
+também lê 100 e grava 130, quando \texttt{t1} retoma sobrescreve com
+$100+50=150$. O depósito de \texttt{t2} é perdido. Em todas as 5
+execuções de teste o saldo final ficou em 130, evidenciando a perda do
+depósito de 50. O problema é determinístico aqui porque o \texttt{sleep}
+força a interleaving.
+
+\subsection{Solução com Mutex (\texttt{ReentrantLock})}
+
+\texttt{ContaMutex.java} envolve as três operações da função
+\texttt{depositar} (leitura, soma, escrita) entre \texttt{lock.lock()} e
+\texttt{lock.unlock()} (em \texttt{finally}). Com isso, mesmo que o
+\texttt{sleep} continue forçando a troca de contexto, a outra
+\textit{thread} fica bloqueada na entrada do método e o saldo final é
+sempre 180.
+
+\subsection{Solução com Semáforo}
+
+\texttt{ContaSemaforo.java} usa um \texttt{Semaphore(1)}, equivalente
+funcional ao mutex. \texttt{s.acquire()} antes da seção crítica e
+\texttt{s.release()} dentro de um \texttt{finally}. Resultado idêntico ao
+do \texttt{ReentrantLock}: 180 em todas as execuções.
+
+\subsection{Solução com Monitor (\texttt{synchronized})}
+
+Aqui aplico a dica do enunciado: \texttt{Thread.sleep(0)} dentro do método
+\texttt{synchronized}. Em \texttt{ContaMonitor.java} a conta é
+encapsulada em uma classe interna e o método \texttt{depositar} é
+\texttt{synchronized}. Como o lock do monitor \textbf{não} é liberado
+durante o \texttt{sleep} (diferente de \texttt{wait()}), a outra
+\textit{thread} fica bloqueada na entrada do método e o resultado segue
+correto (180).
+
+% =====================================================================
+\section{Pizzaria com buffer de 2 pizzas}
+
+A \texttt{Mesa} original (\texttt{Mesa.java}) só comporta uma pizza por
+vez --- enquanto o cozinheiro não retira a anterior, ele bloqueia. Para
+permitir que o cozinheiro ``estoque'' até duas pizzas, transformei a
+mesa em um buffer com fila usando \texttt{Queue<String>} e capacidade
+\texttt{CAP=2}, no arquivo \texttt{MesaBuffer.java}. Os métodos pedidos
+pelo enunciado são todos usados:
+
+\begin{itemize}[noitemsep, topsep=2pt, leftmargin=*]
+  \item \texttt{fila.add(pizza)} --- cozinheiro adiciona uma pizza nova;
+  \item \texttt{fila.size()} --- usado para checar se atingiu a capacidade máxima;
+  \item \texttt{fila.isEmpty()} --- entregador checa se há algo a retirar;
+  \item \texttt{fila.poll()} --- entregador retira a pizza mais antiga (FIFO).
+\end{itemize}
+
+A sincronização passou a usar \texttt{notifyAll()} no lugar de
+\texttt{notify()}, garantindo que qualquer \textit{thread} bloqueada em
+\texttt{wait()} (cozinheiro esperando vaga, ou entregador esperando
+pizza) seja acordada quando o estado muda.
+
+O driver \texttt{PizzariaBuffer.java} aceita a flag
+\texttt{-DcozinheiroLento=true|false}, que troca os tempos de
+\texttt{Thread.sleep} para testar os dois extremos.
+
+\subsection{Cenário 1: cozinheiro rápido, entregador lento}
+
+Tempo de preparo $= 200$\,ms; tempo de entrega $= 1500$\,ms. A fila
+enche até $2/2$ e o cozinheiro precisa esperar o entregador retirar uma
+pizza --- mensagens ``mesa cheia (2/2)'' aparecem repetidamente no log.
+
+\subsection{Cenário 2: cozinheiro lento, entregador rápido}
+
+Tempo de preparo $= 1500$\,ms; tempo de entrega $= 200$\,ms. A fila quase
+sempre fica vazia: o entregador retira a única pizza e fica em
+\texttt{wait()} até o cozinheiro produzir a próxima --- mensagens
+``mesa vazia'' aparecem entre cada pizza.
+
+\subsection{Por que \texttt{notifyAll()} em vez de \texttt{notify()}?}
+
+Com um único produtor e um único consumidor, \texttt{notify()} bastaria.
+Mas o exemplo é facilmente generalizável para vários cozinheiros e
+entregadores, e nesse caso \texttt{notify()} pode acordar a
+\textit{thread} ``errada'' (ex.: acordar outro produtor quando quem
+estava esperando era um consumidor), causando deadlock.
+\texttt{notifyAll()} acorda todas as \textit{threads} bloqueadas no
+monitor; o \texttt{while} em volta do \texttt{wait()} cuida de checar a
+condição novamente após o \textit{wake-up}.
+
+% =====================================================================
+\section{Limitações dos semáforos}
+
+Apesar de teoricamente suficientes para qualquer problema de
+sincronização, semáforos são primitivas de baixo nível com armadilhas
+conhecidas. A seguir listo as principais limitações encontradas em
+Tanenbaum (\textit{Modern Operating Systems}) e Silberschatz
+(\textit{Operating System Concepts}), e o que cada uma pode provocar.
+
+\begin{enumerate}[leftmargin=*, itemsep=4pt]
+
+\item \textbf{Não há associação explícita entre semáforo e recurso.}
+Um semáforo é apenas um inteiro com \texttt{wait}/\texttt{signal}.
+O compilador não verifica se o programador adquiriu o semáforo antes
+de tocar no dado protegido. Foi exatamente essa limitação que motivou
+o conceito de Monitor (Hoare, 1974), que encapsula dado e seção crítica.
+
+\item \textbf{Inversão / esquecimento de \texttt{wait} ou \texttt{signal}.}
+Esquecer um \texttt{wait} expõe a região crítica (race silenciosa);
+esquecer um \texttt{signal} causa deadlock; trocar a ordem causa
+comportamento errático.
+
+\item \textbf{Deadlock por ordem de aquisição.}
+Quando uma tarefa precisa de mais de um semáforo, a ordem importa.
+O jantar dos filósofos é o exemplo clássico: cada um pega o garfo da
+esquerda e tenta o da direita; todos travam.
+
+\item \textbf{Starvation.}
+Sem fila justa (FIFO), uma \textit{thread} pode nunca ser acordada
+quando há disputa. Em Java mitiga-se com
+\texttt{new Semaphore(n, true)}, ao custo de \textit{throughput}.
+
+\item \textbf{Inversão de prioridade.}
+Uma \textit{thread} de baixa prioridade que detém o semáforo bloqueia
+uma de alta prioridade. Caso famoso: Mars Pathfinder (1997). A solução
+exige protocolos como \textit{priority inheritance}, externos ao
+semáforo padrão.
+
+\item \textbf{Composição difícil.}
+Operações compostas (ex.: ``transferir entre duas contas atomicamente'')
+não saem naturais com semáforos. Locks reentrantes e monitores compõem
+melhor.
+
+\item \textbf{Não-reentrância.}
+Semáforos POSIX não são reentrantes: a mesma \textit{thread}, ao tentar
+dar um segundo \texttt{wait} em um semáforo binário que já detém, trava
+em si mesma. (O \texttt{Semaphore} de Java segue o mesmo princípio;
+quem precisa de reentrância usa \texttt{ReentrantLock} ou
+\texttt{synchronized}.)
+
+\item \textbf{Espera ocupada em implementações ingênuas.}
+Implementações didáticas em \textit{user-space} viram \texttt{while
+(s==0);}, queimando CPU. Implementações reais usam suporte do SO, mas
+o conceito ainda demanda cuidado em código de baixo nível.
+
+\item \textbf{Ausência de espera por condição complexa.}
+Semáforos sinalizam apenas ``há vaga / não há vaga''. Para condições
+como ``buffer com pelo menos 3 itens \textit{e} horário antes das 18h'',
+o programador precisa combinar vários semáforos --- propenso a erros.
+Variáveis de condição (\texttt{wait}/\texttt{notify}) e monitores
+resolvem com mais clareza.
+
+\end{enumerate}
+
+\subsection{Resumo das consequências}
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Falha de uso}                  & \textbf{Consequência}                  \\
+\midrule
+Esquecer \texttt{wait}                 & Race condition, dados corrompidos      \\
+Esquecer \texttt{signal}               & Deadlock                               \\
+Ordem inversa de locks                 & Deadlock circular                      \\
+Sem \textit{fairness}                  & Starvation                             \\
+Prioridades sem protocolo              & Inversão de prioridade                 \\
+Recurso não encapsulado                & Bug invisível para o compilador        \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% =====================================================================
+\section{Conclusão}
+
+A reescrita em Java mostrou que \texttt{ReentrantLock} e \texttt{Semaphore}
+oferecem o mesmo poder das primitivas POSIX usadas em C, com a vantagem
+do \texttt{try/finally} (que evita deadlocks por exceção). No problema da
+conta bancária, os três mecanismos --- mutex, semáforo e monitor ---
+eliminaram a condição de disputa e produziram saldo final 180 em todas as
+execuções, sendo o monitor a opção mais idiomática em Java.
+
+A versão da pizzaria com buffer evidencia a vantagem do produtor/consumidor
+desacoplado por uma fila: o cozinheiro não fica bloqueado em cada pizza,
+podendo estocar até duas. Os dois cenários de teste (\textit{cozinheiro
+lento} vs.\ \textit{rápido}) deixaram claro o comportamento esperado de
+cada lado bloqueando quando o buffer fica vazio ou cheio.
+
+Por fim, ainda que semáforos resolvam, em teoria, qualquer problema de
+sincronização, suas limitações práticas (deadlock, starvation, inversão de
+prioridade, falta de encapsulamento) explicam por que as linguagens
+modernas oferecem mecanismos de mais alto nível como
+\texttt{synchronized}, \texttt{BlockingQueue} e \texttt{ReentrantLock}.
