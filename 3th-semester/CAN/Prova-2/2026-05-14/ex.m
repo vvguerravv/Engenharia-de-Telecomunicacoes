@@ -28,7 +28,7 @@ for n=10:5:100
     end
     error = S-2
     deltas=[deltas Dx];
-    erros = [erros Dx];
+    erros = [erros error];
 
 end
 
