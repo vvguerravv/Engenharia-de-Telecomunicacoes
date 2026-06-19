@@ -1,0 +1,405 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+
+% Estilo para listagens de codigo C
+\definecolor{codegray}{gray}{0.95}
+\definecolor{commentgreen}{rgb}{0.0,0.5,0.0}
+\definecolor{keywordblue}{rgb}{0.0,0.0,0.7}
+\definecolor{stringred}{rgb}{0.6,0.0,0.0}
+
+\lstdefinestyle{cstyle}{
+    backgroundcolor=\color{codegray},
+    commentstyle=\color{commentgreen},
+    keywordstyle=\color{keywordblue}\bfseries,
+    stringstyle=\color{stringred},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    captionpos=b,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    showstringspaces=false,
+    tabsize=4,
+    language=C
+}
+
+\lstdefinestyle{bashstyle}{
+    backgroundcolor=\color{codegray},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    frame=single,
+    showstringspaces=false
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Sistemas Operacionais}
+\rhead{Prática II: Gerência de Memória}
+\cfoot{\thepage}
+
+\title{\textbf{Prática II: Gerência de Memória} \\ \large Roteiro de Laboratório: Hardware e Uso de Memória}
+\author{Curso de Engenharia de Telecomunicações \\ IFSC Campus São José \\ Sistemas Operacionais (Prof. Rogério Pereira Junior)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introdução}
+Neste laboratório investiguei o subsistema de memória do Linux. Os tópicos cobertos foram o tamanho
+de página e os limites do sistema, a alocação dinâmica com \emph{Lazy Allocation}, a diferença entre
+memória virtual (VSZ) e física (RSS), a inspeção da tabela de páginas com o \texttt{pmap}, as
+estatísticas globais de paginação e de \emph{swap}, o mapeamento de arquivos com \texttt{mmap} e os
+segmentos de memória de um processo. Todos os valores foram coletados em um ambiente Linux real
+(kernel sobre WSL2, com página de 4~KB).
+
+\tableofcontents
+\vspace{1em}
+
+% =====================================================================
+\section{Roteiro Prático II: Hardware de Memória}
+
+% ---------------------------------------------------------------------
+\subsection{Tamanho da Página e Limites do Sistema}
+
+Comandos executados:
+\begin{lstlisting}[style=bashstyle]
+$ getconf PAGESIZE
+4096
+$ sysctl kernel.shmall
+kernel.shmall = 18446744073692774399
+\end{lstlisting}
+
+\paragraph{Pergunta 1: tamanho de página.}
+O valor retornado foi 4096 bytes, que convertido equivale a:
+\[
+\frac{4096 \text{ bytes}}{1024} = 4 \text{ KB}.
+\]
+Esse número é o tamanho do bloco fixo (página) em que o subsistema de memória do Linux divide tanto
+a memória virtual de cada processo quanto a memória física (a RAM, dividida em quadros, ou
+\emph{frames}). Toda alocação e todo mapeamento de endereços virtuais para físicos é feito em
+múltiplos de 4~KB, que é também a granularidade mínima de uma falta de página (\emph{page fault}).
+A página é a unidade básica de gerência da MMU e da tabela de páginas.
+
+\paragraph{Pergunta 2: limite de memória compartilhada.}
+Multiplicando \texttt{kernel.shmall} pelo tamanho da página:
+\[
+18.446.744.073.692.774.399 \times 4096 \text{ bytes} \approx 7{,}03 \times 10^{22} \text{ bytes}.
+\]
+Em GB isso corresponde a aproximadamente $7 \times 10^{13}$~GB. Na prática, esse é o valor padrão do
+kernel (próximo do limite teórico de um inteiro de 64 bits), o que significa que o \texttt{shmall}
+não impõe limite prático para alocação de memória compartilhada neste sistema. O fator limitante
+real passa a ser a RAM física e o espaço de \emph{swap} disponíveis. Em sistemas onde o administrador
+define um \texttt{shmall} menor, esse produto fornece o teto real de memória compartilhada.
+
+% ---------------------------------------------------------------------
+\subsection{Alocação Dinâmica e Páginas Virtuais vs. Físicas}
+
+O programa \texttt{paginacao.c} aloca 16~MB com \texttt{malloc} e só escreve neles em um segundo
+momento, o que permite observar o efeito da \emph{Lazy Allocation}.
+
+\lstinputlisting[style=cstyle,caption={paginacao.c}]{paginacao.c}
+
+% ---------------------------------------------------------------------
+\subsection{Compilação e Monitoramento (\texttt{ps} e \texttt{/proc})}
+
+\begin{lstlisting}[style=bashstyle]
+$ gcc paginacao.c -o paginacao
+$ ./paginacao            # Terminal 1
+# Terminal 2:
+$ ps -o pid,vsz,rss,comm -p [PID]
+$ cat /proc/[PID]/status | grep -E "VmSize|VmRSS"
+\end{lstlisting}
+
+Valores coletados em cada etapa, com o PID monitorado durante a execução real:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrr}
+\toprule
+Momento do Programa & VSZ / VmSize (KB) & RSS / VmRSS (KB) \\
+\midrule
+Passo A (Início)        & 2.684  & 1.408 \\
+Passo B (malloc feito)  & 19.072 & 1.408 \\
+Passo C (Escrita feita) & 19.072 & 17.792 \\
+\bottomrule
+\end{tabular}
+\caption{Memória virtual (VSZ) e física residente (RSS) por etapa.}
+\end{table}
+
+\paragraph{Pergunta: o que ocorreu no Passo B (malloc)?}
+A memória virtual (VSZ) cresceu de 2.684~KB para 19.072~KB, um aumento de cerca de 16.384~KB
+($=16$~MB), que corresponde à região reservada pelo \texttt{malloc}. Já a memória física (RSS)
+permaneceu inalterada em 1.408~KB. O motivo é a \emph{Lazy Allocation} (alocação preguiçosa): o
+\texttt{malloc} apenas reserva um intervalo de endereços no espaço virtual do processo, ajustando a
+tabela de páginas com entradas marcadas, mas o kernel não associa nenhum quadro físico de RAM
+enquanto aquelas páginas não forem efetivamente acessadas. Como ainda não houve escrita, nenhum
+\emph{page fault} ocorreu e a RAM não foi consumida.
+
+\paragraph{Pergunta: o que ocorreu no Passo C (escrita) e por que pular de 4096 em 4096?}
+Depois do laço \texttt{for}, o RSS saltou de 1.408~KB para 17.792~KB (cerca de $+16$~MB), mostrando
+que agora os 16~MB virtuais passaram a ocupar quadros físicos reais na RAM. Isso acontece porque a
+primeira escrita em cada página dispara uma falta de página (\emph{page fault}); o kernel então
+aloca um quadro físico livre, atualiza a tabela de páginas mapeando o endereço virtual ao físico e
+só então a escrita se conclui.
+
+O código pula de 4096 em 4096 bytes porque esse é o tamanho da página. Basta tocar um único byte de
+cada página para forçar a alocação do quadro inteiro de 4~KB; escrever em todos os bytes seria
+desperdício de tempo, pois não traz nenhuma página física adicional. Com o passo de 4096 garantimos
+que todas as páginas dos 16~MB sejam materializadas na RAM, percorrendo o número mínimo de posições
+($16\,\text{MB}/4\,\text{KB}=4096$ páginas).
+
+% ---------------------------------------------------------------------
+\subsection{Inspecionando a Tabela de Páginas com \texttt{pmap}}
+
+Com o programa parado no Passo C, executei \texttt{pmap -x [PID]}. A linha correspondente à alocação
+de 16~MB:
+
+\begin{lstlisting}[style=bashstyle]
+Address           Kbytes     RSS   Dirty Mode  Mapping
+00007fcf4a1ff000   16388   16384   16384 rw---   [ anon ]
+total kB           19072   17936   16488
+\end{lstlisting}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lr}
+\toprule
+Coluna & Valor (KB) \\
+\midrule
+Kbytes (tamanho virtual da região) & 16.388 \\
+RSS (páginas residentes em RAM)    & 16.384 \\
+Dirty (páginas sujas)              & 16.384 \\
+\bottomrule
+\end{tabular}
+\caption{Região anônima de 16~MB observada no \texttt{pmap -x}.}
+\end{table}
+
+\paragraph{Pergunta: o que a coluna Dirty indica?}
+A coluna Dirty (página suja) indica a quantidade de memória cujas páginas foram modificadas
+(escritas) após o mapeamento e cujo conteúdo na RAM difere da fonte em disco, ou que nunca teve
+respaldo em disco, como é o caso da memória anônima. Para o Sistema Operacional, uma página suja é
+uma página que não pode ser simplesmente descartada: antes de reaproveitar seu quadro físico, o
+kernel precisa primeiro gravá-la, seja no \emph{swap} (no caso de memória anônima) seja de volta no
+arquivo (no caso de páginas mapeadas em arquivo). Uma página limpa, idêntica ao disco, pode ser
+descartada na hora, pois é possível relê-la depois. Como escrevemos \texttt{'X'} em todas as 4096
+páginas, todas as 16.384~KB aparecem como sujas.
+
+% ---------------------------------------------------------------------
+\subsection{Páginas Globais e Atividade de \emph{Swap} (\texttt{/proc/meminfo} e \texttt{vmstat})}
+
+\begin{lstlisting}[style=bashstyle]
+$ cat /proc/meminfo | grep -E "Cached|Buffers"
+Buffers:           87204 kB
+Cached:          1933848 kB
+SwapCached:            0 kB
+
+$ vmstat 2
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd    free   buff   cache   si  so   bi   bo   in   cs us sy id wa st
+ 0  0      0 12326784  87344 2028772    0   0 1465 1849 2146    2  1  1 98  0  0
+ 0  0      0 12326052  87344 2028780    0   0    0    0  726 1251  0  0 100  0  0
+\end{lstlisting}
+
+\paragraph{Pergunta: o que indicam as colunas \texttt{si} (swap in) e \texttt{so} (swap out)?}
+Sob o cabeçalho \texttt{swap} do \texttt{vmstat}:
+\begin{itemize}[nosep]
+    \item \texttt{si} (swap in): quantidade de memória, em KB/s, lida do disco de \emph{swap} de
+    volta para a RAM. Indica que páginas que haviam sido enviadas ao \emph{swap} estão sendo trazidas
+    de novo porque algum processo precisou delas.
+    \item \texttt{so} (swap out): quantidade de memória, em KB/s, escrita da RAM para o disco de
+    \emph{swap}. Ocorre quando há pressão de memória e o kernel precisa liberar quadros físicos,
+    movendo páginas pouco usadas para o \emph{swap}.
+\end{itemize}
+Valores altos e contínuos nessas colunas indicam \emph{thrashing}, ou seja, um sistema com falta de
+RAM e desempenho degradado. Nos testes, ambos ficaram em \texttt{0}, já que o sistema tinha RAM livre
+de sobra (cerca de 11~GiB).
+
+\paragraph{Pergunta: o que são \emph{HugePages}?}
+\begin{lstlisting}[style=bashstyle]
+$ cat /proc/meminfo | grep -i huge
+AnonHugePages:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+Hugepagesize:       2048 kB
+\end{lstlisting}
+HugePages são páginas de memória de tamanho muito maior do que a página padrão de 4~KB, tipicamente
+2~MB (visível em \texttt{Hugepagesize: 2048 kB}) ou 1~GB em arquiteturas x86-64. O objetivo é reduzir
+a sobrecarga de gerência de memória: com páginas maiores, são necessárias muito menos entradas na
+tabela de páginas para cobrir a mesma quantidade de RAM, o que diminui o número de \emph{misses} na
+TLB (\emph{Translation Lookaside Buffer}, a cache de traduções da MMU) e acelera o acesso à memória.
+São úteis para aplicações que manipulam grandes volumes contíguos de memória, como bancos de dados
+(Oracle, PostgreSQL) e máquinas virtuais. Os campos \texttt{HugePages\_Total} e
+\texttt{HugePages\_Free} mostram quantas estão pré-reservadas (zero neste sistema), e
+\texttt{AnonHugePages} reflete o uso de \emph{Transparent Huge Pages} (THP), em que o kernel promove
+páginas automaticamente.
+
+% ---------------------------------------------------------------------
+\subsection{Mapeamento de Arquivos em Páginas (\texttt{mmap})}
+
+\lstinputlisting[style=cstyle,caption={mapeado.c}]{mapeado.c}
+
+\begin{lstlisting}[style=bashstyle]
+$ echo "Arquitetura de Computadores e Sistemas Operacionais" > texto.txt
+$ gcc mapeado.c -o mapeado
+$ ./mapeado
+Conteudo lido da pagina de memoria: Arquitetura de Computadores e Sistemas Operacionais
+$ cat texto.txt
+Orquitetura de Computadores e Sistemas Operacionais
+\end{lstlisting}
+
+\paragraph{Pergunta: o que mudou em \texttt{texto.txt} e por quê?}
+O primeiro caractere mudou de \texttt{'A'} para \texttt{'O'}: o arquivo passou de
+"\texttt{Arquitetura...}" para "\texttt{Orquitetura...}". A alteração veio da única linha
+\texttt{arquivo\_em\_memoria[0] = 'O';}, que é uma escrita em uma posição de memória, sem nenhuma
+chamada a \texttt{write} ou \texttt{fprintf}.
+
+Isso é possível por causa do \texttt{mmap} com a \emph{flag} \texttt{MAP\_SHARED}, que mapeia o
+conteúdo do arquivo em disco diretamente no espaço de endereçamento virtual do processo. As páginas
+virtuais retornadas pelo \texttt{mmap} ficam associadas ao arquivo. Quando o processo escreve em
+\texttt{arquivo\_em\_memoria[0]}, a MMU traduz o endereço virtual para o físico e a página
+correspondente é marcada como suja. O kernel, por meio do \emph{page cache} e do \emph{writeback},
+sincroniza automaticamente as páginas sujas de volta ao arquivo em disco, seja no \texttt{munmap},
+seja em um \emph{flush} periódico, seja sob pressão de memória. Dessa forma, a paginação transforma
+operações de E/S de arquivo em simples acessos à memória, sem precisar de chamadas explícitas de
+escrita.
+
+% ---------------------------------------------------------------------
+\subsection{Monitoramento de paginação em tempo real (\texttt{sar -B})}
+
+O comando \texttt{sar -B 1 10} (do pacote \texttt{sysstat}) coleta estatísticas de paginação a cada
+1~segundo, 10 vezes. As principais colunas e seus significados:
+\begin{itemize}[nosep]
+    \item pgpgin/s, pgpgout/s: KB/s lidos do disco para a memória e gravados da memória para o
+    disco, respectivamente.
+    \item fault/s: número total de faltas de página por segundo (\emph{minor} mais \emph{major}).
+    \item majflt/s: faltas de página maiores por segundo, aquelas que exigem acesso ao disco (a
+    página precisa ser carregada de um arquivo ou do \emph{swap}) e que são as mais custosas.
+    \item pgfree/s: páginas liberadas pelo sistema por segundo.
+    \item pgscank/s, pgscand/s: páginas varridas pelo \emph{kswapd} (em segundo plano) e diretamente,
+    em busca de páginas para recuperar.
+    \item pgsteal/s: páginas recuperadas da \emph{page cache} por segundo.
+    \item \%vmeff: eficiência da recuperação de páginas (\texttt{pgsteal/pgscan}); valores próximos
+    de 100\% indicam recuperação eficiente.
+\end{itemize}
+Observação: neste ambiente o pacote \texttt{sysstat} não estava instalado
+(\texttt{sudo apt install sysstat}), então a descrição acima cobre o significado de cada linha.
+
+% =====================================================================
+\section{Roteiro Prático II: Uso de Memória}
+
+% ---------------------------------------------------------------------
+\subsection{Segmentos de um processo (\texttt{hello.c} e \texttt{pmap})}
+
+\lstinputlisting[style=cstyle,caption={hello.c}]{hello.c}
+
+A variável \texttt{global\_init = 42} fica no segmento DATA (dados inicializados) e
+\texttt{global\_uninit} no segmento BSS (dados não inicializados, zerados na carga). A saída do
+\texttt{pmap} mostra os segmentos do processo:
+
+\begin{lstlisting}[style=bashstyle]
+$ ./hello & ; pmap <PID>
+4646:   ./hello
+000064557c8dc000      4K r---- hello          <- .text/rodata (codigo, RO)
+000064557c8dd000      4K r-x-- hello           <- codigo executavel
+000064557c8de000      4K r---- hello
+000064557c8df000      4K r---- hello           <- DATA / BSS
+000064557c8e0000      4K rw--- hello           <- dados graváveis
+00006455a39f7000    132K rw---   [ anon ]      <- HEAP
+000074ca99e00000   ...  libc.so.6              <- biblioteca C compartilhada
+000074ca9a1d1000   ...  ld-linux-x86-64.so.2   <- linker dinâmico
+00007ffebcd64000    136K rw---   [ stack ]      <- STACK (pilha)
+ total             2684K
+\end{lstlisting}
+
+Dá para ver a divisão em segmentos: código (permissões \texttt{r-x}, somente leitura e execução),
+dados (\texttt{rw-}), heap (\texttt{[ anon ]}), pilha (\texttt{[ stack ]}) e as bibliotecas
+compartilhadas (\texttt{libc} e \texttt{ld-linux}). Todas as regiões são múltiplos de 4~KB, o
+tamanho da página.
+
+% ---------------------------------------------------------------------
+\subsection{Alocação estática, automática e dinâmica (\texttt{alocacao.c})}
+
+\lstinputlisting[style=cstyle,caption={alocacao.c}]{alocacao.c}
+
+\begin{lstlisting}[style=bashstyle]
+$ ./alocacao
+Local = 5
+Dinamica = 99
+\end{lstlisting}
+
+\noindent Os três tipos de alocação:
+\begin{itemize}[nosep]
+    \item Estática (\texttt{int global = 10}): vive no segmento DATA e existe durante toda a execução
+    do programa.
+    \item Automática (\texttt{int local = n}): vive na pilha (STACK), criada na entrada da função e
+    destruída no seu retorno.
+    \item Dinâmica (\texttt{malloc}): vive no heap e é controlada manualmente pelo programador, com
+    \texttt{malloc} e \texttt{free}.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+\subsection{Recursão e a Pilha (\texttt{fatorial.c})}
+
+\lstinputlisting[style=cstyle,caption={fatorial.c}]{fatorial.c}
+
+\begin{lstlisting}[style=bashstyle]
+$ ./fatorial
+inicio: n = 4
+inicio: n = 3
+inicio: n = 2
+inicio: n = 1
+final : n = 1, parcial = 1
+final : n = 2, parcial = 2
+final : n = 3, parcial = 6
+final : n = 4, parcial = 24
+Fatorial(4) = 24
+\end{lstlisting}
+
+A saída mostra o comportamento de pilha (LIFO). Todas as chamadas "\texttt{inicio}" aparecem
+primeiro, na descida da recursão ($n=4,3,2,1$): cada chamada de \texttt{fatorial} empilha um novo
+\emph{stack frame} com a sua própria variável local \texttt{parcial} e o parâmetro \texttt{n}, como
+pratos empilhados. Ao chegar no caso base ($n<2$), os retornos acontecem na ordem inversa
+($n=1,2,3,4$), desempilhando cada quadro e calculando o produto parcial. Cada nível mantém a sua
+cópia das variáveis locais, o que mostra que a pilha isola o contexto de cada chamada.
+
+% =====================================================================
+\section{Considerações Finais: a função da MMU}
+
+A MMU (Memory Management Unit) é o componente de hardware, em geral integrado ao processador, que
+traduz em tempo de execução os endereços virtuais usados pelos programas em endereços físicos reais
+da RAM. Toda referência de memória feita por um processo passa pela MMU, que consulta a tabela de
+páginas mantida pelo Sistema Operacional para mapear a página virtual ao quadro físico
+correspondente, usando a cache TLB para acelerar as traduções recentes.
+
+Com base nos experimentos, as funções da MMU que observei foram:
+\begin{itemize}[nosep]
+    \item Tradução de endereços virtuais para físicos, na granularidade de página (4~KB), de forma
+    transparente para o programa.
+    \item Suporte à \emph{Lazy Allocation}: ao detectar acesso a uma página virtual ainda sem quadro
+    físico, a MMU gera uma falta de página (\emph{page fault}) e interrompe a CPU para que o kernel
+    aloque o quadro. Foi exatamente o que vimos entre os Passos B e C.
+    \item Proteção e isolamento de memória: a MMU verifica as permissões de cada página (leitura,
+    escrita e execução) e impede que um processo acesse a memória de outro.
+    \item Marcação de páginas como sujas ou acessadas, dando ao SO a informação necessária para
+    decidir o que enviar ao \emph{swap} e o que sincronizar com o disco, como no \texttt{mmap}.
+\end{itemize}
+
+A MMU é, portanto, a peça que viabiliza a memória virtual: ela separa o espaço de endereçamento
+lógico de cada processo da memória física e permite paginação, proteção, compartilhamento de memória
+e uso de \emph{swap}, tudo de forma transparente para as aplicações.
+
+\end{document}
