@@ -227,3 +227,8 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/assembler,clion+all,windows,linux,visualstudiocode,cmake,c
 
+### Compiled lab binaries ###
+# gcc output here has no extension, so the *.out / *.exe / *.elf rules above
+# never match it. List each binary as new labs are added.
+Prova-3/LAB-1/endereco
+
