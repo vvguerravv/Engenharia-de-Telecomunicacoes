@@ -230,5 +230,34 @@ $RECYCLE.BIN/
 ### Compiled lab binaries ###
 # gcc output here has no extension, so the *.out / *.exe / *.elf rules above
 # never match it. List each binary as new labs are added.
+Prova-1/Aula-10/ex0
+Prova-1/Aula-10/ex1
+Prova-1/Aula-10/ex3
+Prova-1/Aula-10/ex4
+Prova-1/Aula-10/ex5
+Prova-1/Aula-10/ex6
+Prova-1/Aula-10/ex7
+Prova-1/Aula-10/ex8
+Prova-1/Aula-11/Lab-05/ex1
+Prova-1/Aula-11/Lab-05/ex10
+Prova-1/Aula-11/Lab-05/ex2
+Prova-1/Aula-11/Lab-05/ex3
+Prova-1/Aula-11/Lab-05/ex4/code1
+Prova-1/Aula-11/Lab-05/ex4/code2
+Prova-1/Aula-11/Lab-05/ex5
+Prova-1/Aula-11/Lab-05/ex5_sem_wait
+Prova-1/Aula-11/Lab-05/ex6
+Prova-1/Aula-11/Lab-05/ex7
+Prova-1/Aula-11/Lab-05/ex8
+Prova-1/Aula-11/Lab-05/ex9
+Prova-1/Aula-3/copy
+Prova-1/Aula-5/Lab-02/myshel
+Prova-1/Aula-7/codes/fork
+Prova-1/Aula-7/codes/fork-execve
+Prova-1/Aula-7/codes/fork-print
+Prova-1/Aula-7/codes/thread-create
+Prova-1/Aula-7/codes/thread-join
+Prova-1/Aula-7/codes/thread-print
+Prova-1/Aula-8/Lab/main
 Prova-3/LAB-1/endereco
 
