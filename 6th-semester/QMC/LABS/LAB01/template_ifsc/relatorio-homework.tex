@@ -1,0 +1,92 @@
+% ------------------------------------------------------------%
+% 2020-12-05
+% 2015-2020 - Emerson Ribeiro de Mello - mello@ifsc.edu.br
+% ------------------------------------------------------------%
+\documentclass[11pt]{ifscarticle}
+\usepackage{ifscutils}
+\usepackage[alf]{abntex2cite} % Citações padrão ABNT
+
+\renewcommand*{\theusecase}{UC-\thesection.\arabic{usecase}}
+
+
+\usepackage{lipsum}
+\usepackage{pifont}
+% Pacotes inseridos pelo usuário
+\usepackage{setspace} % adicionado para espaçamento entre linhas
+
+
+\AtBeginDocument{\thispagestyle{empty}}
+\begin{document}
+% ------------------------------------------------------------%
+% Capa
+% ------------------------------------------------------------%
+\begin{titlepage}
+\begin{center}
+% Logotipo do IFSC
+\includegraphics[scale=.7]{./figuras/ifsc-v}
+\vspace{4cm}
+
+\rule{\linewidth}{0.5pt} \\[6pt] 
+\doublespacing
+% Título
+{\huge \bfseries  }\\  [4pt] 
+%inserir materia acima
+
+% Subtítulo
+{\large  }\\
+
+\rule{\linewidth}{2pt}  \\[10pt]
+\vspace{1cm}
+\end{center}
+
+\begin{minipage}{.9\linewidth}
+
+% Nome do curso, disciplina e professor.
+\begin{minipage}{0.18\textwidth}
+\begin{flushleft} \large
+\textbf{Curso:}\\
+\textbf{Professor:}\\
+\end{flushleft}
+\end{minipage}~
+\begin{minipage}{0.8\textwidth}
+\begin{flushleft} \large
+Engenharia de Telecomunicações\\
+{}\\
+\end{flushleft}
+\end{minipage}
+\end{minipage}
+\vspace{3cm}
+
+% Nome dos alunos
+\begin{minipage}{.9\linewidth}
+\begin{flushright}
+\textbf{Aluno:}\\
+Victor E. de L. Guerra\\
+\end{flushright}
+\end{minipage}
+\vfill
+
+
+% Coloque aqui a data
+\begin{center}
+Data
+\end{center}
+
+\end{titlepage}
+%\pagestyle{firstpage}
+% ------------------------------------------------------------%
+
+% ------------------------------------------------------------%
+% Para adicionar sumário
+% ------------------------------------------------------------%
+ \tableofcontents
+ \clearpage
+% ------------------------------------------------------------%
+
+
+% ------------------------------------------------------------%
+% Início do documento
+% ------------------------------------------------------------%
+\section{Atividades}
+
+\end{document}
