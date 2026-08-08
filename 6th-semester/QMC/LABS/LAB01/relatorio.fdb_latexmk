@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex relatorio"] 1786141150.56849 "relatorio.aux" "relatorio.bbl" "relatorio" 1786141152.55122 0
+["bibtex relatorio"] 1786207072.54842 "relatorio.aux" "relatorio.bbl" "relatorio" 1786207074.67893 0
   "./referencias.bib" 1786134827.0076 3602 61fded6a13eead527fc91d1209b44f93 ""
   "/usr/share/texlive/texmf-dist/bibtex/bib/abntex2/abntex2-options.bib" 1357081713 5396 4eb260dac60f150ae608d45252853090 ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/abntex2/abntex2-alf.bst" 1543183680 60064 0819ac8568f9a482510a46e3a8a6f605 ""
-  "relatorio.aux" 1786141152.22655 4693 2d6e508e3590d513c0971043ed2e8b90 "pdflatex"
+  "relatorio.aux" 1786207074.44283 4679 72314c9c9c0a8b242b23e290dd047cf3 "pdflatex"
   (generated)
   "relatorio.bbl"
   "relatorio.blg"
   (rewritten before read)
-["pdflatex"] 1786141150.60377 "relatorio.tex" "relatorio.pdf" "relatorio" 1786141152.55156 0
+["pdflatex"] 1786207072.58173 "relatorio.tex" "relatorio.pdf" "relatorio" 1786207074.67928 0
   "/etc/texmf/web2c/texmf.cnf" 1779112266.0606 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/bilic/.texlive2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1786140880.6586 128465 afa671627fd415f235b7b42ebcda724c ""
   "/home/bilic/texmf/tex/latex/ccicons/ccicons.sty" 1509395996 4326 cdcb6ad3aca7312af35fbe94a6c1c09f ""
@@ -308,10 +308,10 @@
   "figuras/ifsc-v.png" 1786140684.21065 31754 e793734da30f4a30ebe3414d4ea9d2f5 ""
   "ifscarticle.cls" 1786140684.20665 2004 e4b748809d52623b6deb960a8a1e42cd ""
   "ifscutils.sty" 1786140684.20665 31917 d4178b0dff25e0cbcb5e670bd47d4493 ""
-  "relatorio.aux" 1786141152.22655 4693 2d6e508e3590d513c0971043ed2e8b90 "pdflatex"
-  "relatorio.bbl" 1786141150.59055 3373 f560a79cf6478114b79974ff8bfb650c "bibtex relatorio"
-  "relatorio.tex" 1786141140.82255 16711 c6388c456ef709ee16df98e0483ad897 ""
-  "relatorio.toc" 1786141152.23055 312 e2f981be0f88ed08b4560d509f383671 "pdflatex"
+  "relatorio.aux" 1786207074.44283 4679 72314c9c9c0a8b242b23e290dd047cf3 "pdflatex"
+  "relatorio.bbl" 1786207072.57283 3373 f560a79cf6478114b79974ff8bfb650c "bibtex relatorio"
+  "relatorio.tex" 1786207062.25037 13461 743838bf174b40ab2adaf7c85bb8036c ""
+  "relatorio.toc" 1786207074.4465 312 430e5cfd04715a90ff2fa27734a1c320 "pdflatex"
   (generated)
   "relatorio.aux"
   "relatorio.log"

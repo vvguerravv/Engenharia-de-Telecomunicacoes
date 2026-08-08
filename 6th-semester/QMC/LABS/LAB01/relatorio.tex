@@ -1,5 +1,5 @@
 % ------------------------------------------------------------%
-% Relatório de Química - Prática: Teor de etanol anidro na gasolina
+% Relatório de Química - Prática: Teor de etanol na gasolina
 % Template IFSC (ifscarticle) - Câmpus São José
 % Compilar: latexmk -pdf relatorio.tex
 % ------------------------------------------------------------%
@@ -25,7 +25,7 @@
 \rule{\linewidth}{0.5pt} \\[6pt]
 \doublespacing
 % Título
-{\huge \bfseries Determinação do Teor de Etanol Anidro na Gasolina}\\[4pt]
+{\huge \bfseries Determinação do Teor de Etanol na Gasolina}\\[4pt]
 
 % Subtítulo
 {\large Relatório da prática de laboratório}\\
@@ -83,43 +83,43 @@ São José, 7 de agosto de 2026
 % ------------------------------------------------------------%
 \section{Introdução}
 
-O petróleo constitui a principal matéria-prima da indústria de combustíveis. Trata-se de uma mistura complexa de hidrocarbonetos que, isoladamente, apresenta pouca utilidade prática, sendo necessário submetê-lo a processos de separação e beneficiamento \cite{thomas2004}. O principal desses processos é a destilação fracionada, na qual o petróleo é aquecido e separado em frações de acordo com as diferentes faixas de temperatura de ebulição de seus componentes. Dessa operação resultam produtos de grande importância econômica, como o gás liquefeito de petróleo (GLP), a querosene, o óleo diesel, os óleos lubrificantes, a parafina e o asfalto \cite{thomas2004,fogaca}. Entre todas as frações, a gasolina é a que apresenta maior valor comercial em razão do seu emprego nos veículos automotores.
+O petróleo bruto tem pouca serventia direta. É uma mistura de centenas de hidrocarbonetos que só ganha valor depois de separada em frações, e a operação responsável por isso é a destilação fracionada: aquece-se o petróleo e recolhem-se os produtos conforme suas faixas de temperatura de ebulição \cite{thomas2004}. Saem daí o GLP, a querosene, o óleo diesel, os lubrificantes, a parafina e o asfalto \cite{thomas2004,fogaca}. A gasolina é a fração de maior valor comercial, por causa da frota de veículos que depende dela.
 
-Do ponto de vista químico, a gasolina é uma mistura de hidrocarbonetos saturados, ou seja, compostos orgânicos formados apenas por carbono e hidrogênio e que possuem somente ligações simples entre os átomos de carbono \cite{solomons2012}. As cadeias carbônicas presentes nessa fração contêm, em geral, de cinco a oito átomos de carbono. Por serem substâncias apolares, esses hidrocarbonetos apresentam baixa solubilidade em água, característica que é explorada no ensaio descrito neste relatório \cite{atkins2012}.
+Quimicamente, a gasolina reúne hidrocarbonetos saturados, isto é, compostos de carbono e hidrogênio com apenas ligações simples entre os carbonos \cite{solomons2012}. As cadeias têm tipicamente de cinco a oito carbonos. São moléculas apolares e, por isso, praticamente insolúveis em água. É exatamente essa insolubilidade que torna possível o ensaio descrito adiante \cite{atkins2012}.
 
-O desempenho da gasolina em motores de combustão interna do ciclo Otto está diretamente associado à sua resistência à detonação, propriedade quantificada pelo índice de octanagem. Quanto maior a octanagem, maior a resistência do combustível à compressão sofrida dentro do cilindro, o que evita que a mistura entre em combustão de forma antecipada, antes da faísca gerada pela vela de ignição \cite{brown2016}. A queima descontrolada, conhecida como detonação, reduz o rendimento do motor e provoca desgaste mecânico. Por esse motivo, a elevação da octanagem sempre foi um objetivo importante na formulação dos combustíveis.
+O desempenho do combustível em motores do ciclo Otto depende da sua resistência à detonação, medida pelo índice de octanagem. Um combustível de octanagem alta suporta a compressão dentro do cilindro sem entrar em combustão antes da faísca da vela \cite{brown2016}. Quando a queima acontece fora de hora, o motor perde rendimento e sofre desgaste mecânico. Elevar a octanagem sempre foi, portanto, uma preocupação de quem formula gasolina.
 
-Historicamente, empregava-se o chumbo tetraetila como aditivo antidetonante, capaz de elevar de maneira acentuada o índice de octanagem. Esse composto, entretanto, foi proibido no Brasil em virtude da sua elevada toxicidade. Durante a combustão da gasolina que continha esse aditivo, formava-se um resíduo sólido de óxido de chumbo, o qual era removido por compostos halogenados e liberado na atmosfera junto aos demais gases de escape \cite{baird2011}. O chumbo assim disperso atua como poluente atmosférico e representa risco à saúde humana, uma vez que se acumula no organismo e provoca distúrbios neurológicos e fisiológicos \cite{baird2011}.
+Durante décadas isso foi feito com chumbo tetraetila, um antidetonante bastante eficaz. O aditivo acabou proibido no Brasil pela toxicidade. Na queima, formava-se um resíduo sólido de óxido de chumbo, retirado do motor por compostos halogenados e lançado na atmosfera com os gases de escape \cite{baird2011}. O chumbo disperso é um poluente que se acumula no organismo e causa danos neurológicos e fisiológicos \cite{baird2011}.
 
-Como substituto do chumbo tetraetila, adotou-se no Brasil a adição de etanol anidro à gasolina. O etanol anidro é o álcool etílico com teor de água muito reduzido e desempenha, simultaneamente, as funções de aditivo antidetonante e de composto oxigenante, favorecendo a queima mais completa do combustível e o aumento da eficiência \cite{fogaca}. A molécula de etanol possui uma hidroxila, grupo polar, o que confere ao composto afinidade tanto pela fração apolar da gasolina quanto pela água. Essa característica é determinante para o método de análise adotado, pois permite a extração do álcool por meio da adição de água à mistura \cite{atkins2012}.
+O substituto adotado no país foi o etanol, álcool etílico praticamente isento de água. Ele cumpre duas funções ao mesmo tempo: atua como antidetonante e como oxigenante, o que favorece uma queima mais completa \cite{fogaca}. A molécula tem uma hidroxila, grupo polar, e por isso interage bem tanto com a fração apolar da gasolina quanto com a água. Essa dupla afinidade é a base do método analítico usado nesta prática, já que permite arrastar o álcool para fora do combustível apenas adicionando água \cite{atkins2012}.
 
-A quantidade de etanol adicionada à gasolina não é arbitrária, sendo definida por normas federais. Até meados de 2025, a legislação estabelecia teores próximos a 27\% em volume. A Resolução CNPE n\textordmasculine\ 9, de 25 de junho de 2025, elevou o percentual obrigatório para 30\% (E30), em vigor a partir de 1\textordmasculine\ de agosto de 2025 \cite{cnpe9,mme_e30}. Posteriormente, o Conselho Nacional de Política Energética autorizou nova elevação temporária, de 30\% para 32\% (E32), determinação que passou a valer em todo o território nacional a partir de 1\textordmasculine\ de agosto de 2026 \cite{cnpe2026}. Essas mudanças integram a Política Combustível do Futuro e foram acompanhadas de ajustes nas especificações técnicas do combustível pela Agência Nacional do Petróleo, Gás Natural e Biocombustíveis \cite{leicombfuturo,anp988}. A definição de faixas de teor busca garantir a qualidade do produto, uma vez que teores diferentes do especificado comprometem o desempenho do motor e a integridade do sistema de alimentação.
+O quanto de etanol entra na mistura é definido por norma federal, e o valor mudou bastante nos últimos anos. Até meados de 2025 a faixa girava em torno de 27\% em volume. A Resolução CNPE n\textordmasculine\ 9, de 25 de junho de 2025, subiu o percentual obrigatório para 30\% (E30), com vigência a partir de 1\textordmasculine\ de agosto daquele ano \cite{cnpe9,mme_e30}. No ano seguinte o Conselho Nacional de Política Energética autorizou nova elevação, desta vez temporária, de 30\% para 32\% (E32), válida em todo o território nacional desde 1\textordmasculine\ de agosto de 2026 \cite{cnpe2026}. As duas mudanças fazem parte da Política Combustível do Futuro e vieram acompanhadas de revisões na especificação técnica do combustível feitas pela ANP \cite{leicombfuturo,anp988}. Fixar uma faixa não é formalidade: teor fora do especificado compromete o desempenho do motor e o sistema de alimentação.
 
-O interesse na determinação do teor de álcool decorre da possibilidade de adulteração. O etanol apresenta custo inferior ao da gasolina, o que estimula a adição irregular do álcool acima dos limites permitidos com o objetivo de aumentar o volume comercializado e a margem de lucro \cite{fogaca}. Tal prática lesa o consumidor e prejudica o funcionamento dos veículos. Diante desse cenário, torna-se relevante dispor de um método simples e de baixo custo para a verificação do teor de etanol, aplicável inclusive como demonstração educativa. O procedimento adotado neste trabalho baseia-se na extração do álcool por adição de água e na leitura da variação de volume, o mesmo princípio utilizado no ensaio normalizado pela ABNT \cite{nbr13992}.
+Há ainda a questão da fraude. Como o etanol custa menos que a gasolina, existe incentivo econômico para adicionar álcool além do limite e aumentar o volume vendido \cite{fogaca}. Quem paga é o consumidor, que leva menos combustível pelo mesmo preço e ainda corre o risco de danificar o veículo. Um teste rápido e barato para estimar o teor de álcool tem utilidade prática nesse contexto, mesmo em caráter demonstrativo. O ensaio realizado aqui usa o mesmo princípio do método normalizado pela ABNT: extrair o álcool com água e ler a variação de volume \cite{nbr13992}.
 
-Este relatório tem por objetivo determinar experimentalmente o teor de etanol anidro presente em amostras de gasolina, comparar os valores obtidos com os limites estabelecidos pela legislação vigente e discutir o comportamento das misturas com base nas propriedades de polaridade e solubilidade das substâncias envolvidas.
+O objetivo deste relatório é medir o teor de etanol em duas amostras de gasolina e confrontar os valores com o percentual exigido pela legislação em vigor, discutindo o que se observa na proveta a partir da polaridade das substâncias envolvidas.
 
 \section{Metodologia}
 
-A prática foi realizada com base no método de extração por adição de água, no qual o etanol anidro presente na gasolina é transferido para a fase aquosa em razão da sua afinidade pela água. Foram analisadas duas amostras de gasolina: uma proveniente do laboratório, tomada como referência, e outra trazida de um posto de combustível externo.
+O método empregado foi a extração por adição de água, que se apoia na afinidade do etanol pela fase aquosa. Foram analisadas duas amostras: uma gasolina do próprio laboratório, usada como referência, e outra trazida de um posto de combustível.
 
-Para cada amostra, utilizou-se uma proveta graduada de \SI{100}{\milli\liter}. Inicialmente, mediram-se \SI{50}{\milli\liter} de gasolina e o volume foi transferido para a proveta. Em seguida, acrescentaram-se \SI{50}{\milli\liter} de água, completando o volume de \SI{100}{\milli\liter}. A mistura foi homogeneizada por agitação suave e mantida em repouso por alguns minutos, até a completa separação das fases.
+Cada amostra foi preparada em uma proveta graduada de \SI{100}{\milli\liter}. Mediram-se \SI{50}{\milli\liter} de gasolina, transferidos para a proveta, e sobre eles adicionaram-se \SI{50}{\milli\liter} de água, fechando o volume em \SI{100}{\milli\liter}. A mistura foi agitada com cuidado, para não formar emulsão, e deixada em repouso até que as fases se separassem por completo, o que levou poucos minutos.
 
-Após o repouso, observou-se a formação de duas fases distintas. A fase aquosa, mais densa, depositou-se na parte inferior da proveta e apresentou volume superior aos \SI{50}{\milli\liter} de água inicialmente adicionados. Esse acréscimo corresponde ao etanol extraído da gasolina, uma vez que o álcool, antes dissolvido na fração apolar, migrou para a água. A fase superior, menos densa, ficou constituída praticamente apenas pela gasolina isenta de álcool.
+Passado o repouso, apareceram duas fases bem definidas. A inferior, aquosa e mais densa, ficou acima da marca dos \SI{50}{\milli\liter} de água que haviam sido adicionados. Esse excesso é o etanol que saiu da gasolina e passou para a água. Na parte de cima restou a gasolina praticamente sem álcool.
 
-O teor de álcool foi determinado pela leitura dos volumes na escala da proveta. O volume de etanol extraído foi obtido pela diferença entre o volume final da fase aquosa e o volume de água adicionado. O percentual de álcool na gasolina foi calculado pela expressão:
+A leitura foi feita direto na escala da proveta, tomando a base do menisco da interface. O volume de etanol extraído sai da diferença entre o volume final da fase aquosa e os \SI{50}{\milli\liter} de água iniciais, e o percentual de álcool na gasolina é dado por:
 
 \begin{equation}
 \%\,\text{álcool} = \frac{V_{\text{álcool}}}{V_{\text{inicial da gasolina}}} \times 100
 \end{equation}
 
-em que $V_{\text{álcool}}$ representa o volume de etanol extraído para a fase aquosa e $V_{\text{inicial da gasolina}}$ corresponde ao volume de gasolina inicialmente medido, igual a \SI{50}{\milli\liter}.
+em que $V_{\text{álcool}}$ é o volume de etanol recolhido na fase aquosa e $V_{\text{inicial da gasolina}}$ é o volume de gasolina medido no começo, \SI{50}{\milli\liter}.
 
-O ensaio foi conduzido de forma coletiva pela turma, organizada em três grupos. Cada grupo repetiu a análise para as duas amostras, de modo a permitir a comparação dos resultados e a avaliação da reprodutibilidade do método.
+A turma foi dividida em três grupos e cada grupo repetiu o ensaio para as duas amostras, o que permitiu comparar leituras e avaliar a reprodutibilidade do procedimento.
 
 \section{Resultados e Discussão}
 
-Após o repouso das misturas, verificou-se com clareza a separação de fases em ambas as amostras, conforme registrado na Figura~\ref{fig:provetas}. A fase inferior, aquosa e mais densa, apresentou coloração mais clara, enquanto a fase superior manteve a coloração característica da gasolina. O aumento do volume da fase aquosa acima da marca de \SI{50}{\milli\liter} confirmou a extração do etanol pela água.
+A separação de fases foi nítida nas duas amostras, como mostra a Figura~\ref{fig:provetas}. A fase de baixo, aquosa, ficou visivelmente mais clara; a de cima manteve a cor característica da gasolina. Em todas as provetas o nível da fase aquosa passou da marca de \SI{50}{\milli\liter}, sinal de que a água puxou o etanol.
 
 \begin{figure}[htb]
   \centering
@@ -130,25 +130,25 @@ Após o repouso das misturas, verificou-se com clareza a separação de fases em
   {\footnotesize Fonte: Autores (2026).}
 \end{figure}
 
-A separação observada é explicada pelas diferenças de polaridade entre os componentes. A gasolina é apolar e imiscível em água, ao passo que o etanol, por possuir grupo hidroxila polar, apresenta grande afinidade pela água. Dessa forma, ao entrar em contato com a fase aquosa, o etanol é preferencialmente extraído da gasolina e incorporado à água, aumentando o volume da fase inferior \cite{atkins2012,solomons2012}.
+A explicação está na polaridade. A gasolina é apolar e não se mistura com água; o etanol, que tem hidroxila, tem afinidade pelos dois lados, mas a interação com a água é mais forte. Ao entrar em contato com a fase aquosa, o álcool migra para ela e o nível da fase inferior sobe \cite{atkins2012,solomons2012}.
 
-Para a amostra analisada diretamente pelo grupo, a leitura da fase aquosa referente à gasolina do laboratório indicou um volume de etanol extraído de \SI{13}{\milli\liter}, o que corresponde a um teor de:
+Nas provetas montadas pelo nosso grupo, a gasolina do laboratório deixou \SI{13}{\milli\liter} de etanol na fase aquosa:
 
 \begin{equation}
 \%\,\text{álcool} = \frac{13}{50} \times 100 = 26\%
 \end{equation}
 
-Para a gasolina proveniente do posto externo, a leitura indicou \SI{15}{\milli\liter} de etanol extraído, resultando em:
+Já a gasolina do posto externo rendeu \SI{15}{\milli\liter}:
 
 \begin{equation}
 \%\,\text{álcool} = \frac{15}{50} \times 100 = 30\%
 \end{equation}
 
-Os resultados obtidos pelos três grupos da turma para as duas amostras estão reunidos na Tabela~\ref{tab:resultados}. A amostra identificada como Posto A corresponde à gasolina trazida do posto externo e a amostra Posto B corresponde à gasolina de referência do laboratório.
+As leituras dos três grupos aparecem na Tabela~\ref{tab:resultados}. A amostra Posto A é a gasolina trazida do posto; a amostra Posto B é a de referência do laboratório. Os valores do nosso grupo correspondem à linha III.
 
 \begin{table}[htb]
   \centering
-  \caption{Teor de etanol anidro determinado por cada grupo para as duas amostras de gasolina.}
+  \caption{Teor de etanol determinado por cada grupo para as duas amostras de gasolina.}
   \label{tab:resultados}
   \begin{tabular}{ccc}
     \toprule
@@ -165,21 +165,21 @@ Os resultados obtidos pelos três grupos da turma para as duas amostras estão r
   {\footnotesize Fonte: Autores (2026).}
 \end{table}
 
-A análise da Tabela~\ref{tab:resultados} mostra que a amostra do posto externo (Posto A) apresentou teores sistematicamente superiores aos da amostra de laboratório (Posto B). A média obtida para o Posto A foi de 31,3\%, enquanto o Posto B apresentou média de 28,0\%. A dispersão entre os grupos foi pequena, o que indica boa reprodutibilidade do método apesar da sua simplicidade e do caráter volumétrico da leitura.
+O Posto A ficou acima do Posto B nas três repetições, sem exceção. As médias foram 31,3\% e 28,0\%, respectivamente. A maior diferença entre grupos para uma mesma amostra foi de 4 pontos percentuais, no Posto A, o que é pouco para um ensaio volumétrico lido a olho nu.
 
-A interpretação desses valores depende do limite legal considerado. O texto da prática toma como referência a faixa de 25\% a 27\%, correspondente à legislação anterior. Adotando esse critério, tanto a amostra de laboratório quanto a do posto externo estariam com teor de álcool acima do permitido, o que sugeriria adulteração. Entretanto, a legislação em vigor na data do experimento estabelece teor obrigatório de 32\% (E32), após a sucessão de aumentos que elevaram a mistura de 27\% para 30\% em 2025 e, em seguida, para 32\% em agosto de 2026 \cite{cnpe9,cnpe2026}. À luz desse limite atualizado, os valores medidos deixam de caracterizar excesso de álcool e passam a situar-se abaixo do teor esperado para o combustível regularizado.
+A leitura desses números muda conforme o limite legal que se toma como referência. O roteiro da prática trabalha com a faixa de 25\% a 27\%, herdada da legislação anterior; por esse critério, as duas amostras estariam com álcool em excesso e haveria indício de adulteração. Só que essa faixa está desatualizada. Na data do experimento vigorava o E32, resultado dos aumentos sucessivos que levaram a mistura de 27\% para 30\% em 2025 e depois para 32\% em agosto de 2026 \cite{cnpe9,cnpe2026}. Com o limite atual, o quadro se inverte: em vez de excesso, o que se mede é teor abaixo do esperado.
 
-O fato de as amostras apresentarem teor inferior a 32\% admite algumas explicações. A primeira é a possibilidade de o combustível ensaiado corresponder a estoque anterior à vigência do E32, formulado ainda com teores de 27\% ou 30\%, situação compatível com os valores medidos. A segunda diz respeito às limitações do próprio método. A leitura volumétrica está sujeita a erros associados à precisão da escala da proveta, à identificação da interface entre as fases e à formação de menisco. Além disso, ocorre contração de volume na mistura de etanol e água, fenômeno pelo qual o volume final da solução é ligeiramente inferior à soma dos volumes dos componentes puros, o que tende a subestimar o teor de álcool \cite{atkins2012}. A evaporação parcial da gasolina durante o manuseio e a variação de temperatura também contribuem para o desvio.
+Duas hipóteses explicam essa diferença. A mais provável é que o combustível ensaiado seja de estoque anterior ao E32, formulado ainda a 27\% ou 30\% — valores que batem bem com o que foi medido, sobretudo no Posto A. A outra é limitação do método. A escala da proveta tem resolução grosseira, a interface entre as fases não é uma linha perfeitamente definida e o menisco introduz incerteza na leitura. Some-se a isso a contração de volume que ocorre quando etanol e água se misturam: o volume final fica um pouco menor que a soma dos volumes puros, e o efeito puxa o resultado para baixo \cite{atkins2012}. Evaporação da gasolina durante o manuseio e variação de temperatura também pesam.
 
-Ainda assim, a diferença observada entre as duas amostras é significativa e coerente com o objetivo da prática. O teor mais elevado verificado na gasolina do posto externo, próximo de 31\%, aproxima-se mais do valor legal atual do que a amostra de laboratório, cuja média de 28\% permaneceu compatível com formulações anteriores. Esse comportamento reforça a utilidade do ensaio como ferramenta de triagem rápida, capaz de indicar diferenças de composição entre combustíveis de origens distintas. Para uma conclusão definitiva sobre conformidade ou adulteração, contudo, seria necessário o emprego do método normalizado pela ABNT, que utiliza solução aquosa de cloreto de sódio e condições controladas de temperatura, garantindo maior exatidão na determinação do teor de etanol anidro \cite{nbr13992}.
+De todo modo, a diferença entre as duas amostras é consistente e apareceu em todos os grupos. A gasolina do posto, perto de 31\%, está mais próxima do que a lei exige hoje do que a do laboratório, cuja média de 28\% é compatível com formulações anteriores. Para triagem rápida o ensaio cumpre o papel: distingue combustíveis de origens diferentes com material de vidraria comum. Afirmar conformidade ou adulteração, porém, exige o método da ABNT, que usa solução aquosa de cloreto de sódio e temperatura controlada e entrega exatidão muito superior \cite{nbr13992}.
 
 \section{Conclusão}
 
-A prática permitiu determinar o teor de etanol anidro em duas amostras de gasolina por meio do método de extração com água, técnica simples, de baixo custo e fundamentada nas diferenças de polaridade e solubilidade dos componentes. A separação de fases foi observada de forma nítida em todas as repetições, confirmando a extração do álcool para a fase aquosa.
+A extração com água permitiu estimar o teor de etanol nas duas amostras de gasolina analisadas. A separação de fases ocorreu de forma clara em todas as repetições, confirmando que o álcool passa para a água por afinidade com o solvente polar.
 
-Os teores médios obtidos foram de 31,3\% para a amostra do posto externo e de 28,0\% para a amostra de laboratório. A pequena dispersão entre os grupos demonstrou a boa reprodutibilidade do procedimento. A comparação com a legislação evidenciou a importância de considerar a norma vigente na interpretação dos resultados, pois os valores que seriam classificados como excesso de álcool segundo o antigo limite de 25\% a 27\% mostram-se, na verdade, abaixo do teor obrigatório de 32\% estabelecido para a data do experimento.
+As médias foram 31,3\% para a amostra do posto e 28,0\% para a do laboratório, com dispersão pequena entre os grupos. O ponto mais interessante do experimento não foi o número em si, mas a necessidade de checar qual norma está valendo antes de interpretá-lo: pelo limite antigo de 25\% a 27\% as duas amostras seriam reprovadas por excesso de álcool, enquanto pelo teor obrigatório de 32\% da data do ensaio ambas ficam abaixo do exigido.
 
-Conclui-se que o método atende aos objetivos propostos como demonstração educativa e como ferramenta de triagem, evidenciando diferenças de composição entre combustíveis. Para fins de fiscalização e de avaliação rigorosa de conformidade, recomenda-se a adoção do procedimento normalizado, que oferece maior precisão e condições controladas de ensaio.
+O método serve bem como demonstração didática e como triagem, mas não substitui o procedimento normalizado, que é o indicado para fiscalização e para qualquer avaliação rigorosa de conformidade.
 
 % ------------------------------------------------------------%
 % Referências
