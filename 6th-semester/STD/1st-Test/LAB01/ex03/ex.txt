@@ -1,0 +1,1 @@
+Uma imagem docker que tenha o JWEBSERVER rodando por padrão e que os arquivos que estão na máquina sejam mapeados para o container e sejam servidos lá
