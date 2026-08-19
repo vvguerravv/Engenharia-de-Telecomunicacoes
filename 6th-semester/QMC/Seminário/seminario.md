@@ -20,6 +20,11 @@ dispositivos de telecomunicações** e trazer, no mínimo, 7 tópicos na apresen
 - Smartphones, Satélites, roteadores, etc
 - Liberado usar um vídeo curto mostando a fabricação, etc.
 
+## Separação de atividades
+
+- Victor Guerra: Tópicos pares
+- Alisson Pereira: Tópicos ímpares
+
 ## Entrega
 
 Entrega da apresentação está marcada para o dia 02/09
