@@ -19,3 +19,9 @@ dispositivos de telecomunicações** e trazer, no mínimo, 7 tópicos na apresen
 - Dopagem de semicondutores (Boro, fósforo) -> É para aparecer um tipo específico de junção - Falar sobre.  
 - Smartphones, Satélites, roteadores, etc
 - Liberado usar um vídeo curto mostando a fabricação, etc.
+
+## Entrega
+
+Entrega da apresentação está marcada para o dia 02/09
+
+O tempo mínimo de apresetação é 15 minutos e o tempo máximo 20 minutos.
