@@ -1,0 +1,21 @@
+# Seminário de Química voltada para Telecomunicações
+
+## Tema e tópicos
+
+O objetivo deste seminário será avaliar o tema **Materiais semicondutores na fabricação de
+dispositivos de telecomunicações** e trazer, no mínimo, 7 tópicos na apresentação:
+
+1. O que são esses materiais?
+2. Estrutura química
+3. Pureza dos materiais
+4. Ligações Químicas
+5. Reações Químicas
+6. Aplicabilidade
+7. Valores comerciais.
+
+
+## O que pesquisar 
+- Silício e Gálio
+- Dopagem de semicondutores (Boro, fósforo) -> É para aparecer um tipo específico de junção - Falar sobre.  
+- Smartphones, Satélites, roteadores, etc
+- Liberado usar um vídeo curto mostando a fabricação, etc.
