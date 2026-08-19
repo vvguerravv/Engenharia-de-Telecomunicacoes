@@ -14,7 +14,7 @@ dispositivos de telecomunicações** e trazer, no mínimo, 7 tópicos na apresen
 7. Valores comerciais.
 
 
-## O que pesquisar 
+## Pontos a focar
 - Silício e Gálio
 - Dopagem de semicondutores (Boro, fósforo) -> É para aparecer um tipo específico de junção - Falar sobre.  
 - Smartphones, Satélites, roteadores, etc
