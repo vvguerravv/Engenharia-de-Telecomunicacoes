@@ -1,0 +1,9 @@
+- Executar a versão correspondente ao sistema operacional (32 ou 64 bits)
+
+- Selecionar "softkey version" e selecionar o psim.lic da pasta do instalador
+
+- depois de instalado, substitiuir o psim.lic que está na pasta c:\program files\powersim\psim9.0.3_Trial pelo da pasta "standalone license files"
+
+- executar o RegisterPSIM.reg
+
+- feito isso o programa funcionará normalmente.
