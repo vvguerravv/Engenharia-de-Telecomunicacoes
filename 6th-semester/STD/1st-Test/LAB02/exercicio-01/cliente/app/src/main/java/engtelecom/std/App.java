@@ -28,17 +28,21 @@ public class App {
             IO.println("Connected in server...");
 
 //          Communication Protocol
-            
-            writer.write("Hello, I'm the client!");
-            writer.newLine();
-            writer.flush();
 
-            String answer = reader.readLine();
+            String message = "";
 
-            System.out.printf("Server answer: %s\n", answer);
+            while (!message.toLowerCase().equals("sair")){
+                message = IO.readln("Enter the message: ");
+                writer.write(message);
+                writer.newLine();
+                writer.flush();
+
+                String answer = reader.readLine();
+                System.out.printf("Server answer: %s\n", answer);
+            }
+
 
             IO.println("End client");
-
 
         } catch (Exception e) {
             System.err.println("Error: " + e);

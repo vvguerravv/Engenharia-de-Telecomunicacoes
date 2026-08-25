@@ -35,12 +35,17 @@ public class App {
             );
 
 //          Communication Protocol
-            String message = reader.readLine();
-            System.out.printf("[%s:%d] -> %s\n", clientAddress, clientPort, message);
+            String message = "";
 
-            writer.write(message.toUpperCase());
-            writer.newLine();
-            writer.flush();
+            while(!message.toLowerCase().equals("sair")){
+                message = reader.readLine();
+
+                System.out.printf("[%s:%d] -> %s\n", clientAddress, clientPort, message);
+
+                writer.write(message.toUpperCase());
+                writer.newLine();
+                writer.flush();
+            }
 
             IO.println("End server!");
             reader.close();
