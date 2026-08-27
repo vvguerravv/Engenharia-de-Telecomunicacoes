@@ -1,0 +1,97 @@
+\section{1. O que são esses materiais?}
+
+\begin{frame}{Nem conduz, nem isola}
+  \begin{columns}[T]
+    \begin{column}{0.52\linewidth}
+      \begin{itemize}
+        \item No \termo{cobre} os elétrons estão soltos o tempo todo, então
+              ele conduz sempre.
+        \item No \termo{vidro} todos os elétrons estão presos nas ligações,
+              então ele nunca conduz.
+        \item No \termo{silício} os elétrons estão presos, mas soltam com
+              pouca energia. Calor, luz ou uma tensão já bastam.
+      \end{itemize}
+      \vspace{0.2cm}
+      \centering
+      É o único dos três em que \alert{nós escolhemos o quanto ele conduz}.
+    \end{column}
+    \begin{column}{0.44\linewidth}
+      \centering
+      \begin{tikzpicture}[scale=0.68,transform shape]
+        % cobre: as duas faixas se encostam, não há degrau
+        \fill[mPrimary!30] (0,0) rectangle (1.6,1.1);
+        \node[font=\scriptsize] at (0.8,0.55) {presos};
+        \fill[mAccent!30] (0,1.1) rectangle (1.6,2.2);
+        \node[font=\scriptsize] at (0.8,1.65) {soltos};
+        \node[font=\scriptsize\bfseries] at (0.8,-0.45) {Cobre};
+        \node[font=\tiny,text=mNeutral] at (0.8,-0.95) {sem degrau};
+
+        \foreach \x/\gap/\nome/\tam in {3/1.1/Silício/pequeno, 6/2.6/Vidro/grande} {
+          \fill[mPrimary!30] (\x,0) rectangle (\x+1.6,1.1);
+          \node[font=\scriptsize] at (\x+0.8,0.55) {presos};
+          \fill[mAccent!30] (\x,1.1+\gap) rectangle (\x+1.6,2.2+\gap);
+          \node[font=\scriptsize] at (\x+0.8,1.65+\gap) {soltos};
+          \draw[<->,thick,mNeutral] (\x+0.8,1.1) -- (\x+0.8,1.1+\gap);
+          \node[font=\scriptsize\bfseries] at (\x+0.8,-0.45) {\nome};
+          \node[font=\tiny,text=mNeutral] at (\x+0.8,-0.95) {degrau \tam};
+        }
+      \end{tikzpicture}
+      \\[0.2cm]
+      {\scriptsize O tamanho do degrau que o elétron precisa vencer é o
+      que separa os três casos.}
+    \end{column}
+  \end{columns}
+  \fonte{Callister, \emph{Ciência e Engenharia de Materiais}, cap.~18.}
+\end{frame}
+
+\begin{frame}{Sozinho o silício não serve}
+  \begin{itemize}
+    \item Em silício puro, só 1 átomo a cada 5 trilhões solta um elétron na
+          temperatura ambiente. Conduz tão pouco que não dá para fazer nada
+          com ele.
+    \item A solução é sujar o cristal \alert{de propósito}, trocando um átomo
+          a cada milhão por um vizinho da tabela periódica. Isso se chama
+          \termo{dopagem}.
+  \end{itemize}
+  \vspace{0.2cm}
+  \begin{columns}[T]
+    \begin{column}{0.48\linewidth}
+      \begin{block}{Fósforo, tipo N}
+        \small Tem 5 elétrons para ligar e o silício só precisa de 4. O que
+        sobra fica \termo{livre} para conduzir.
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\linewidth}
+      \begin{block}{Boro, tipo P}
+        \small Tem só 3 elétrons. A ligação que fica faltando é uma
+        \termo{lacuna}, e ela também caminha pelo cristal.
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{0.2cm}
+  \centering\small
+  Uma impureza em um milhão faz a condutividade subir \alert{cem mil vezes}.
+\end{frame}
+
+\begin{frame}{Quem é quem na família}
+  \begin{table}
+    \centering
+    \begin{tabular}{llc l}
+      \toprule
+      \textbf{Material} & & \textbf{Degrau (eV)} & \textbf{Onde aparece} \\
+      \midrule
+      Silício            & Si   & 1,1 & Chips, memórias, quase tudo \\
+      Arseneto de gálio  & GaAs & 1,4 & Amplificadores de celular, LED \\
+      Nitreto de gálio   & GaN  & 3,4 & Antenas 5G, carregadores \\
+      Fosfeto de índio   & InP  & 1,3 & Lasers de fibra óptica \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \begin{itemize}\small
+    \item Degrau pequeno solta elétron fácil, mas vaza corrente e esquenta.
+    \item Degrau grande aguenta tensão alta, e por isso o GaN vai para as
+          antenas 5G.
+  \end{itemize}
+  \gancho{As duas bases são \termo{silício e gálio}. O silício domina por ser
+  barato; o gálio entra onde é preciso alta frequência ou luz.}
+\end{frame}

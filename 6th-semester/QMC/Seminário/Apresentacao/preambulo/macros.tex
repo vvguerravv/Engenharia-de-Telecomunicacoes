@@ -1,0 +1,29 @@
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{chemfig}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,patterns,calc,decorations.pathreplacing}
+
+% \qui{SiO_2} escreve a fórmula com o índice subscrito.
+% Feito à mão para não depender do mhchem.
+\newcommand{\qui}[1]{\ensuremath{\mathrm{#1}}}
+\newcommand{\seta}{\ensuremath{\;\longrightarrow\;}}
+\newcommand{\setaeq}{\ensuremath{\;\rightleftharpoons\;}}
+
+% No lugar do siunitx.
+\newcommand{\un}[2]{\ensuremath{#1\,\mathrm{#2}}}
+\newcommand{\grau}[1]{\ensuremath{#1\,^{\circ}\mathrm{C}}}
+
+\newcommand{\termo}[1]{\textcolor{mPrimaryDark}{\textbf{#1}}}
+
+% Caixa que fecha um tópico ligando o assunto a telecom.
+\newcommand{\gancho}[1]{%
+  \begin{alertblock}{Por que isso importa em Telecomunicações?}#1\end{alertblock}}
+
+\newcommand{\fonte}[1]{%
+  \vfill{\scriptsize\textcolor{mNeutral}{Fonte: #1}}}
+
+% \atomo{x}{y}{cor}{rótulo}: átomo dos diagramas de rede.
+\newcommand{\atomo}[4]{%
+  \node[circle,draw=#3,fill=#3!20,thick,minimum size=0.95cm,inner sep=0pt,
+        font=\scriptsize\bfseries,text=#3] at (#1,#2) {#4};}

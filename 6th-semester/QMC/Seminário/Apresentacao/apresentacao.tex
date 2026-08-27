@@ -1,0 +1,55 @@
+% Seminário de Química nas Telecomunicações.
+% Compilar com pdfLaTeX, duas passadas por causa do sumário, ou "make".
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% O microtype precisa de fonte escalável no pdfLaTeX.
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{hyperref}
+
+\input{preambulo/tema}
+\input{preambulo/macros}
+
+\title[Semicondutores em Telecom]{Materiais semicondutores na fabricação de dispositivos de telecomunicações}
+\subtitle{Seminário de Química nas Telecomunicações}
+\author[Victor Guerra, Alisson Pereira]{%
+  \textbf{Alunos}: Victor Guerra, Alisson Pereira \\
+  \textbf{Professor}: Maick Meneguzzo Prado}
+\institute[IFSC]{\small IFSC, Câmpus São José \\ Engenharia de Telecomunicações}
+\date{2 de setembro de 2026}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}{Sumário}
+  \footnotesize
+  \begin{columns}[T]
+    \begin{column}{0.5\linewidth}
+      \tableofcontents[sections={1-4},hideallsubsections]
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \tableofcontents[sections={5-8},hideallsubsections]
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Um arquivo por tópico. Victor nos ímpares, Alisson nos pares.
+\input{topicos/00-introducao/introducao}                 % Abertura
+\input{topicos/01-o-que-sao/o-que-sao}                   % 1, Victor
+\input{topicos/02-estrutura-quimica/estrutura-quimica}   % 2, Alisson
+\input{topicos/03-pureza/pureza}                         % 3, Victor
+\input{topicos/04-ligacoes-quimicas/ligacoes-quimicas}   % 4, Alisson
+\input{topicos/05-reacoes-quimicas/reacoes-quimicas}     % 5, Victor
+\input{topicos/06-aplicabilidade/aplicabilidade}         % 6, Alisson
+\input{topicos/07-valores-comerciais/valores-comerciais} % 7, Victor
+
+\input{referencias/referencias}
+
+\input{topicos/08-encerramento/encerramento}
+
+\end{document}

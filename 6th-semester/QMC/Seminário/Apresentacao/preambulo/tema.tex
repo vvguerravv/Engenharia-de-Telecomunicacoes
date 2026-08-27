@@ -1,0 +1,43 @@
+% Tema metropolis com paleta própria.
+
+\usetheme[numbering=fraction,progressbar=frametitle]{metropolis}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage{xspace}
+\usepackage{caption}
+\usepackage{xcolor}
+
+% Paleta: mAccent é a cor de contraste dos diagramas.
+\definecolor{mPrimary}{HTML}{0A7E3B}
+\definecolor{mPrimaryLight}{HTML}{7FCF88}
+\definecolor{mPrimaryDark}{HTML}{064F26}
+\definecolor{mNeutral}{HTML}{5B6770}
+\definecolor{mAccent}{HTML}{B45309}
+
+\setbeamercolor{structure}{fg=mPrimary}
+\setbeamercolor{title separator}{fg=mPrimary}
+\setbeamercolor{progress bar}{fg=mPrimary,bg=mPrimary!20}
+\setbeamercolor{progress bar in head/foot}{fg=mPrimary,bg=mPrimary!20}
+\setbeamercolor{progress bar in section page}{fg=mPrimary,bg=mPrimary!20}
+\setbeamercolor{frametitle}{fg=white}
+\setbeamercolor{alerted text}{fg=mPrimaryDark}
+\setbeamercolor{example text}{fg=mPrimary}
+\setbeamercolor{block title}{bg=mPrimary,fg=white}
+\setbeamercolor{block body}{bg=white,fg=black}
+\setbeamercolor{block title alerted}{bg=mPrimaryLight!45,fg=mPrimaryDark}
+\setbeamercolor{block body alerted}{bg=white,fg=black}
+\setbeamercolor{itemize item}{fg=mPrimary}
+\setbeamercolor{itemize subitem}{fg=mPrimaryDark}
+\setbeamercolor{itemize subsubitem}{fg=mNeutral}
+\setbeamercolor{enumerate item}{fg=mPrimary}
+\setbeamercolor{caption name}{fg=mPrimaryDark}
+
+\metroset{
+  sectionpage=progressbar,
+  titleformat=smallcaps,
+  block=fill,
+  numbering=fraction
+}

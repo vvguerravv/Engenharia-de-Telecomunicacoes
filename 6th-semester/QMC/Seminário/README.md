@@ -22,8 +22,8 @@ dispositivos de telecomunicações** e trazer, no mínimo, 7 tópicos na apresen
 
 ## Separação de atividades
 
-- Victor Guerra: Tópicos pares
-- Alisson Pereira: Tópicos ímpares
+- Victor Guerra: Tópicos ímpares
+- Alisson Pereira: Tópicos pares
 
 ## Entrega
 

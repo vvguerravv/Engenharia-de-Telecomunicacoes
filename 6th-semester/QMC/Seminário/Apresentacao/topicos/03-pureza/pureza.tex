@@ -1,0 +1,71 @@
+\section{3. Pureza dos materiais}
+
+\begin{frame}{Quão puro é \emph{puro}?}
+  \begin{columns}[T]
+    \begin{column}{0.52\linewidth}
+      \begin{itemize}
+        \item O silício de \termo{grau eletrônico} chega a \alert{11N}, ou
+              seja, 99,999999999\% de pureza.
+        \item Isso é menos de \termo{1 átomo estranho por bilhão} de átomos de
+              silício, e para alguns metais a exigência chega a ppt.
+        \item Analogia: 1 grão de açúcar dissolvido em uma piscina olímpica.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.44\linewidth}
+      \small
+      \begin{table}
+        \centering
+        \begin{tabular}{ll}
+          \toprule
+          \textbf{Grau} & \textbf{Pureza} \\
+          \midrule
+          Metalúrgico & 98 a 99\% (2N) \\
+          Solar       & 99,9999\% (6N) \\
+          Eletrônico  & 11N \\
+          \bottomrule
+        \end{tabular}
+      \end{table}
+    \end{column}
+  \end{columns}
+  \vspace{0.25cm}
+  \centering\small
+  A dopagem intencional é da ordem de \un{10^{15}}{cm^{-3}}, então um
+  contaminante nessa mesma faixa competiria com o dopante e o dispositivo
+  perderia o controle.
+\end{frame}
+
+\begin{frame}{Contaminantes e as três etapas de purificação}
+  \begin{columns}[T]
+    \begin{column}{0.44\linewidth}
+      \scriptsize
+      \begin{table}
+        \centering
+        \begin{tabular}{ll}
+          \toprule
+          \textbf{Contaminante} & \textbf{Efeito} \\
+          \midrule
+          Fe, Cu, Ni, Au & Recombinação, perde ganho \\
+          Oxigênio       & Desvia a resistividade \\
+          Carbono        & Corrente de fuga \\
+          Na, K          & Deriva da tensão de limiar \\
+          \bottomrule
+        \end{tabular}
+      \end{table}
+    \end{column}
+    \begin{column}{0.54\linewidth}
+      \small
+      \begin{enumerate}
+        \item \termo{Redução}: quartzo mais carbono no forno a arco, gerando
+              silício metalúrgico a 98\%.
+        \item \termo{Processo Siemens}: o Si vira \qui{SiHCl_3} volátil, é
+              destilado e depois redepositado.
+        \item \termo{Cristalização}: Czochralski ou zona flutuante, que varre
+              impurezas por segregação ($k = C_s/C_l < 1$).
+      \end{enumerate}
+    \end{column}
+  \end{columns}
+  \vspace{0.1cm}
+  \gancho{Em um amplificador de baixo ruído de estação rádio-base, um nível
+  profundo a mais significa mais ruído de geração e recombinação, ou seja,
+  menor alcance da célula.}
+\end{frame}
