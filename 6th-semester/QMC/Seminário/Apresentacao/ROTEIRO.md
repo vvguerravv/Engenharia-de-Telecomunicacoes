@@ -1,371 +1,293 @@
 # Roteiro de apresentação (Victor)
 
-Guia dos meus slides: o que está em cada um, o que falar e onde é fácil
-tropeçar. Tópicos ímpares (1, 3, 5 e 7), mais abertura e fechamento.
-
-Tempo alvo: **9:45**. Ritmo de 45 segundos por slide.
+O que falar em cada slide. Tópicos ímpares (1, 3, 5 e 7), mais a abertura e o
+fechamento. Tempo alvo: **9:45**, cerca de 45 segundos por slide.
 
 ---
 
-## Antes de começar
-
-Três regras que resolvem a maior parte dos problemas de apresentação:
+## Três regras
 
 1. **Não leia o slide.** O texto é para a plateia acompanhar. Sua fala é o
-   resumo do que está escrito, com uma frase a mais que não está lá.
+   resumo dele, mais uma frase que não está escrita.
 2. **Um número por slide.** Cada slide tem um número que impressiona. Diga
-   esse e deixe os outros na tela para quem quiser ler.
-3. **Termine cada tópico com a ligação com telecom.** É o quadro verde no
-   rodapé de alguns slides. É o que justifica o seminário existir na
-   Engenharia de Telecomunicações.
+   esse e siga.
+3. **Termine cada tópico pelo quadro verde**, que é a ligação com telecom. É o
+   que justifica o seminário existir no curso.
 
 ---
 
 ## Capa e sumário (0:30)
 
-Apresente os dois nomes, o tema e a divisão. Algo como:
-
 > Bom dia. Eu sou o Victor, esse é o Alisson, e o nosso tema é materiais
 > semicondutores na fabricação de dispositivos de telecomunicações. São sete
 > tópicos, eu apresento os ímpares e o Alisson os pares, alternando.
 
-No sumário, não leia os sete títulos. Aponte a sequência: começamos pelo que
-o material é, passamos pela fabricação e terminamos no preço.
+No sumário não leia os sete títulos. Diga só a sequência: começa no que o
+material é, passa pela fabricação e termina no preço.
 
 ---
 
-## Introdução: "Do quartzo da praia ao 5G" (1:00)
+## Introdução (1:00)
 
-**No slide:** três pontos e o roteiro do seminário em uma linha.
+**No slide:** dois pontos e a ordem dos tópicos.
 
-**O que falar:**
-
-> Qualquer comunicação que a gente use hoje passa por um cristal
+> Qualquer comunicação que a gente usa hoje passa por um cristal
 > semicondutor. O celular, a antena da operadora, o satélite, o roteador de
-> casa. E a matéria-prima disso é areia, basicamente dióxido de silício.
+> casa.
 >
-> O que transforma areia em processador não é mecânica, é química. São três
-> coisas: a estrutura do cristal, a pureza do material e a dopagem
-> controlada. É exatamente isso que a gente vai percorrer.
->
-> Para dar a escala do problema: um chip moderno tem dezenas de bilhões de
-> transistores em poucos centímetros quadrados, e basta uma impureza no lugar
-> errado para um deles não funcionar.
+> E a matéria-prima disso é areia. O que transforma areia em chip não é
+> mecânica, é química.
 
-**Fechamento:** aponte o quadro do roteiro e diga que a apresentação segue
-essa ordem, do material até o preço.
+**Frase extra que não está no slide:**
+
+> Para dar uma ideia da precisão envolvida, um chip atual tem bilhões de
+> transistores em poucos centímetros quadrados, e uma impureza no lugar errado
+> já estraga o funcionamento.
+
+Aponte o quadro de baixo e diga que a apresentação segue essa ordem.
 
 ---
 
-## Tópico 1: O que são esses materiais? (2:15)
+## Tópico 1 (2:15)
 
-### Slide "Nem conduz, nem isola"
+### Slide "Condutores, isolantes e semicondutores"
 
-**No slide:** cobre, vidro e silício comparados, mais o desenho com as faixas
-de elétrons presos e soltos e o degrau entre elas.
-
-**O que falar:**
-
-> Para entender o que é um semicondutor, compare três materiais.
+> Para entender o que é um semicondutor, compare três materiais e olhe onde
+> estão os elétrons de valência.
 >
-> No cobre, os elétrons estão soltos o tempo todo. Por isso ele conduz sempre,
-> você não tem escolha.
+> No cobre a ligação é metálica. Os elétrons não pertencem a nenhum átomo, eles
+> formam uma nuvem compartilhada. Como já estão livres, o cobre conduz sempre.
 >
-> No vidro, todos os elétrons estão presos nas ligações químicas. Para soltar
-> um você precisaria de uma energia enorme, então ele nunca conduz.
+> No vidro os elétrons estão comprometidos em ligações fortes demais. Para
+> arrancar um dali você destruiria o material antes de fazer ele conduzir.
 >
-> No silício, os elétrons estão presos, mas o degrau para soltar é pequeno. Um
-> pouco de calor, de luz ou uma tensão aplicada já solta alguns.
+> No silício os elétrons também estão presos em ligações, mas essas ligações
+> são mais fracas. Um pouco de calor, de luz ou uma tensão já rompe algumas e
+> libera elétrons.
 
-**A frase que fecha o slide:**
+**Apontando a escala:**
 
-> E é aí que está a graça. O semicondutor é o único dos três em que nós
+> E repare que a diferença entre eles não é pequena. Do vidro até o cobre são
+> vinte ordens de grandeza de condutividade. A seta mostra o que a dopagem faz:
+> ela sozinha move o silício umas oito ordens dentro dessa escala.
+
+**A frase que fecha:**
+
+> É aí que está a graça. O semicondutor é o único dos três em que nós
 > escolhemos o quanto ele conduz. Sem isso não existiria eletrônica.
 
-**Se perguntarem o que é esse degrau:** é a energia mínima para um elétron sair
-de uma ligação química e passar a andar livre pelo cristal. No silício vale
-cerca de 1,1 elétron-volt, e a energia térmica ambiente é de 0,025, então só
-uns poucos conseguem.
+### Slide "Dopagem do silício"
 
-### Slide "Sozinho o silício não serve"
-
-**No slide:** o número do silício puro, a ideia de dopagem e os dois blocos de
-fósforo e boro.
-
-**O que falar:**
-
-> Só que silício puro não serve para nada. Em silício puro, na temperatura
-> ambiente, só um átomo a cada cinco trilhões solta um elétron. Ele conduz tão
-> pouco que é quase um isolante.
+> O silício tem 4 elétrons de valência e faz 4 ligações com os vizinhos. Todos
+> os elétrons ficam comprometidos, e por isso o silício puro quase não conduz.
 >
-> A solução é contraintuitiva: sujar o cristal de propósito. Isso se chama
-> dopagem.
+> A solução é contraintuitiva: sujar o cristal de propósito, trocando um átomo
+> a cada milhão por um vizinho da tabela periódica. É só olhar os três
+> quadrinhos ao lado.
 >
-> O silício precisa de quatro elétrons para fechar as ligações com os vizinhos.
-> Se você põe um fósforo no lugar de um silício, o fósforo tem cinco, então
-> sobra um elétron livre. Isso é o tipo N.
+> O fósforo, do grupo 15, traz 5 elétrons. Quatro entram nas ligações e o
+> quinto não tem função nenhuma, então fica livre para conduzir. Isso é o tipo
+> N.
 >
-> Se você põe um boro, que tem três, falta um elétron para fechar a ligação.
-> Essa falta é o que a gente chama de lacuna, e ela também se move pelo
-> cristal. Isso é o tipo P.
+> O boro, do grupo 13, traz só 3. Uma das quatro ligações fica incompleta, e
+> essa falta se chama lacuna. Ela também caminha pelo cristal. Isso é o tipo P.
 
-**O número deste slide:**
+**O número:**
 
-> E a proporção é impressionante: trocar um átomo em cada milhão aumenta a
-> condutividade em cem mil vezes.
+> E o efeito é enorme. Um átomo em um milhão faz a condutividade subir cem mil
+> vezes.
 
-**Passe a bola:** diga que o detalhe das ligações e o que acontece quando você
-junta um tipo P com um tipo N é o tópico do Alisson.
+**Se perguntarem por que boro e fósforo:**
 
-### Slide "Quem é quem na família"
+> Qualquer elemento do grupo 15 deixaria um elétron sobrando, e qualquer um do
+> grupo 13 deixaria uma lacuna. Boro e fósforo são escolhidos porque liberam o
+> portador com pouquíssima energia, já à temperatura ambiente, e porque são os
+> mais baratos e seguros de trabalhar. O arsênio também funciona, mas é bem
+> mais tóxico. O índio funciona mal, porque exige quase quatro vezes mais
+> energia e boa parte dos átomos nem chega a soltar a lacuna.
 
-**No slide:** tabela com Si, GaAs, GaN e InP.
+**Passe a bola:** o que acontece quando você junta um lado tipo P com um lado
+tipo N é o tópico do Alisson.
 
-**O que falar:**
+### Slide "Principais semicondutores"
 
-> Semicondutor não é só silício. Essa tabela tem os quatro que interessam para
+> Semicondutor não é só silício. Esses são os quatro que interessam para
 > telecom.
 >
-> O silício é o mais barato e está em praticamente todo chip.
+> O silício é o mais barato e está em praticamente todo chip. Ele é do grupo
+> 14, então já tem os 4 elétrons de valência sozinho. Os outros três da tabela
+> são compostos: juntam um elemento de 3 elétrons com um de 5, e a média dá os
+> mesmos 4.
 >
-> O arseneto de gálio tem degrau um pouco maior e é o que está no amplificador
-> do seu celular.
+> O arseneto de gálio está no amplificador do seu celular.
 >
-> O nitreto de gálio tem degrau bem grande, de 3,4. Degrau grande significa
-> que ele aguenta tensão alta sem conduzir sozinho, e por isso ele está nas
-> antenas de 5G e nos carregadores rápidos.
+> O nitreto de gálio tem ligações mais fortes, então ele aguenta tensão e
+> temperatura altas sem começar a conduzir sozinho. Por isso está nas antenas
+> de 5G e nos carregadores rápidos.
 >
-> E o fosfeto de índio é o que emite luz no comprimento de onda da fibra
-> óptica, 1550 nanômetros.
+> E o fosfeto de índio é o que emite a luz usada na fibra óptica.
 
 **Fechamento, apontando o quadro verde:**
 
 > As duas bases são silício e gálio. O silício domina por ser barato, e o
-> gálio entra onde é preciso trabalhar em alta frequência ou emitir luz.
+> gálio entra onde é preciso alta frequência ou luz.
 
 ---
 
-## Tópico 3: Pureza dos materiais (1:30)
+## Tópico 3 (1:30)
 
-### Slide "Quão puro é puro?"
+### Slide "A pureza que o silício precisa ter"
 
-**No slide:** os 11N, a comparação em ppb e a tabela dos três graus.
-
-**O que falar:**
-
-> Agora, a pergunta é: quão puro esse silício precisa ser?
+> A pergunta agora é: quão puro esse silício precisa ser?
 >
-> A resposta é 11N, que significa onze noves. 99,999999999 por cento de
-> pureza. Isso é menos de um átomo estranho para cada bilhão de átomos de
-> silício.
+> A resposta é onze noves. Isso é menos de um átomo estranho para cada bilhão
+> de átomos de silício.
 >
-> Para dar uma noção, é como dissolver um grão de açúcar numa piscina
-> olímpica e conseguir provar a diferença.
+> Para dar uma noção, é como dissolver um grão de açúcar numa piscina olímpica
+> e ainda sentir o gosto.
 
-**A tabela:** mostre que existem graus diferentes. O metalúrgico, de 98 por
-cento, serve para liga metálica. O solar, de seis noves, para painel. O
-eletrônico é o de onze noves.
+**A tabela:** a exigência depende do uso. Liga metálica aceita 98 por cento.
+Painel solar precisa de seis noves. Eletrônica precisa de onze.
 
-**A explicação do porquê**, que está no rodapé:
+**O porquê, que está no rodapé:**
 
-> E o motivo é direto. A dopagem que a gente faz de propósito é de mais ou
-> menos um átomo em um milhão. Se houver contaminante nessa mesma faixa, ele
-> compete com o dopante e você perde o controle do material. A pureza existe
-> para que a dopagem signifique alguma coisa.
+> E o motivo é direto. A dopagem que a gente faz de propósito é de um átomo em
+> um milhão. Se a sujeira estiver na mesma proporção, ela toma o lugar do
+> dopante. A pureza existe para que a dopagem funcione.
 
-### Slide "Contaminantes e as três etapas"
+### Slide "Como o silício é purificado"
 
-**No slide:** tabela de contaminantes à esquerda, as três etapas numeradas à
-direita, e o quadro verde do amplificador.
-
-**O que falar:**
-
-> Nem todo contaminante incomoda igual. Metais como ferro e cobre são os
-> piores, porque criam armadilhas no meio do cristal que capturam os
-> portadores. Sódio e potássio, que vêm do suor da mão de quem manipula,
-> deslocam a tensão de funcionamento do transistor.
+> São três etapas.
 >
-> A purificação tem três etapas, e cada uma resolve um pedaço.
+> Primeiro o forno, com areia e carbono a dois mil graus. Sai um silício de 98
+> por cento.
 >
-> Primeiro a redução, no forno a arco, que tira o oxigênio do quartzo e dá um
-> silício de 98 por cento.
+> Depois a destilação. O silício é transformado em gás, o gás é destilado como
+> se destila álcool, e no fim ele volta a ser sólido, já limpo.
 >
-> Depois o processo Siemens, que transforma o silício em um gás, destila esse
-> gás e devolve o silício sólido já purificado.
->
-> E por último a cristalização, que além de formar o cristal ainda empurra as
-> impurezas restantes para a ponta do lingote, que é cortada fora.
+> E por último a cristalização, em que o cristal é puxado bem devagar do
+> silício derretido. A sujeira que ainda restava prefere ficar no líquido.
+
+**Frase extra que não está no slide:**
+
+> Os piores contaminantes são ferro e cobre, que capturam os elétrons no meio
+> do caminho. E o sódio, que vem até do suor da mão de quem manuseia, muda a
+> tensão de funcionamento do transistor.
 
 **Fechamento, o quadro verde:**
 
-> E por que isso importa para telecom? Num amplificador de baixo ruído de
-> estação rádio-base, cada impureza a mais é uma fonte de ruído a mais. Ruído
-> maior significa alcance menor da célula.
-
-**Cuidado:** não entre no `k = Cs/Cl`. Se perguntarem, é só a razão entre a
-concentração de impureza no sólido e no líquido, e ela ser menor que um é o
-que faz a impureza preferir ficar no líquido.
+> No amplificador de uma antena, cada impureza é uma fonte de ruído, e mais
+> ruído significa menos alcance para a estação.
 
 ---
 
-## Tópico 5: Reações químicas (2:15)
+## Tópico 5 (2:15)
 
-Este é o tópico mais técnico. A regra aqui é: **diga o que a reação faz, não
-soletre a equação.**
+Regra deste tópico: **diga o que a reação faz, não soletre a equação.**
 
-### Slide "Da areia ao silício metalúrgico"
+### Slide "Obtenção do silício a partir da areia"
 
-**No slide:** a equação da redução carbotérmica e três pontos.
+> Essa é a primeira reação da cadeia toda. Você joga quartzo, que é dióxido de
+> silício, junto com carbono num forno a dois mil graus. O carbono rouba o
+> oxigênio e sobra silício. É uma oxirredução clássica, com o carbono agindo
+> como redutor.
 
-**O que falar:**
+**Frase extra:**
 
-> A primeira reação da cadeia toda é essa. Você pega quartzo, que é dióxido de
-> silício, joga junto com carbono num forno a arco elétrico a dois mil graus, e
-> o carbono rouba o oxigênio do silício.
->
-> É uma oxirredução clássica: o carbono é o agente redutor, e o silício sai do
-> estado de oxidação mais quatro para zero, ou seja, vira silício puro.
-
-**O número deste slide:**
-
-> Só que ela é fortemente endotérmica. Consome cerca de treze megawatt-hora
-> por tonelada, o que é muita energia. Por isso a produção mundial se concentra
-> em países com energia barata.
+> Gasta tanta energia que a produção mundial se concentra em países com
+> energia barata. São uns treze megawatt-hora por tonelada.
 
 **Fechamento:**
 
-> E o resultado ainda é um silício de 98 por cento, que é um bilhão de vezes
-> mais sujo do que a gente precisa. Daí a próxima etapa.
+> E o resultado ainda tem só 98 por cento de pureza, que é muito longe do que
+> a eletrônica precisa. Daí a próxima etapa.
 
-### Slide "Processo Siemens"
-
-**No slide:** duas equações, a clorinação e a deposição.
-
-**O que falar:**
+### Slide "Purificação pelo processo Siemens"
 
 > Esse é o processo mais elegante da cadeia. A ideia é que é difícil purificar
-> um sólido, mas é fácil purificar um gás por destilação.
+> um sólido, mas é fácil purificar um gás.
 >
-> Então primeiro você faz o silício reagir com ácido clorídrico a trezentos
-> graus e ele vira triclorossilano, que é um líquido que ferve a trinta e dois
-> graus. Aí você destila, exatamente como se destila bebida, e separa as
-> impurezas.
+> Então primeiro o silício reage com ácido clorídrico e vira um gás. Esse gás
+> vira um líquido que ferve a trinta e dois graus, e aí você destila, do mesmo
+> jeito que se destila bebida, e separa a sujeira.
 >
-> Depois você faz a reação inversa, a mil e cem graus, e o silício ultrapuro
-> se deposita de volta numa haste aquecida, formando um bastão.
+> Depois você faz a reação inversa, a mil e cem graus, e o silício se deposita
+> de volta, agora limpo.
 
 **A frase que amarra:**
 
 > Repare que a segunda equação é a primeira de trás para frente. O silício sai
-> e volta, e no meio do caminho ele deixou a sujeira para trás.
+> e volta, e no meio do caminho deixou a sujeira para trás.
 
-**Se perguntarem por que os metais não vão junto:** porque ferro, cobre e
-alumínio não formam cloretos voláteis nessa temperatura, então eles ficam para
-trás no reator.
+### Slide "Reações usadas na fabricação"
 
-### Slide "Reações na fabricação do dispositivo"
-
-**No slide:** três reações, oxidação, corrosão com HF e MOCVD.
-
-**O que falar:**
-
-> Com o wafer pronto, ainda tem química no processo de fabricação. Três
-> exemplos.
+> Com o disco de silício pronto, ainda tem química pela frente. Dois exemplos.
 >
-> A oxidação térmica: você aquece o silício com oxigênio e cresce uma camada
-> de vidro, dióxido de silício, sobre ele. Essa camada é o isolante do
-> transistor, e é uma sorte enorme que o silício tenha um óxido tão bom. É um
-> dos motivos de ele ter vencido o germânio.
+> No primeiro, você aquece o silício com oxigênio e cresce uma camada de vidro
+> sobre ele. Essa camada é o isolante do transistor.
 >
-> A corrosão com ácido fluorídrico: o HF dissolve o óxido e não ataca o
-> silício. Isso permite desenhar o circuito, removendo óxido só onde você quer.
->
-> E a epitaxia por MOCVD, que é como se fabrica o arseneto de gálio. Você joga
-> dois gases sobre o substrato quente e eles depositam o cristal camada
-> atômica por camada atômica.
+> No segundo, dois gases são jogados sobre uma base quente e formam o cristal
+> de arseneto de gálio, que é o material dos amplificadores.
 
-**O ponto de segurança, que rende comentário:**
+**O rodapé:**
 
-> Vale dizer que essa química é perigosa. A arsina, que é o gás de arsênio, é
-> tóxica na casa de cinquenta partes por bilhão. Todo o processo é confinado e
-> monitorado.
+> E para desenhar o circuito, o ácido fluorídrico abre janelas naquela camada
+> de vidro sem atacar o silício embaixo.
 
-### Se der tempo apertado neste tópico
+**Frase extra, que costuma render comentário:**
 
-Corte o detalhe da oxidação e do HF e fique só com a frase "ainda tem química
-depois do wafer, para criar o isolante e desenhar o circuito".
+> Vale dizer que essa química é perigosa. O gás de arsênio é tóxico em
+> quantidades minúsculas, então tudo acontece em ambiente fechado.
 
 ---
 
-## Tópico 7: Valores comerciais (1:30)
+## Tópico 7 (1:30)
 
-### Slide "O preço da pureza"
+### Slide "O preço em cada etapa"
 
-**No slide:** tabela de preços do quartzo até o wafer de SiC.
-
-**O que falar:**
-
-> Agora, quanto custa tudo isso.
+> Agora, quanto custa isso tudo.
 >
-> O quartzo, que é a matéria-prima, custa centavos por quilo. É areia, tem em
-> qualquer lugar.
+> A areia custa centavos por quilo. O silício que sai do forno custa uns dois
+> dólares, vendido como commodity. O silício de onze noves custa entre vinte e
+> cinco e sessenta dólares o quilo. E o disco já cortado e polido custa uns
+> cento e vinte dólares a unidade.
+
+**O número:**
+
+> Ou seja, da areia até o silício de eletrônica o preço sobe cerca de mil
+> vezes. E o que foi comprado nesse caminho não foi material, foi pureza.
+
+### Slide "Onde está o custo"
+
+> Só que esse disco ainda é a parte barata. Ele custa cento e vinte dólares em
+> branco, e depois de receber os circuitos sai da fábrica por quinze a vinte
+> mil dólares.
 >
-> O silício metalúrgico, de 98 por cento, custa uns dois dólares o quilo. É
-> commodity.
->
-> E o polisilício de grau eletrônico, o de onze noves, custa entre vinte e
-> cinco e sessenta dólares o quilo.
+> Todo o valor está no processo, não no material. E o que é caro mesmo é a
+> fábrica, que custa bilhões de dólares. Por isso existem pouquíssimas no
+> mundo.
 
-**O número deste slide:**
+**O quadro do mercado:** o mercado global é de uns 630 bilhões de dólares por
+ano, e comunicações responde por cerca de 30 por cento.
 
-> Ou seja, do quartzo até o silício eletrônico o valor sobe cerca de mil vezes.
-> E o que foi comprado nesse caminho não foi material, foi pureza.
+**Fechamento, o quadro verde, que é um bom gancho de atualidade:**
 
-Mostre também as duas últimas linhas: o wafer de arseneto de gálio custa umas
-três vezes o de silício, e o de carbeto de silício ainda mais, porque é difícil
-de crescer.
-
-### Slide "Onde o valor se concentra"
-
-**No slide:** o custo do wafer processado, a máscara, a fábrica, e o quadro do
-mercado.
-
-**O que falar:**
-
-> Só que o wafer é a parte barata. Um wafer de trezentos milímetros custa cento
-> e vinte dólares cru. Depois de processado numa fábrica moderna, ele sai por
-> quinze a vinte mil dólares. Todo o valor está no processo, não no material.
->
-> E a barreira de entrada é brutal. Só a máscara de fabricação de um nó de três
-> nanômetros passa de vinte milhões de dólares, e uma fábrica de ponta custa de
-> quinze a vinte bilhões. É por isso que existem poucas no mundo.
-
-**O quadro do mercado:** o mercado global de semicondutores é de uns 630
-bilhões de dólares por ano, e comunicações responde por cerca de 30 por cento
-disso.
-
-**Fechamento, o quadro verde, que é um bom gancho para atualidade:**
-
-> E uma questão geopolítica interessante: o gálio não é minerado, ele é
-> subproduto do refino da bauxita para fazer alumínio. Mais de noventa por
-> cento da oferta mundial vem da China. Quando a China criou controles de
-> exportação em 2023, o preço saltou de trezentos para mais de seiscentos
-> dólares o quilo.
+> E tem uma questão geopolítica interessante. O gálio nem é minerado, ele sai
+> como subproduto da produção de alumínio, e mais de noventa por cento vem da
+> China. Quando a China restringiu a exportação em 2023, o preço dobrou.
 
 ---
 
-## Conclusão: "Fechando o ciclo" (0:45)
+## Conclusão (0:45)
 
-**No slide:** quatro pontos que amarram os meus tópicos.
+Não leia os quatro pontos. Diga a linha do raciocínio:
 
-**O que falar:** não leia os quatro. Diga a linha do raciocínio:
-
-> Fechando: um semicondutor é um cristal cuja condução a gente aprendeu a
-> controlar. Para esse controle existir, o material precisa ser absurdamente
-> puro, porque a dopagem que faz o trabalho é de um átomo em um milhão. Chegar
-> nessa pureza é uma sequência de reações químicas bem conhecidas, do forno a
-> arco até a destilação. E o preço que se paga no fim não é pelo material, é
-> pela pureza e pelo controle do processo.
+> Fechando: o semicondutor é um material cuja condução a gente aprendeu a
+> controlar. Esse controle vem da dopagem, que é um átomo de boro ou de
+> fósforo em cada milhão de átomos de silício. Como a dose é essa, o silício
+> precisa estar quase perfeitamente puro, e chegar nessa pureza é uma
+> sequência de reações químicas simples de entender. E o preço no fim
+> acompanha a pureza, não a quantidade de material.
 
 Agradeça e abra para perguntas.
 
@@ -375,12 +297,14 @@ Agradeça e abra para perguntas.
 
 | Pergunta | Resposta curta |
 |---|---|
-| Por que silício e não germânio? | O germânio conduz melhor, mas o óxido dele é solúvel em água e instável. O óxido do silício é um isolante excelente e cresce sozinho. Além disso o silício aguenta temperatura maior e é muito mais abundante. |
-| Por que não purificar até 100 por cento? | Porque não é necessário e o custo explode. Onze noves já deixa o contaminante bem abaixo da dopagem intencional. |
-| O que é ppb? | Partes por bilhão. Um átomo estranho a cada bilhão de átomos. |
-| Czochralski ou zona flutuante? | Czochralski puxa o cristal de um banho fundido e é o método de volume. A zona flutuante não encosta em cadinho e dá pureza maior, mas é mais cara e limitada em diâmetro. |
-| De onde vem o gálio? | Não existe minério de gálio. Ele é extraído como subproduto do refino da bauxita. |
-| O Brasil produz? | Silício metalúrgico sim, o Brasil é um dos maiores produtores. Grau eletrônico e wafers, não. |
+| Por que se chama tipo N e tipo P? | Pela carga de quem carrega a corrente. No tipo N são elétrons, negativos. No tipo P são lacunas, positivas. Os dois cristais continuam eletricamente neutros. |
+| Tem que ser boro e fósforo? | Não. Servem alumínio, gálio e índio para o tipo P, e arsênio e antimônio para o tipo N. Boro e fósforo dominam porque liberam o portador com menos energia e são mais baratos e seguros. |
+| Por que silício e não germânio? | O germânio conduz melhor, mas o óxido dele é instável e se dissolve em água. O do silício é um isolante excelente e cresce sozinho. Além disso o silício aguenta mais temperatura e é muito mais abundante. |
+| Por que não purificar até 100 por cento? | Porque não é necessário e o custo explode. Onze noves já deixa a sujeira bem abaixo da dopagem. |
+| Por que o silício conduz e o vidro não? | Nos dois os elétrons estão presos em ligações, mas as do vidro são muito mais fortes. No silício, pouca energia já rompe algumas ligações e libera elétrons. |
+| Como o cristal é puxado? | O método se chama Czochralski. Uma semente de cristal encosta no silício derretido e é puxada girando devagar, e o cristal cresce a partir dela. |
+| De onde vem o gálio? | Não existe minério de gálio. Ele é extraído como subproduto do refino da bauxita, na produção de alumínio. |
+| O Brasil produz? | O silício de forno sim, o Brasil é um dos maiores produtores do mundo. O silício de eletrônica e os discos prontos, não. |
 
 Se não souber, a resposta honesta funciona bem: "não sei, mas posso verificar
 e te respondo".
@@ -389,7 +313,268 @@ e te respondo".
 
 ## Ensaio
 
-Cronometre uma passada completa em voz alta, sozinho, e depois uma com o
-Alisson para acertar as transições. Marque nos seus slides onde você passa a
-palavra para ele e onde retoma. As transições mal ensaiadas são o que mais
-custa tempo em apresentação de dupla.
+Cronometre uma passada completa em voz alta sozinho, e depois uma com o
+Alisson só para acertar as transições. Marque nos seus slides onde você passa
+a palavra e onde retoma, porque é aí que dupla mal ensaiada perde tempo.
+
+---
+
+# Apêndice: entendendo o conteúdo
+
+Isto é material de estudo, não é para falar na apresentação. Serve para você
+dominar o assunto e responder perguntas com segurança.
+
+## O que separa condutor, isolante e semicondutor
+
+Tudo se resume a uma pergunta: **os elétrons de valência estão presos ou
+livres?**
+
+### O metal
+
+No cobre a ligação é metálica. Os elétrons de valência não pertencem a nenhum
+átomo em particular, eles formam uma nuvem compartilhada por todos, o famoso
+mar de elétrons. Como já estão livres, basta aplicar tensão e eles se movem.
+O cobre conduz sempre, e você não tem como desligar isso.
+
+### O isolante
+
+No vidro, e em qualquer isolante, os elétrons estão comprometidos em ligações,
+e essas ligações são fortes demais. Para arrancar um elétron dali você
+precisaria de tanta energia que, na prática, o material se destrói antes de
+conduzir.
+
+### O semicondutor
+
+O silício está no meio. Ele tem 4 elétrons de valência e faz 4 ligações
+covalentes com os vizinhos, então todos os elétrons estão comprometidos. Só
+que essas ligações não são tão fortes quanto as do vidro: um pouco de energia
+já rompe algumas e libera elétrons.
+
+A palavra-chave é **um pouco de energia**. Aquecer, iluminar ou aplicar tensão
+já muda quantos elétrons estão livres, e é por isso que o silício é o único
+dos três em que a condução pode ser ajustada.
+
+### O que a escala do slide mostra
+
+A condutividade não varia um pouco de um material para o outro, ela varia por
+fatores gigantes. Em siemens por centímetro, aproximadamente:
+
+| Material | Condutividade |
+|---|---|
+| Vidro | $10^{-14}$ |
+| Silício puro | $10^{-6}$ |
+| Silício dopado | entre $1$ e $100$ |
+| Cobre | $6 \times 10^{5}$ |
+
+Entre o vidro e o cobre são vinte ordens de grandeza. E repare no ponto que
+interessa: a dopagem sozinha move o silício umas oito ordens de grandeza
+dentro dessa escala. Nenhum outro material permite isso.
+
+### A lacuna
+
+Quando uma ligação se rompe e o elétron sai, fica uma ligação incompleta. Um
+elétron de uma ligação vizinha pula para preencher, e a falta anda para o lado
+de onde esse elétron veio. Na prática essa falta se desloca pelo cristal como
+se fosse uma partícula de carga positiva. É a **lacuna**.
+
+Por isso cada ligação rompida gera dois portadores de corrente, um negativo,
+que é o elétron, e um positivo, que é a lacuna.
+
+### Por que a dopagem funciona tão bem
+
+Essa é a parte que vale entender de verdade, e é pura tabela periódica.
+
+O silício precisa de exatamente 4 elétrons para fechar as ligações com os 4
+vizinhos. O fósforo, que fica logo ao lado no grupo 15, traz 5. Quatro deles
+entram nas ligações e **o quinto não tem função nenhuma**. Ele fica preso
+apenas pela atração do próprio núcleo, sem estar em ligação alguma, e por isso
+se solta com uma facilidade enorme. À temperatura ambiente praticamente todo
+átomo de fósforo já entregou o elétron dele.
+
+O boro é o espelho disso. Ele fica no grupo 13 e traz só 3 elétrons, então uma
+das quatro ligações fica incompleta desde o começo. Essa vaga é preenchida por
+um elétron vizinho com muita facilidade, e a lacuna passa a circular.
+
+Ou seja, a dopagem não aumenta a quantidade de átomos capazes de doar elétron.
+Ela **reduz o esforço** necessário para liberar um portador. É por isso que um
+átomo em um milhão muda a condutividade em cem mil vezes.
+
+### O que os nomes tipo N e tipo P querem dizer
+
+Os nomes vêm da carga de quem carrega a corrente.
+
+- **Tipo N**: quem conduz são os elétrons, de carga negativa. O dopante é
+  chamado de **doador**, porque doa um elétron ao cristal.
+- **Tipo P**: quem conduz são as lacunas, que se comportam como carga
+  positiva. O dopante é chamado de **aceitador**, porque aceita um elétron de
+  uma ligação vizinha.
+
+**O erro mais comum, e vale dizer isso se perguntarem:** os dois cristais
+continuam eletricamente neutros. O átomo de fósforo traz um elétron a mais,
+mas traz um próton a mais junto. Quando aquele elétron sai passeando, fica
+para trás um íon de fósforo positivo, preso na rede. A soma das cargas continua
+zero. O que muda não é a carga total, é quem está livre para se mover.
+
+### Por que boro e fósforo, e não outros
+
+Existem outras opções, todas nos mesmos grupos.
+
+| Tipo | Elementos possíveis | Energia para liberar o portador |
+|---|---|---|
+| P, grupo 13 | Boro | 0,045 eV |
+| | Alumínio | 0,067 eV |
+| | Gálio | 0,072 eV |
+| | Índio | 0,160 eV |
+| N, grupo 15 | Antimônio | 0,039 eV |
+| | Fósforo | 0,045 eV |
+| | Arsênio | 0,054 eV |
+
+Três critérios decidem a escolha.
+
+1. **Ionizar com pouca energia.** A energia térmica ambiente é de cerca de
+   0,026 eV. Boro e fósforo, com 0,045, praticamente todos entregam o portador
+   à temperatura ambiente. O índio, com 0,160, não entrega, e a maior parte dos
+   átomos vira desperdício.
+2. **Dissolver bem no cristal.** Precisa entrar em quantidade sem precipitar e
+   formar outra fase.
+3. **Ser barato e seguro de manusear.** O arsênio funciona bem e é usado em
+   camadas específicas, mas é muito mais tóxico. O antimônio difunde devagar
+   demais para uso geral.
+
+Boro e fósforo são os que atendem os três critérios ao mesmo tempo, e por isso
+são o padrão da indústria.
+
+**Curiosidade que combina com o tópico 7:** o gálio substituiu o boro na maior
+parte do silício de painel solar. O motivo é químico. O boro reage com o
+oxigênio que sobra no cristal e forma um complexo que degrada a célula quando
+ela recebe luz. Trocar por gálio resolveu o problema, e a indústria migrou por
+volta de 2020.
+
+**Outra curiosidade:** ouro e platina são colocados de propósito em alguns
+diodos de potência, não para gerar portadores, mas para capturar os que sobram
+e fazer o dispositivo desligar mais rápido. É a mesma impureza que no tópico 3
+aparece como vilã, usada aqui a favor.
+
+---
+
+## As equações químicas
+
+### 1. Areia mais carbono, no forno
+
+$$\mathrm{SiO_2}\,(s) + 2\,\mathrm{C}\,(s) \longrightarrow \mathrm{Si}\,(l) + 2\,\mathrm{CO}\,(g)$$
+
+É uma **oxirredução**, chamada de redução carbotérmica.
+
+| Elemento | Antes | Depois | O que fez |
+|---|---|---|---|
+| Si | +4 | 0 | ganhou 4 elétrons, foi reduzido |
+| C | 0 | +2 (em cada CO) | perdeu 2 elétrons cada um, foi oxidado |
+
+Dois carbonos perdendo 2 elétrons cada fecham exatamente os 4 que o silício
+ganhou, e é isso que dá o coeficiente 2 no carbono.
+
+**Por que precisa de dois mil graus:** a ligação Si-O é uma das ligações
+simples mais fortes que existem, perto de 800 kJ por mol. Quebrar isso custa
+caro, e a reação é fortemente endotérmica.
+
+**Por que sai CO e não CO2:** em temperatura muito alta e com carbono em
+excesso, o monóxido é o produto estável. Se aparecesse CO2, ele reagiria com o
+carbono sobrando e viraria CO de novo.
+
+**Por que o silício sai líquido:** o silício funde a 1414 graus, e o forno
+opera acima disso.
+
+### 2. O silício vira gás
+
+$$\mathrm{Si}\,(s) + 3\,\mathrm{HCl}\,(g) \longrightarrow \mathrm{SiHCl_3}\,(g) + \mathrm{H_2}\,(g)$$
+
+Também é oxirredução, agora com o silício sendo oxidado.
+
+| Elemento | Antes | Depois |
+|---|---|---|
+| Si | 0 | +4 no SiHCl3 |
+| H | +1 no HCl | 0 no H2 e -1 no Si-H |
+
+O hidrogênio fica com -1 quando ligado ao silício porque ele é mais
+eletronegativo que o silício, 2,20 contra 1,90.
+
+**O objetivo da reação não é química, é física.** O produto, o
+triclorossilano, é um líquido que ferve a 31,8 graus. Ou seja, você
+transformou um sólido impossível de destilar em um líquido volátil que dá para
+destilar numa coluna comum.
+
+**Por que a sujeira fica para trás:** ferro, alumínio e cobre também formam
+cloretos, mas com pontos de ebulição completamente diferentes, e vários deles
+nem são voláteis nessa temperatura. Na destilação fracionada eles se separam.
+
+### 3. O gás volta a ser silício
+
+$$\mathrm{SiHCl_3}\,(g) + \mathrm{H_2}\,(g) \longrightarrow \mathrm{Si}\,(s) + 3\,\mathrm{HCl}\,(g)$$
+
+É a reação 2 escrita ao contrário. O hidrogênio agora é o agente redutor e
+devolve o silício ao estado zero.
+
+**O detalhe bonito:** é a mesma reação de equilíbrio, e quem escolhe o sentido
+é a temperatura. A 300 graus ela anda para a direita da equação 2, formando o
+gás. A 1100 graus ela anda para o outro lado, depositando silício sólido sobre
+uma haste aquecida. Princípio de Le Chatelier aplicado a valer.
+
+### 4. A camada isolante
+
+$$\mathrm{Si}\,(s) + \mathrm{O_2}\,(g) \longrightarrow \mathrm{SiO_2}\,(s)$$
+
+Oxidação direta, feita entre 900 e 1200 graus. Silício vai de 0 para +4 e o
+oxigênio de 0 para -2.
+
+**O que isso tem de especial:** o óxido cresce grudado no silício, consumindo
+o próprio silício de baixo, e o resultado é um vidro amorfo que é um dos
+melhores isolantes elétricos conhecidos. É essa camada que separa o comando do
+transistor do caminho da corrente.
+
+Esse é um dos maiores motivos de o silício ter vencido o germânio. O óxido de
+germânio se dissolve em água e é instável, então não serve para isolar nada.
+
+Existe também a versão com vapor de água, mais rápida:
+$\mathrm{Si} + 2\,\mathrm{H_2O} \rightarrow \mathrm{SiO_2} + 2\,\mathrm{H_2}$.
+
+### 5. O cristal de arseneto de gálio
+
+$$\mathrm{Ga(CH_3)_3}\,(g) + \mathrm{AsH_3}\,(g) \longrightarrow \mathrm{GaAs}\,(s) + 3\,\mathrm{CH_4}\,(g)$$
+
+Os reagentes são o trimetilgálio e a arsina, ambos gases jogados sobre uma
+base aquecida a uns 700 graus.
+
+**Atenção, essa não é oxirredução.** O gálio já está +3 antes e continua +3
+depois; o arsênio já está -3 e continua -3. O que acontece é uma troca de
+parceiros: as três metilas que estavam no gálio se juntam aos três hidrogênios
+que estavam no arsênio e saem como metano. Sobram o gálio e o arsênio, que se
+depositam formando o cristal.
+
+Os coeficientes saem daí: três grupos CH3 mais três H formam três CH4.
+
+**Por que o cristal fica perfeito:** o gás só reage na superfície quente, então
+o material se deposita camada de átomos por camada de átomos, e dá para
+controlar a espessura com precisão atômica.
+
+**Segurança:** a arsina é um dos gases mais tóxicos usados na indústria, com
+limite de exposição na casa de partes por bilhão. Todo o processo é fechado e
+monitorado.
+
+### 6. O ácido fluorídrico, que abre as janelas
+
+$$\mathrm{SiO_2}\,(s) + 6\,\mathrm{HF}\,(aq) \longrightarrow \mathrm{H_2SiF_6}\,(aq) + 2\,\mathrm{H_2O}\,(l)$$
+
+Essa está só citada no rodapé do slide, mas é bom saber.
+
+**Também não é oxirredução.** O silício continua +4 do começo ao fim. É uma
+reação de complexação: o flúor substitui o oxigênio em volta do silício e
+forma o ácido hexafluorsilícico, que é solúvel em água e vai embora na
+lavagem.
+
+**Por que ela é útil:** o HF dissolve o óxido e não ataca o silício puro
+embaixo. Você protege as regiões que quer manter, mergulha a peça, e o ácido
+remove óxido só nas janelas abertas. É assim que o desenho do circuito é
+transferido para a pastilha.
+
+**Cuidado real:** o HF é traiçoeiro. Ele não queima de imediato como um ácido
+forte comum, mas o íon fluoreto atravessa a pele e ataca o cálcio dos ossos.

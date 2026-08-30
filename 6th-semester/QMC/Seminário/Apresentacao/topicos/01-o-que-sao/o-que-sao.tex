@@ -1,96 +1,100 @@
 \section{1. O que são esses materiais?}
 
-\begin{frame}{Nem conduz, nem isola}
-  \begin{columns}[T]
-    \begin{column}{0.52\linewidth}
-      \begin{itemize}
-        \item No \termo{cobre} os elétrons estão soltos o tempo todo, então
-              ele conduz sempre.
-        \item No \termo{vidro} todos os elétrons estão presos nas ligações,
-              então ele nunca conduz.
-        \item No \termo{silício} os elétrons estão presos, mas soltam com
-              pouca energia. Calor, luz ou uma tensão já bastam.
-      \end{itemize}
-      \vspace{0.2cm}
-      \centering
-      É o único dos três em que \alert{nós escolhemos o quanto ele conduz}.
-    \end{column}
-    \begin{column}{0.44\linewidth}
-      \centering
-      \begin{tikzpicture}[scale=0.68,transform shape]
-        % cobre: as duas faixas se encostam, não há degrau
-        \fill[mPrimary!30] (0,0) rectangle (1.6,1.1);
-        \node[font=\scriptsize] at (0.8,0.55) {presos};
-        \fill[mAccent!30] (0,1.1) rectangle (1.6,2.2);
-        \node[font=\scriptsize] at (0.8,1.65) {soltos};
-        \node[font=\scriptsize\bfseries] at (0.8,-0.45) {Cobre};
-        \node[font=\tiny,text=mNeutral] at (0.8,-0.95) {sem degrau};
-
-        \foreach \x/\gap/\nome/\tam in {3/1.1/Silício/pequeno, 6/2.6/Vidro/grande} {
-          \fill[mPrimary!30] (\x,0) rectangle (\x+1.6,1.1);
-          \node[font=\scriptsize] at (\x+0.8,0.55) {presos};
-          \fill[mAccent!30] (\x,1.1+\gap) rectangle (\x+1.6,2.2+\gap);
-          \node[font=\scriptsize] at (\x+0.8,1.65+\gap) {soltos};
-          \draw[<->,thick,mNeutral] (\x+0.8,1.1) -- (\x+0.8,1.1+\gap);
-          \node[font=\scriptsize\bfseries] at (\x+0.8,-0.45) {\nome};
-          \node[font=\tiny,text=mNeutral] at (\x+0.8,-0.95) {degrau \tam};
-        }
-      \end{tikzpicture}
-      \\[0.2cm]
-      {\scriptsize O tamanho do degrau que o elétron precisa vencer é o
-      que separa os três casos.}
-    \end{column}
-  \end{columns}
-  \fonte{Callister, \emph{Ciência e Engenharia de Materiais}, cap.~18.}
+\begin{frame}{Condutores, isolantes e semicondutores}
+  \begin{itemize}
+    \item No \termo{cobre} os elétrons de valência não pertencem a nenhum
+          átomo e andam livres. Conduz sempre.
+    \item No \termo{vidro} as ligações seguram todos os elétrons no lugar.
+          Nunca conduz.
+    \item No \termo{silício} os elétrons estão presos, mas pouca energia já
+          solta alguns.
+  \end{itemize}
+  \vspace{0.3cm}
+  \centering
+  \begin{tikzpicture}[scale=0.85,transform shape]
+    \fill[mNeutral!20] (0,0) rectangle (3.4,0.6);
+    \fill[mAccent!30]  (3.4,0) rectangle (6.8,0.6);
+    \fill[mPrimary!35] (6.8,0) rectangle (10.2,0.6);
+    \draw[mNeutral] (0,0) rectangle (10.2,0.6);
+    \node[font=\scriptsize] at (1.7,0.3) {isolantes};
+    \node[font=\scriptsize] at (5.1,0.3) {semicondutores};
+    \node[font=\scriptsize] at (8.5,0.3) {condutores};
+    \foreach \x/\nome in {1.2/Vidro, 4.0/{Silício puro}, 6.6/{Silício dopado}, 9.0/Cobre} {
+      \draw[mNeutral,thick] (\x,0) -- (\x,-0.25);
+      \node[font=\scriptsize,anchor=north] at (\x,-0.3) {\nome};
+    }
+    \draw[->,mPrimaryDark,very thick] (4.0,1.0) -- (6.6,1.0)
+      node[midway,above,font=\scriptsize\bfseries,text=mPrimaryDark] {dopagem};
+    \node[font=\tiny,text=mNeutral,anchor=north] at (5.1,-0.95) {conduz menos $\longleftarrow$ \; $\longrightarrow$ conduz mais};
+  \end{tikzpicture}
+  \\[0.3cm]
+  {\small É o único dos três em que \alert{nós escolhemos o quanto ele conduz}.}
 \end{frame}
 
-\begin{frame}{Sozinho o silício não serve}
-  \begin{itemize}
-    \item Em silício puro, só 1 átomo a cada 5 trilhões solta um elétron na
-          temperatura ambiente. Conduz tão pouco que não dá para fazer nada
-          com ele.
-    \item A solução é sujar o cristal \alert{de propósito}, trocando um átomo
-          a cada milhão por um vizinho da tabela periódica. Isso se chama
-          \termo{dopagem}.
-  \end{itemize}
-  \vspace{0.2cm}
+\begin{frame}{Dopagem do silício}
   \begin{columns}[T]
-    \begin{column}{0.48\linewidth}
-      \begin{block}{Fósforo, tipo N}
-        \small Tem 5 elétrons para ligar e o silício só precisa de 4. O que
-        sobra fica \termo{livre} para conduzir.
-      \end{block}
+    \begin{column}{0.54\linewidth}
+      \begin{itemize}\small
+        \item O silício tem \termo{4 elétrons de valência} e faz 4 ligações
+              com os vizinhos. Nenhum elétron sobra, e por isso o silício puro
+              quase não conduz.
+        \item A saída é trocar \alert{um átomo em cada milhão} por um vizinho
+              da tabela periódica.
+      \end{itemize}
+      \vspace{0.2cm}
+      \begin{columns}[T]
+        \begin{column}{0.5\linewidth}
+          \begin{block}{Fósforo, tipo N}
+            \scriptsize Traz 5 elétrons. Um deles não entra em ligação
+            nenhuma e fica \termo{livre}.
+          \end{block}
+        \end{column}
+        \begin{column}{0.5\linewidth}
+          \begin{block}{Boro, tipo P}
+            \scriptsize Traz só 3. Uma ligação fica incompleta e essa falta
+            se chama \termo{lacuna}.
+          \end{block}
+        \end{column}
+      \end{columns}
     \end{column}
-    \begin{column}{0.48\linewidth}
-      \begin{block}{Boro, tipo P}
-        \small Tem só 3 elétrons. A ligação que fica faltando é uma
-        \termo{lacuna}, e ela também caminha pelo cristal.
-      \end{block}
+    \begin{column}{0.42\linewidth}
+      \centering
+      \begin{tikzpicture}[scale=0.85,transform shape]
+        \foreach \i/\sim/\nome/\ele/\cor in {0/B/Boro/3/mAccent, 1/Si/Silício/4/mPrimaryDark, 2/P/Fósforo/5/mAccent} {
+          \draw[\cor,thick,fill=\cor!12,rounded corners=2pt]
+            (\i*1.5,0) rectangle (\i*1.5+1.3,1.3);
+          \node[font=\large\bfseries,text=\cor] at (\i*1.5+0.65,0.85) {\sim};
+          \node[font=\tiny,text=\cor] at (\i*1.5+0.65,0.3) {\ele\ elétrons};
+          \node[font=\scriptsize,anchor=north] at (\i*1.5+0.65,-0.15) {\nome};
+        }
+        \node[font=\tiny,text=mNeutral] at (2.15,-0.85) {grupos 13, 14 e 15};
+      \end{tikzpicture}
     \end{column}
   \end{columns}
   \vspace{0.2cm}
   \centering\small
-  Uma impureza em um milhão faz a condutividade subir \alert{cem mil vezes}.
+  Com essa troca a condutividade sobe \alert{cem mil vezes}.
 \end{frame}
 
-\begin{frame}{Quem é quem na família}
+\begin{frame}{Principais semicondutores}
   \begin{table}
     \centering
-    \begin{tabular}{llc l}
+    \begin{tabular}{ll l l}
       \toprule
-      \textbf{Material} & & \textbf{Degrau (eV)} & \textbf{Onde aparece} \\
+      \textbf{Material} & & \textbf{Composição} & \textbf{Onde aparece} \\
       \midrule
-      Silício            & Si   & 1,1 & Chips, memórias, quase tudo \\
-      Arseneto de gálio  & GaAs & 1,4 & Amplificadores de celular, LED \\
-      Nitreto de gálio   & GaN  & 3,4 & Antenas 5G, carregadores \\
-      Fosfeto de índio   & InP  & 1,3 & Lasers de fibra óptica \\
+      Silício            & Si   & grupo 14      & Chips e memórias \\
+      Arseneto de gálio  & GaAs & grupos 13 e 15 & Amplificador de celular, LED \\
+      Nitreto de gálio   & GaN  & grupos 13 e 15 & Antenas 5G, carregadores \\
+      Fosfeto de índio   & InP  & grupos 13 e 15 & Lasers de fibra óptica \\
       \bottomrule
     \end{tabular}
   \end{table}
   \begin{itemize}\small
-    \item Degrau pequeno solta elétron fácil, mas vaza corrente e esquenta.
-    \item Degrau grande aguenta tensão alta, e por isso o GaN vai para as
-          antenas 5G.
+    \item Os compostos juntam um elemento de 3 elétrons com um de 5, dando a
+          mesma média de 4.
+    \item As ligações do GaN são mais fortes, e por isso ele aguenta tensão
+          alta.
   \end{itemize}
   \gancho{As duas bases são \termo{silício e gálio}. O silício domina por ser
   barato; o gálio entra onde é preciso alta frequência ou luz.}

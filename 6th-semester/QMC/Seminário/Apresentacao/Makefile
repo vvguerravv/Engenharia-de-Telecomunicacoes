@@ -1,9 +1,11 @@
 # make        gera o PDF e limpa os intermediários
 # make clean  só limpa
 # make purge  limpa e apaga o PDF
+# make zip    empacota os fontes para subir no Overleaf
 
 MAIN = apresentacao
 AUX  = aux log nav out snm toc vrb bbl blg fls fdb_latexmk
+ZIP  = $(MAIN)-overleaf.zip
 
 all: $(MAIN).pdf
 
@@ -16,6 +18,12 @@ clean:
 	@rm -f $(foreach e,$(AUX),$(MAIN).$(e))
 
 purge: clean
-	@rm -f $(MAIN).pdf
+	@rm -f $(MAIN).pdf $(ZIP)
 
-.PHONY: all clean purge
+zip:
+	@rm -f $(ZIP)
+	@zip -q -r $(ZIP) $(MAIN).tex preambulo topicos referencias figuras \
+		README.md ROTEIRO.md
+	@echo "Gerado $(ZIP)"
+
+.PHONY: all clean purge zip
