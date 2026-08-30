@@ -37,6 +37,7 @@ principal, com compilador **pdfLaTeX**.
 | `topicos/08-encerramento/` | Conclusão e slide final |
 | `referencias/referencias.tex` | Slide de referências |
 | `referencias/referencias.bib` | As mesmas referências em BibTeX |
+| `ROTEIRO.md` | O que falar em cada slide, tempo e perguntas prováveis |
 | `figuras/` | Imagens, se forem adicionadas |
 
 Cada tópico está isolado em uma pasta: para mexer em um deles, edite apenas o
