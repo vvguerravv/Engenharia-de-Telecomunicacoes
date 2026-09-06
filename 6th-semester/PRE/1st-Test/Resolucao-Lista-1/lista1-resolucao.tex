@@ -1,0 +1,881 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{pifont}
+\usepackage[hidelinks]{hyperref}
+
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning}
+
+\definecolor{azul}{HTML}{2563EB}
+\definecolor{verm}{HTML}{DC2626}
+\definecolor{teal}{HTML}{0F766E}
+\definecolor{cinza}{HTML}{64748B}
+
+\newtcolorbox{resp}{colback=azul!5,colframe=azul!60,boxrule=0.6pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt,arc=2pt}
+
+\newcommand{\Ind}[1]{\left[#1\right]}
+\newcommand{\dd}{\,\mathrm{d}}
+\renewcommand{\Pr}{\operatorname{Pr}}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Processos Estocásticos (PRE)}
+\rhead{\small Lista de exercícios 1: resolução}
+\cfoot{\small \thepage}
+
+\title{\vspace{-1.2cm}\textbf{Processos Estocásticos}\\[2pt]
+\large Lista de exercícios 1: resolução comentada}
+\author{Engenharia de Telecomunicações, IFSC São José}
+\date{Prof.\ Roberto Wanderley da Nóbrega \quad$\cdot$\quad Semestre 2026.1}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{resp}
+\small Documento de consulta com a resolução das questões 1 a 5, mais os exercícios
+do Yates e Goodman indicados nos slides (apêndice). Todos os resultados foram
+conferidos contra o gabarito da lista e validados numericamente por simulação de
+Monte Carlo.
+\end{resp}
+
+\tableofcontents
+
+\section{Ferramentas usadas}
+
+\subsection*{Variáveis aleatórias mistas}
+
+Uma VA é \emph{mista} quando possui parte discreta e parte contínua. Isso se
+manifesta assim:
+\begin{itemize}[nosep,leftmargin=*]
+\item a \textbf{CDF} tem descontinuidades de salto e trechos contínuos crescentes;
+\item a \textbf{PDF} tem impulsos e trechos de densidade finita.
+\end{itemize}
+
+As duas quantidades básicas, para qualquer ponto $a$:
+\[
+F_X(a^+) = \Pr[X \le a], \qquad F_X(a^-) = \Pr[X < a],
+\qquad \Pr[X=a] = F_X(a^+) - F_X(a^-).
+\]
+
+Para intervalos, na notação de limites com $\pm$:
+\[
+\Pr[a < X \le b] = \int_{a^+}^{b^+} f_X \dd x, \qquad
+\Pr[a \le X \le b] = \int_{a^-}^{b^+} f_X \dd x,
+\]
+\[
+\Pr[a < X < b] = \int_{a^+}^{b^-} f_X \dd x, \qquad
+\Pr[a \le X < b] = \int_{a^-}^{b^-} f_X \dd x .
+\]
+
+Em linguagem de CDF: \emph{no limite superior copie o sinal; no limite inferior
+troque o sinal}. Isto é, $\Pr[a<X\le b]=F_X(b^+)-F_X(a^+)$ e
+$\Pr[a\le X\le b]=F_X(b^+)-F_X(a^-)$.
+
+\subsection*{Função impulso}
+
+\[
+\int_{-\infty}^{\infty}\!\!\delta(x)\dd x = \int_{0^-}^{0^+}\!\!\delta(x)\dd x = 1,
+\qquad
+\int_{-\infty}^{x}\!\!\delta(v)\dd v = u(x),
+\qquad
+u'(x) = \delta(x).
+\]
+
+\begin{resp}
+\textbf{Propriedade central:} a derivada de uma descontinuidade de salto de
+tamanho $c$ no ponto $x_0$ é um impulso de área $c$, isto é, $c\,\delta(x-x_0)$.
+\end{resp}
+
+Consequência prática, usada em todas as questões: \emph{salto na CDF $\Leftrightarrow$
+átomo de probabilidade $\Leftrightarrow$ impulso na PDF}.
+
+\subsection*{Momentos}
+
+Teorema fundamental do valor esperado (permite trabalhar direto com $f_X$, sem
+construir $f_Y$):
+\[
+\E[g(X)] = \int_{-\infty}^{\infty} g(x)\,f_X(x)\dd x .
+\]
+
+Fórmula alternativa da variância: $\var[X] = \E[X^2] - \E[X]^2$.
+
+\subsection*{Distribuições conjuntas}
+
+Marginais: $f_X(x)=\int f_{X,Y}(x,y)\dd y$ e $f_Y(y)=\int f_{X,Y}(x,y)\dd x$
+(no caso discreto, somar linhas e colunas da tabela).
+Condicional: $p_{X\mid Y}(x\mid y) = p_{X,Y}(x,y)/p_Y(y)$.
+Independência: $f_{X,Y}(x,y)=f_X(x)f_Y(y)$ para \emph{todo} par $(x,y)$.
+Covariância: $\cov[X,Y]=\E[XY]-\E[X]\E[Y]$.
+
+\clearpage
+\section{Questão 1: dado honesto e mistura de distribuições}
+
+\textbf{Enunciado.} Um dado honesto é lançado. Se sair \ding{172} ou \ding{173},
+$X\sim\text{Uniform}([1,4])$; se sair \ding{174}, $X\sim\text{DiscreteUniform}(\{1,2,3\})$;
+se sair \ding{175} ou \ding{176}, $X\sim\text{Uniform}([-1,2])$; se sair \ding{177}, $X=3$.
+
+\subsection*{Pesos de cada cenário}
+
+Cada face vale $1/6$; contando as faces de cada linha:
+
+\begin{center}
+\begin{tabular}{clcc}
+\toprule
+cenário & distribuição condicional & faces & peso \\
+\midrule
+A & $\text{Uniform}([1,4])$ & 2 & $1/3$ \\
+B & $\text{DiscreteUniform}(\{1,2,3\})$ & 1 & $1/6$ \\
+C & $\text{Uniform}([-1,2])$ & 2 & $1/3$ \\
+D & $X=3$ (determinística) & 1 & $1/6$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Soma dos pesos: $1/3+1/6+1/3+1/6=1$. \checkmark
+
+\subsection*{(a) PDF}
+
+Pelo teorema da probabilidade total,
+$f_X = f_{X\mid A}\cdot\tfrac13 + f_{X\mid B}\cdot\tfrac16
+      + f_{X\mid C}\cdot\tfrac13 + f_{X\mid D}\cdot\tfrac16$.
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+cenário & densidade condicional & $\times$ peso & contribuição \\
+\midrule
+A & $\tfrac13\Ind{1\le x\le 4}$ & $\tfrac13$ & $\tfrac19$ em $[1,4]$ \\[2pt]
+B & $\tfrac13\delta(x-1)+\tfrac13\delta(x-2)+\tfrac13\delta(x-3)$ & $\tfrac16$
+  & $\tfrac1{18}$ em cada ponto \\[2pt]
+C & $\tfrac13\Ind{-1\le x\le 2}$ & $\tfrac13$ & $\tfrac19$ em $[-1,2]$ \\[2pt]
+D & $\delta(x-3)$ & $\tfrac16$ & $\tfrac16$ em $x=3$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+As rampas de A e C \textbf{se sobrepõem} em $[1,2]$ (somam $\tfrac19+\tfrac19=\tfrac29$)
+e os impulsos de B e D \textbf{se somam} em $x=3$
+($\tfrac1{18}+\tfrac16=\tfrac{4}{18}=\tfrac29$).
+
+\begin{resp}
+\[
+f_X(x)=\tfrac19\Ind{-1\le x<1}+\tfrac29\Ind{1\le x\le 2}+\tfrac19\Ind{2<x\le 4}
++\tfrac1{18}\delta(x-1)+\tfrac1{18}\delta(x-2)+\tfrac29\delta(x-3).
+\]
+\end{resp}
+
+\emph{Verificação de área:} rampas $\;2\cdot\tfrac19+1\cdot\tfrac29+2\cdot\tfrac19=\tfrac23$;
+impulsos $\;\tfrac1{18}+\tfrac1{18}+\tfrac29=\tfrac13$; total $=1$. \checkmark
+
+\begin{center}
+\begin{tikzpicture}[>={Latex[length=2.5mm]},yscale=1,xscale=1.15]
+\def\Y{12}
+\draw[->,cinza] (-1.9,0) -- (5.0,0) node[below right] {$x$};
+\draw[->,cinza] (0,-0.15) -- (0,3.6) node[left] {$f_X(x)$};
+\draw[azul,very thick] (-1.9,0) -- (-1,0);
+\draw[azul,very thick] (-1,{\Y/9}) -- (1,{\Y/9});
+\draw[azul,very thick] (1,{2*\Y/9}) -- (2,{2*\Y/9});
+\draw[azul,very thick] (2,{\Y/9}) -- (4,{\Y/9});
+\draw[azul,very thick] (4,0) -- (5.0,0);
+\draw[azul,thick,opacity=.4] (-1,0) -- (-1,{\Y/9});
+\draw[azul,thick,opacity=.4] (1,{\Y/9}) -- (1,{2*\Y/9});
+\draw[azul,thick,opacity=.4] (2,{2*\Y/9}) -- (2,{\Y/9});
+\draw[azul,thick,opacity=.4] (4,{\Y/9}) -- (4,0);
+\draw[verm,very thick,->] (1,0) -- (1,2.05) node[above,font=\scriptsize] {$\frac1{18}$};
+\draw[verm,very thick,->] (2,0) -- (2,2.05) node[above,font=\scriptsize] {$\frac1{18}$};
+\draw[verm,very thick,->] (3,0) -- (3,3.05) node[above,font=\scriptsize] {$\frac29$};
+\foreach \x in {-1,1,2,3,4} \draw[cinza] (\x,-0.08) -- (\x,0.08) node[below=4pt,font=\scriptsize] {$\x$};
+\draw[cinza] (-0.08,{\Y/9}) -- (0.08,{\Y/9}) node[left=4pt,font=\scriptsize] {$\frac19$};
+\draw[cinza] (-0.08,{2*\Y/9}) -- (0.08,{2*\Y/9}) node[left=4pt,font=\scriptsize] {$\frac29$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{(b) CDF}
+
+Integrando caso a caso, no formato $F_X(x)=\int_{-\infty}^{x^+} f_X(u)\dd u$:
+
+\medskip
+\noindent\textbf{Caso $x<-1$:} região sem densidade nem impulso, $F_X(x)=0$.
+
+\medskip
+\noindent\textbf{Caso $-1\le x<1$:}
+$\displaystyle F_X(x)=\int_{-1}^{x}\tfrac19\dd u=\tfrac{x+1}{9}$,
+com $F_X(1^-)=\tfrac29$.
+
+\medskip
+\noindent\textbf{Caso $1\le x<2$:}
+\[
+F_X(x)=\underbrace{\int_{-1}^{1^-}\tfrac19\dd u}_{2/9}
++\underbrace{\int_{1^-}^{1^+}\tfrac1{18}\delta(u-1)\dd u}_{1/18}
++\underbrace{\int_{1}^{x}\tfrac29\dd u}_{\frac29(x-1)}
+=\tfrac{5}{18}+\tfrac29(x-1),
+\]
+com $F_X(2^-)=\tfrac12$.
+
+\medskip
+\noindent\textbf{Caso $2\le x<3$:}
+$F_X(x)=\tfrac12+\tfrac1{18}+\tfrac19(x-2)=\tfrac59+\tfrac{x-2}{9}$,
+com $F_X(3^-)=\tfrac23$.
+
+\medskip
+\noindent\textbf{Caso $3\le x<4$:}
+$F_X(x)=\tfrac23+\tfrac29+\tfrac19(x-3)=\tfrac89+\tfrac{x-3}{9}$,
+com $F_X(4)=1$.
+
+\medskip
+\noindent\textbf{Caso $x\ge4$:} $F_X(x)=1$.
+
+\begin{resp}
+\textbf{Sumário (forma detalhada, com os pontos de salto isolados):}
+\[
+F_X(x)=\begin{cases}
+0, & x<-1,\\[2pt]
+\frac19(x+1), & -1\le x<1,\\[2pt]
+\frac{5}{18}, & x=1,\\[2pt]
+\frac{5}{18}+\frac29(x-1), & 1<x<2,\\[2pt]
+\frac59, & x=2,\\[2pt]
+\frac59+\frac19(x-2), & 2<x<3,\\[2pt]
+\frac89, & x=3,\\[2pt]
+\frac89+\frac19(x-3), & 3<x<4,\\[2pt]
+1, & x\ge4.
+\end{cases}
+\qquad=\qquad
+\begin{cases}
+0, & x<-1,\\[2pt]
+\frac19(x+1), & -1\le x<1,\\[2pt]
+\frac{5}{18}+\frac29(x-1), & 1\le x<2,\\[2pt]
+\frac59+\frac19(x-2), & 2\le x<3,\\[2pt]
+\frac89+\frac19(x-3), & 3\le x<4,\\[2pt]
+1, & 4\le x.
+\end{cases}
+\]
+\end{resp}
+
+A compactação à direita vale porque a CDF é \textbf{contínua à direita}: o valor no
+ponto de salto coincide com o ramo da direita avaliado nesse ponto.
+
+\begin{center}
+\begin{tikzpicture}[>={Latex[length=2.5mm]},xscale=1.15,yscale=4]
+\draw[->,cinza] (-1.9,0) -- (5.0,0) node[below right] {$x$};
+\draw[->,cinza] (0,-0.05) -- (0,1.15) node[left] {$F_X(x)$};
+\draw[cinza,dashed] (-1.9,1) -- (5.0,1);
+\draw[azul,very thick] (-1.9,0) -- (-1,0);
+\draw[azul,very thick] (-1,0) -- (1,{2/9});
+\draw[azul,very thick] (1,{5/18}) -- (2,{1/2});
+\draw[azul,very thick] (2,{5/9}) -- (3,{2/3});
+\draw[azul,very thick] (3,{8/9}) -- (4,1);
+\draw[azul,very thick] (4,1) -- (5.0,1);
+\draw[verm,thick,dotted] (1,{2/9}) -- (1,{5/18});
+\draw[verm,thick,dotted] (2,{1/2}) -- (2,{5/9});
+\draw[verm,thick,dotted] (3,{2/3}) -- (3,{8/9});
+\foreach \p/\q in {1/{2/9},2/{1/2},3/{2/3}} \filldraw[azul,fill=white] (\p,\q) circle (0.9pt);
+\foreach \p/\q in {1/{5/18},2/{5/9},3/{8/9}} \filldraw[azul] (\p,\q) circle (0.9pt);
+\foreach \x in {-1,1,2,3,4} \draw[cinza] (\x,-0.02) -- (\x,0.02) node[below=3pt,font=\scriptsize] {$\x$};
+\foreach \v/\l in {0.2222/{\frac29},0.2778/{\frac5{18}},0.5/{\frac12},0.5556/{\frac59},0.6667/{\frac23},0.8889/{\frac89},1/{1}}
+  \draw[cinza] (-0.06,\v) -- (0.06,\v) node[left=3pt,font=\scriptsize] {$\l$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{(c) Média}
+
+Pelo teorema da probabilidade total aplicado à média:
+\[
+\E[X]=\underbrace{\tfrac52}_{A}\cdot\tfrac13+\underbrace{2}_{B}\cdot\tfrac16
++\underbrace{\tfrac12}_{C}\cdot\tfrac13+\underbrace{3}_{D}\cdot\tfrac16
+=\tfrac56+\tfrac26+\tfrac16+\tfrac36 .
+\]
+
+\begin{resp}
+$\displaystyle \E[X]=\frac{11}{6}\approx 1{,}833.$
+\end{resp}
+
+\subsection*{(d) $\Pr[X\ge2]$}
+
+O sinal é $\ge$ e o ponto $2$ \emph{tem salto}, então é preciso usar $F_X(2^-)$:
+\[
+\Pr[X\ge2]=1-\Pr[X<2]=1-F_X(2^-)=1-\tfrac12 .
+\]
+
+\begin{resp}
+$\displaystyle \Pr[X\ge2]=\frac12.$
+\end{resp}
+
+\emph{Atenção:} usar $F_X(2^+)=5/9$ por descuido daria $4/9$, que é $\Pr[X>2]$.
+A diferença é exatamente o átomo $1/18$ em $x=2$.
+
+\emph{Conferência independente} (teorema da probabilidade total):
+$\tfrac23\cdot\tfrac13+\tfrac23\cdot\tfrac16+0\cdot\tfrac13+1\cdot\tfrac16
+=\tfrac29+\tfrac19+\tfrac16=\tfrac12$. \checkmark
+
+\clearpage
+\section{Questão 2: tempo de espera no sinal de trânsito}
+
+\textbf{Enunciado.} Sinal alterna 40\,s aberto e 20\,s fechado. $X$ é o tempo de
+espera, em segundos, de um motorista que passa pelo sinal.
+
+\subsection*{Modelagem}
+
+O motorista chega num instante uniformemente distribuído no ciclo de $60$\,s.
+Seja $U\sim\text{Uniform}([0,60])$ o instante de chegada medido a partir do início
+da fase aberta, com densidade $1/60$. Então:
+\begin{itemize}[nosep,leftmargin=*]
+\item $U\in[0,40)$, com probabilidade $40/60=\tfrac23$: sinal aberto, $X=0$;
+\item $U\in[40,60)$, com probabilidade $20/60=\tfrac13$: sinal fechado,
+      $X=60-U$, uniforme entre $0$ e $20$.
+\end{itemize}
+
+$X$ é mista: átomo em zero com $2/3$ da probabilidade, mais parte contínua em
+$(0,20]$ com o $1/3$ restante.
+
+\subsection*{(a) PDF}
+
+Parte discreta: $\Pr[X=0]=\tfrac23$, logo o termo $\tfrac23\delta(x)$.
+Parte contínua: densidade $\tfrac13\cdot\tfrac1{20}=\tfrac1{60}$ em $[0,20]$
+(equivalentemente, $X=60-U$ preserva a densidade $1/60$ de $U$).
+
+\begin{resp}
+\[
+f_X(x)=\frac23\,\delta(x)+\frac1{60}\Ind{0\le x\le 20}.
+\]
+\end{resp}
+
+\emph{Verificação:} $\tfrac23 + 20\cdot\tfrac1{60}=\tfrac23+\tfrac13=1$. \checkmark
+
+\begin{center}
+\begin{tikzpicture}[>={Latex[length=2.5mm]},xscale=0.30,yscale=1]
+\def\Y{120}
+\draw[->,cinza] (-9,0) -- (28,0) node[below right] {$x$ [s]};
+\draw[->,cinza] (0,-0.15) -- (0,3.4) node[left] {$f_X(x)$};
+\draw[azul,very thick] (-9,0) -- (0,0);
+\draw[azul,very thick] (0,{\Y/60}) -- (20,{\Y/60});
+\draw[azul,very thick] (20,0) -- (28,0);
+\draw[azul,thick,opacity=.4] (20,{\Y/60}) -- (20,0);
+\draw[verm,very thick,->] (0,0) -- (0,3.0);
+\node[verm,right,font=\scriptsize] at (0.8,3.0) {impulso de área $\tfrac23$ (sinal aberto)};
+\node[azul,above,font=\scriptsize] at (10,{\Y/60}) {altura $\tfrac1{60}$};
+\foreach \x in {5,10,15,20} \draw[cinza] (\x,-0.08) -- (\x,0.08) node[below=4pt,font=\scriptsize] {$\x$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{(b) CDF}
+
+\noindent\textbf{Caso $x<0$:} $F_X(x)=0$.
+
+\noindent\textbf{Caso $0\le x<20$:}
+\[
+F_X(x)=\underbrace{\int_{0^-}^{0^+}\tfrac23\delta(u)\dd u}_{2/3}
++\underbrace{\int_0^x \tfrac1{60}\dd u}_{x/60}
+=\frac23+\frac{x}{60}.
+\]
+
+\noindent\textbf{Caso $x\ge20$:} $F_X(x)=\tfrac23+\tfrac{20}{60}=1$.
+
+\begin{resp}
+\[
+F_X(x)=\begin{cases}
+0, & x<0,\\[2pt]
+\dfrac23+\dfrac{x}{60}, & 0\le x<20,\\[4pt]
+1, & x\ge20.
+\end{cases}
+\]
+\end{resp}
+
+\begin{center}
+\begin{tikzpicture}[>={Latex[length=2.5mm]},xscale=0.30,yscale=4]
+\draw[->,cinza] (-9,0) -- (28,0) node[below right] {$x$ [s]};
+\draw[->,cinza] (0,-0.05) -- (0,1.15) node[left] {$F_X(x)$};
+\draw[cinza,dashed] (-9,1) -- (28,1);
+\draw[azul,very thick] (-9,0) -- (0,0);
+\draw[azul,very thick] (0,{2/3}) -- (20,1);
+\draw[azul,very thick] (20,1) -- (28,1);
+\draw[verm,thick,dotted] (0,0) -- (0,{2/3});
+\filldraw[azul,fill=white] (0,0) circle (1.2pt);
+\filldraw[azul] (0,{2/3}) circle (1.2pt);
+\node[verm,right,font=\scriptsize] at (1.2,0.30) {salto $=\tfrac23$};
+\foreach \x in {5,10,15,20} \draw[cinza] (\x,-0.02) -- (\x,0.02) node[below=3pt,font=\scriptsize] {$\x$};
+\foreach \v/\l in {0.6667/{\frac23},1/{1}} \draw[cinza] (-0.5,\v) -- (0.5,\v) node[left=3pt,font=\scriptsize] {$\l$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{(c) Tempo de espera médio}
+
+\[
+\E[X]=\int x f_X(x)\dd x
+= \underbrace{0\cdot\tfrac23}_{\text{impulso}}
++ \int_0^{20}\frac{x}{60}\dd x
+= \frac1{60}\left[\frac{x^2}{2}\right]_0^{20}
+= \frac{200}{60}.
+\]
+
+\begin{resp}
+$\displaystyle \E[X]=\frac{10}{3}\approx 3{,}33\ \text{segundos}.$
+\end{resp}
+
+\emph{Leitura:} quem pega o sinal fechado espera $10$\,s em média, mas isso ocorre
+em apenas $1/3$ das passagens; daí $\tfrac13\cdot10=\tfrac{10}3$.
+Se quiser, $\var[X]=\tfrac{400}{9}-\left(\tfrac{10}{3}\right)^2=\tfrac{100}{3}\approx33{,}3\ \mathrm{s^2}$.
+
+\clearpage
+\section{Questão 3: ceifador aplicado a uma Laplaciana}
+
+\textbf{Enunciado.} $f_X(x)=\tfrac12 e^{-|x|}$ e $Y=g(X)$, com
+$g(x)=-2$ se $x<-2$; $g(x)=x$ se $-2\le x\le2$; $g(x)=+2$ se $x>2$.
+
+\subsection*{O que $g$ faz}
+
+$g$ é um \emph{ceifador} (saturação / \emph{clipping}): deixa $X$ passar intacto
+dentro de $[-2,2]$ e trava nos limites fora dela. Consequência: cada cauda de $X$,
+que é um intervalo infinito, colapsa num \textbf{único ponto}, gerando um átomo.
+$Y$ é, portanto, mista.
+
+\begin{center}
+\begin{tikzpicture}[>={Latex[length=2.5mm]},scale=0.62]
+\draw[->,cinza] (-4.4,0) -- (4.6,0) node[below right] {$x$};
+\draw[->,cinza] (0,-3.4) -- (0,3.4) node[left] {$g(x)$};
+\draw[teal,very thick] (-4.2,-2) -- (-2,-2) -- (2,2) -- (4.2,2);
+\draw[cinza,dashed] (-4.2,2) -- (4.2,2);
+\draw[cinza,dashed] (-4.2,-2) -- (4.2,-2);
+\foreach \x in {-2,2} \draw[cinza] (\x,-0.12) -- (\x,0.12) node[below=4pt,font=\scriptsize] {$\x$};
+\foreach \y in {-2,2} \draw[cinza] (-0.12,\y) -- (0.12,\y) node[left=4pt,font=\scriptsize] {$\y$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Pesos dos átomos}
+
+Para $x<0$ vale $-|x|=x$, logo $f_X(x)=\tfrac12 e^{x}$ nessa região (exponencial
+crescente, cuja primitiva é $\tfrac12 e^{x}$, sem sinal negativo). Assim:
+\[
+\Pr[Y=-2]=\Pr[X<-2]=\int_{-\infty}^{-2}\tfrac12 e^{x}\dd x
+=\tfrac12\Big[e^{x}\Big]_{-\infty}^{-2}=\tfrac12 e^{-2},
+\]
+\[
+\Pr[Y=+2]=\Pr[X>2]=\int_{2}^{\infty}\tfrac12 e^{-x}\dd x
+=\tfrac12\Big[-e^{-x}\Big]_{2}^{\infty}=\tfrac12 e^{-2}.
+\]
+Numericamente, $\tfrac12 e^{-2}\approx 0{,}0677$ em cada borda.
+
+\subsection*{PDF de $Y$}
+
+No miolo, $g$ é a identidade, então $\Pr[Y\in A]=\Pr[X\in A]$ para todo
+$A\subset(-2,2)$ e a densidade é \emph{copiada sem alteração}. Formalmente, para
+$-2<y<2$ tem-se $F_Y(y)=\Pr[X\le y]=F_X(y)$, e derivando, $f_Y(y)=f_X(y)$.
+
+\begin{resp}
+\[
+f_Y(y)=\tfrac12 e^{-|y|}\Ind{-2<y<2}
++\tfrac12 e^{-2}\,\delta(y+2)
++\tfrac12 e^{-2}\,\delta(y-2).
+\]
+\end{resp}
+
+\emph{Verificação de área:} $\int_{-2}^{2}\tfrac12 e^{-|y|}\dd y = 1-e^{-2}$,
+mais $2\cdot\tfrac12 e^{-2}=e^{-2}$; total $=1$. \checkmark
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=7.4cm,height=5.0cm,xmin=-4.2,xmax=4.2,ymin=0,ymax=0.60,
+  xlabel={$y$},ylabel={$f_Y(y)$},axis lines=left,
+  xtick={-4,-2,0,2,4},ytick={0,0.25,0.5},
+  every axis y label/.style={at={(ticklabel* cs:1.02)},anchor=south},
+  tick label style={font=\scriptsize},label style={font=\small}]
+\addplot[azul,very thick,domain=-2:2,samples=120]{0.5*exp(-abs(x))};
+\addplot[azul,very thick,domain=-4.2:-2,samples=2]{0};
+\addplot[azul,very thick,domain=2:4.2,samples=2]{0};
+\draw[verm,very thick,->] (axis cs:-2,0) -- (axis cs:-2,0.34);
+\draw[verm,very thick,->] (axis cs:2,0) -- (axis cs:2,0.34);
+\node[verm,font=\scriptsize,anchor=south] at (axis cs:-2,0.35) {área $\tfrac12 e^{-2}$};
+\node[verm,font=\scriptsize,anchor=south] at (axis cs:2,0.35) {área $\tfrac12 e^{-2}$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Variância}
+
+\textbf{Média.} $f_X$ é par e $g$ é ímpar, logo $Y$ e $-Y$ têm a mesma
+distribuição e portanto $\E[Y]=0$. Explicitamente: o termo do miolo é a integral de
+uma função ímpar em domínio simétrico, e os dois impulsos contribuem
+$(-2)\tfrac12 e^{-2}+(+2)\tfrac12 e^{-2}=0$.
+
+Com $\E[Y]=0$, tem-se $\var[Y]=\E[Y^2]$. Usando o teorema fundamental do valor
+esperado direto em $f_X$ (sem precisar de $f_Y$):
+\[
+\E[Y^2]=\int_{-\infty}^{\infty} g(x)^2 f_X(x)\dd x
+=\underbrace{\int_{-\infty}^{-2}\!\!4\cdot\tfrac12 e^{x}\dd x}_{2e^{-2}}
++\underbrace{\int_{-2}^{2}\!x^2\cdot\tfrac12 e^{-|x|}\dd x}_{2-10e^{-2}}
++\underbrace{\int_{2}^{\infty}\!\!4\cdot\tfrac12 e^{-x}\dd x}_{2e^{-2}} .
+\]
+A integral do meio, por paridade e integrando por partes com primitiva
+$-(x^2+2x+2)e^{-x}$:
+\[
+\int_{-2}^{2}x^2\cdot\tfrac12 e^{-|x|}\dd x=\int_0^2 x^2 e^{-x}\dd x
+=\Big[-(x^2+2x+2)e^{-x}\Big]_0^2=2-10e^{-2}.
+\]
+
+\begin{resp}
+\[
+\E[Y^2]=2e^{-2}+\left(2-10e^{-2}\right)+2e^{-2}=2-6e^{-2},
+\qquad
+\boxed{\var[Y]=2-6e^{-2}\approx 1{,}188 } .
+\]
+\end{resp}
+
+\emph{Erro comum:} calcular apenas a integral do miolo ($2-10e^{-2}\approx0{,}647$)
+e esquecer os dois impulsos, que contribuem $4e^{-2}\approx0{,}541$. Numa PDF mista
+o momento tem que percorrer \emph{todas} as parcelas.
+
+\emph{Leitura:} a Laplaciana original tem $\var[X]=2$; o ceifador derruba a
+variância para $\approx1{,}19$ (redução de $41\%$). Apesar de as caudas terem
+apenas $e^{-2}\approx13{,}5\%$ da probabilidade, elas respondiam por quase metade
+da variância, porque os desvios entram ao quadrado.
+
+\clearpage
+\section{Questão 4: três Bernoulli, soma e produto}
+
+\textbf{Enunciado.} $B_1,B_2,B_3\sim\text{Bernoulli}(3/4)$ independentes,
+$X=B_1+B_2+B_3$ e $Y=B_1B_2B_3$.
+
+\subsection*{Observação estruturante}
+
+Com $p=3/4$ e $q=1/4$: soma de $n$ Bernoulli$(p)$ independentes é
+$\text{Binomial}(n,p)$, logo $X\sim\text{Binomial}(3,3/4)$. Já
+$Y=B_1B_2B_3$ vale $1$ apenas se todos os fatores forem $1$, isto é,
+\[
+\boxed{\,Y=1 \iff X=3\,}
+\]
+$Y$ é função determinística de $X$, o que torna a conjunta muito esparsa.
+
+\subsection*{Tabela de resultados elementares}
+
+\begin{center}
+\begin{tabular}{cccccl}
+\toprule
+$B_1$ & $B_2$ & $B_3$ & $X$ & $Y$ & $\Pr$ \\
+\midrule
+0&0&0&0&0& $(1/4)^3=1/64$\\
+0&0&1&1&0& $(3/4)(1/4)^2=3/64$\\
+0&1&0&1&0& $3/64$\\
+1&0&0&1&0& $3/64$\\
+0&1&1&2&0& $(3/4)^2(1/4)=9/64$\\
+1&0&1&2&0& $9/64$\\
+1&1&0&2&0& $9/64$\\
+1&1&1&3&1& $(3/4)^3=27/64$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Soma: $1+3+3+3+9+9+9+27=64$ sobre $64$. \checkmark
+As multiplicidades $1,3,3,1$ são os coeficientes $\binom{3}{k}$, o que reproduz
+$p_X(k)=\binom3k (3/4)^k(1/4)^{3-k}$.
+
+\subsection*{(a) PMF conjunta e (b) marginais}
+
+\begin{center}
+\begin{tabular}{c|cc|c}
+\toprule
+$p_{X,Y}(x,y)$ & $y=0$ & $y=1$ & $p_X(x)$ \\
+\midrule
+$x=0$ & $1/64$ & $0$ & $1/64$ \\
+$x=1$ & $9/64$ & $0$ & $9/64$ \\
+$x=2$ & $27/64$ & $0$ & $27/64$ \\
+$x=3$ & $0$ & $27/64$ & $27/64$ \\
+\midrule
+$p_Y(y)$ & $37/64$ & $27/64$ & $1$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{resp}
+$p_{X,Y}=\{(0,0):\tfrac1{64},\;(1,0):\tfrac9{64},\;(2,0):\tfrac{27}{64},\;(3,1):\tfrac{27}{64}\}$,
+demais pares nulos.\\[3pt]
+$p_X=\{0:\tfrac1{64},\,1:\tfrac9{64},\,2:\tfrac{27}{64},\,3:\tfrac{27}{64}\}$
+\quad e \quad
+$p_Y=\{0:\tfrac{37}{64},\,1:\tfrac{27}{64}\}$, ou seja $Y\sim\text{Bernoulli}(27/64)$.
+\end{resp}
+
+\begin{center}
+\begin{tikzpicture}[>={Latex[length=2mm]},xscale=1.5,yscale=3.4]
+\draw[->,cinza] (-0.3,0) -- (3.7,0) node[below right] {$x$};
+\draw[->,cinza] (0,-0.05) -- (0,0.62) node[left] {$p_X(x)$};
+\foreach \x/\v/\l in {0/0.015625/{\frac1{64}},1/0.140625/{\frac9{64}},2/0.421875/{\frac{27}{64}},3/0.421875/{\frac{27}{64}}}{
+  \draw[azul,very thick] (\x,0) -- (\x,\v);
+  \filldraw[azul] (\x,\v) circle (1.1pt);
+  \node[azul,above,font=\scriptsize] at (\x,\v) {$\l$};
+  \draw[cinza] (\x,-0.012) -- (\x,0.012) node[below=3pt,font=\scriptsize] {$\x$};
+}
+\begin{scope}[xshift=5cm]
+\draw[->,cinza] (-0.3,0) -- (1.9,0) node[below right] {$y$};
+\draw[->,cinza] (0,-0.05) -- (0,0.75) node[left] {$p_Y(y)$};
+\foreach \x/\v/\l in {0/0.578125/{\frac{37}{64}},1/0.421875/{\frac{27}{64}}}{
+  \draw[teal,very thick] (\x,0) -- (\x,\v);
+  \filldraw[teal] (\x,\v) circle (1.1pt);
+  \node[teal,above,font=\scriptsize] at (\x,\v) {$\l$};
+  \draw[cinza] (\x,-0.012) -- (\x,0.012) node[below=3pt,font=\scriptsize] {$\x$};
+}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+\subsection*{(c) Condicionais}
+
+$p_{X\mid Y}(x\mid y)=p_{X,Y}(x,y)/p_Y(y)$. Dividindo a coluna $y=0$ por $37/64$
+e a coluna $y=1$ por $27/64$ (os $64$ se cancelam):
+
+\begin{resp}
+\[
+p_{X\mid Y=0}=\left\{0:\tfrac1{37},\;1:\tfrac9{37},\;2:\tfrac{27}{37},\;3:0\right\},
+\qquad
+p_{X\mid Y=1}=\left\{0:0,\;1:0,\;2:0,\;3:1\right\}.
+\]
+\end{resp}
+
+Saber que o produto deu zero \emph{elimina} $X=3$ e redistribui a probabilidade
+proporcionalmente ($1+9+27=37$). Saber que o produto deu um determina $X=3$ com
+certeza (distribuição degenerada). O contraste entre as duas condicionais é a
+evidência direta da dependência.
+
+\begin{center}
+\begin{tikzpicture}[>={Latex[length=2mm]},xscale=1.5,yscale=2.3]
+\draw[->,cinza] (-0.3,0) -- (3.7,0) node[below right] {$x$};
+\draw[->,cinza] (0,-0.05) -- (0,1.15) node[left] {$p_{X\mid Y=0}$};
+\foreach \x/\v/\l in {0/0.027/{\frac1{37}},1/0.243/{\frac9{37}},2/0.730/{\frac{27}{37}},3/0/{0}}{
+  \draw[verm,very thick] (\x,0) -- (\x,\v);
+  \filldraw[verm] (\x,\v) circle (1.1pt);
+  \node[verm,above,font=\scriptsize] at (\x,\v) {$\l$};
+  \draw[cinza] (\x,-0.02) -- (\x,0.02) node[below=3pt,font=\scriptsize] {$\x$};
+}
+\begin{scope}[xshift=6cm]
+\draw[->,cinza] (-0.3,0) -- (3.7,0) node[below right] {$x$};
+\draw[->,cinza] (0,-0.05) -- (0,1.15) node[left] {$p_{X\mid Y=1}$};
+\foreach \x/\v/\l in {0/0/{0},1/0/{0},2/0/{0},3/1/{1}}{
+  \draw[verm,very thick] (\x,0) -- (\x,\v);
+  \filldraw[verm] (\x,\v) circle (1.1pt);
+  \node[verm,above,font=\scriptsize] at (\x,\v) {$\l$};
+  \draw[cinza] (\x,-0.02) -- (\x,0.02) node[below=3pt,font=\scriptsize] {$\x$};
+}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+\subsection*{(d) Covariância}
+
+Da binomial, $\E[X]=np=3\cdot\tfrac34=\tfrac94$. Da Bernoulli,
+$\E[Y]=\tfrac{27}{64}$. O produto $XY$ só é não nulo quando $Y=1$, e aí $X=3$:
+\[
+\E[XY]=3\cdot\tfrac{27}{64}=\tfrac{81}{64}.
+\]
+\[
+\cov[X,Y]=\E[XY]-\E[X]\E[Y]=\frac{81}{64}-\frac94\cdot\frac{27}{64}
+=\frac{324}{256}-\frac{243}{256}.
+\]
+
+\begin{resp}
+$\displaystyle \cov[X,Y]=\frac{81}{256}\approx 0{,}3164 .$
+\end{resp}
+
+\emph{Extra.} Com $\var[X]=npq=\tfrac9{16}$ e
+$\var[Y]=\tfrac{27}{64}\cdot\tfrac{37}{64}=\tfrac{999}{4096}$, o coeficiente de
+Pearson é $\rho\approx0{,}854$. Note que $\rho\ne1$ mesmo sendo $Y$ função
+determinística de $X$: correlação unitária exigiria relação \emph{linear}, e aqui a
+relação é do tipo degrau.
+
+\clearpage
+\section{Questão 5: densidades conjuntas e independência}
+
+\textbf{Método.} Marginal: integrar a conjunta na outra variável, com os limites
+ditados pelo suporte. Independência: exigir $f_{X,Y}(x,y)=f_X(x)f_Y(y)$ para
+\emph{todo} par $(x,y)$.
+
+\subsection*{(a) $f_{X,Y}(x,y)=e^{-(x+y)}\Ind{x\ge0 \wedge y\ge0}$}
+
+Suporte retangular (o quadrante). Fixado $x\ge0$, o $y$ varre $[0,\infty)$:
+\[
+f_X(x)=\int_0^{\infty} e^{-(x+y)}\dd y = e^{-x}\int_0^{\infty} e^{-y}\dd y = e^{-x},
+\qquad x\ge0,
+\]
+e por simetria da expressão, $f_Y(y)=e^{-y}$ para $y\ge0$.
+
+\begin{resp}
+$f_X(x)=e^{-x}\Ind{x\ge0}$ e $f_Y(y)=e^{-y}\Ind{y\ge0}$, ambas
+$\text{Exponencial}(1)$.\\[3pt]
+Como $f_X(x)f_Y(y)=e^{-x}e^{-y}=e^{-(x+y)}=f_{X,Y}(x,y)$ em todo o plano,
+\textbf{$X$ e $Y$ são independentes}.
+\end{resp}
+
+\subsection*{(b) $f_{X,Y}(x,y)=2e^{-(x+y)}\Ind{0\le x\le y}$}
+
+Agora o suporte é o \textbf{triângulo} $0\le x\le y$, e os limites passam a depender
+da outra variável.
+
+\medskip
+\noindent\textbf{Marginal de $X$.} Fixado $x\ge0$, a condição $x\le y$ obriga $y$ a
+ir de $x$ até $\infty$:
+\[
+f_X(x)=\int_{x}^{\infty} 2e^{-(x+y)}\dd y
+=2e^{-x}\Big[-e^{-y}\Big]_{x}^{\infty}
+=2e^{-x}\cdot e^{-x}=2e^{-2x}, \qquad x\ge0 .
+\]
+
+\noindent\textbf{Marginal de $Y$.} Fixado $y\ge0$, a condição $0\le x\le y$ obriga
+$x$ a ir de $0$ até $y$:
+\[
+f_Y(y)=\int_{0}^{y} 2e^{-(x+y)}\dd x
+=2e^{-y}\Big[-e^{-x}\Big]_{0}^{y}
+=2e^{-y}\left(1-e^{-y}\right), \qquad y\ge0 .
+\]
+
+\begin{resp}
+$f_X(x)=2e^{-2x}\Ind{x\ge0}$ (ou seja, $X\sim\text{Exponencial}(2)$) e
+$f_Y(y)=2e^{-y}(1-e^{-y})\Ind{y\ge0}$.\\[3pt]
+\textbf{$X$ e $Y$ NÃO são independentes.}
+\end{resp}
+
+\noindent\textbf{Justificativa rápida (suporte).} Se o suporte não é um retângulo,
+não pode haver independência. No ponto $(x,y)=(3,1)$:
+$f_{X,Y}(3,1)=0$ (pois $3>1$), mas $f_X(3)f_Y(1)>0$. A igualdade falha, e nem foi
+preciso calcular as marginais.
+
+\noindent\textbf{Justificativa direta.}
+$f_X(x)f_Y(y)=4e^{-2x-y}\left(1-e^{-y}\right)\ne 2e^{-(x+y)}$.
+Por exemplo em $(0,1)$: $f_{X,Y}(0,1)=2e^{-1}\approx0{,}736$, enquanto
+$f_X(0)f_Y(1)\approx0{,}930$.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+\fill[azul!18] (0,0) rectangle (4.6,4.6);
+\draw[->,cinza] (-0.6,0) -- (5.2,0) node[below right] {$x$};
+\draw[->,cinza] (0,-0.6) -- (0,5.2) node[left] {$y$};
+\node[azul,font=\scriptsize] at (2.3,2.3) {$x\ge0,\;y\ge0$};
+\node[font=\small] at (2.3,-1.3) {(a) suporte retangular};
+\begin{scope}[xshift=8cm]
+\fill[verm!18] (0,0) -- (4.6,4.6) -- (0,4.6) -- cycle;
+\draw[verm,very thick] (0,0) -- (4.6,4.6);
+\draw[->,cinza] (-0.6,0) -- (5.2,0) node[below right] {$x$};
+\draw[->,cinza] (0,-0.6) -- (0,5.2) node[left] {$y$};
+\node[verm,font=\scriptsize] at (1.2,3.4) {$0\le x\le y$};
+\draw[thick] (3,1) node{$\times$} node[right=3pt,font=\scriptsize]{$f_{X,Y}=0$, mas $f_Xf_Y>0$};
+\node[font=\small] at (2.3,-1.3) {(b) suporte triangular};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=8.4cm,height=5.0cm,xmin=0,xmax=5,ymin=0,ymax=2.1,
+  xlabel={valor},ylabel={densidade},axis lines=left,
+  legend style={font=\scriptsize,draw=none,fill=none},legend pos=north east,
+  tick label style={font=\scriptsize},label style={font=\small}]
+\addplot[azul,very thick,domain=0:5,samples=150]{2*exp(-2*x)};
+\addlegendentry{$f_X(x)=2e^{-2x}$}
+\addplot[teal,very thick,domain=0:5,samples=150]{2*exp(-x)*(1-exp(-x))};
+\addlegendentry{$f_Y(y)=2e^{-y}(1-e^{-y})$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Interpretação do item (b)}
+
+Se $A,B\sim\text{Exponencial}(1)$ independentes e definirmos $X=\min(A,B)$ e
+$Y=\max(A,B)$, a densidade conjunta é exatamente $2e^{-(x+y)}$ na região
+$x\le y$ (o fator $2$ vem das duas ordens possíveis). Isso confirma as marginais:
+o mínimo de duas $\text{Exp}(1)$ é $\text{Exp}(2)$, e o máximo tem CDF
+$(1-e^{-y})^2$, cuja derivada é $2e^{-y}(1-e^{-y})$. E mínimo e máximo
+evidentemente não são independentes.
+
+\clearpage
+\appendix
+\section{Apêndice: exercícios do Yates e Goodman (slides 1 a 3)}
+
+\subsection*{4.7.1}
+CDF: $F_X(x)=0$ para $x<-1$; $x/3+1/3$ para $-1\le x<0$; $x/3+2/3$ para
+$0\le x<1$; $1$ para $x\ge1$.
+
+Único salto: em $x=0$, de tamanho $1/3$. Logo
+$f_X(x)=\tfrac13\Ind{-1\le x\le 1}+\tfrac13\delta(x)$.
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+item & resultado & motivo \\
+\midrule
+(a) & $\Pr[X<-1]=0$, $\Pr[X\le-1]=0$ & sem salto em $-1$ \\
+(b) & $\Pr[X<0]=\tfrac13$, $\Pr[X\le0]=\tfrac23$ & diferença $=$ átomo $\tfrac13$ \\
+(c) & $\Pr[0<X\le1]=\tfrac13$, $\Pr[0\le X\le1]=\tfrac23$ & idem \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{4.7.2}
+CDF: $0$ para $x<-1$; $x/4+1/2$ para $-1\le x<1$; $1$ para $x\ge1$.
+Dois saltos de $1/4$, nas duas bordas:
+\[
+f_X(x)=\tfrac14\Ind{-1\le x\le1}+\tfrac14\delta(x+1)+\tfrac14\delta(x-1).
+\]
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+item & resultado & motivo \\
+\midrule
+(a) & $\Pr[X<-1]=0$, $\Pr[X\le-1]=\tfrac14$ & átomo na borda esquerda \\
+(b) & $\Pr[X<0]=\Pr[X\le0]=\tfrac12$ & CDF contínua em $0$ \\
+(c) & $\Pr[X>1]=0$, $\Pr[X\ge1]=\tfrac14$ & átomo na borda direita \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{4.7.3}
+Para a VA do 4.7.2: $\E[X]=0$ por simetria e
+\[
+\E[X^2]=\underbrace{\int_{-1}^{1}\tfrac{x^2}{4}\dd x}_{1/6}
++\underbrace{\tfrac14(-1)^2+\tfrac14(1)^2}_{1/2}=\tfrac23,
+\qquad \var[X]=\tfrac23\approx0{,}667 .
+\]
+
+\subsection*{4.7.6}
+Ocupado com $0{,}2$ e sem resposta com $0{,}3$, logo
+$\Pr[\text{atendida}]=0{,}5$. $X\sim\text{Exp}$ com $\E[X]=3$\,min
+($\lambda=1/3\ \mathrm{min^{-1}}$); em segundos, $60X$ tem média $180$\,s.
+Com $W=60X$ se atendida e $W=0$ caso contrário:
+\[
+F_W(w)=1-0{,}5\,e^{-w/180}\ (w\ge0),
+\qquad
+f_W(w)=0{,}5\,\delta(w)+\tfrac1{360}e^{-w/180}u(w),
+\]
+\[
+\E[W]=90\ \mathrm{s},
+\qquad
+\E[W^2]=0{,}5\cdot2\cdot180^2=32400,
+\qquad
+\var[W]=32400-90^2=24300\ \mathrm{s^2}.
+\]
+
+\emph{Cuidado:} $\var[W]\ne 0{,}5\,\var[60X]$. Variância não se combina por média
+ponderada em mistura; é preciso passar por $\E[W^2]$. A parcela extra
+($8100$) é a variância \emph{entre} os grupos, cujas médias são $0$ e $180$.
+
+\section{Questões pendentes}
+
+Esta resolução cobre as questões 1 a 5. As questões 6 a 9 da lista
+(região sombreada com densidade constante; régua quebrada duas vezes; vetor
+aleatório de retransmissões; vetores média e matrizes covariância) ainda não foram
+resolvidas neste documento.
+
+\end{document}
