@@ -1,0 +1,26 @@
+# Multicast entre contêineres Docker distintos.
+# Os dois contêineres compartilham a mesma rede bridge  o mesmo
+# segmento L2 virtual - condição necessária para o multicast funcionar
+# (o TTL padrão de um datagrama multicast em Java é 1).
+
+name: std-multicast
+
+services:
+  servidor:
+    build:
+      context: ../sockets-java
+      dockerfile: ../exercicio03-multicast/Dockerfile
+    image: std-multicast:latest
+    container_name: multicast-servidor
+    command: ["engtelecom.std.multicast.AppServidorMulticast", "231.0.0.0", "8888"]
+    networks: [grupo]
+
+  cliente:
+    image: std-multicast:latest
+    depends_on: [servidor]
+    command: ["engtelecom.std.multicast.AppClienteMulticast", "231.0.0.0", "8888"]
+    networks: [grupo]
+
+networks:
+  grupo:
+    driver: bridge
