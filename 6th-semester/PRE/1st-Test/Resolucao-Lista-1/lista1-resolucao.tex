@@ -50,7 +50,7 @@
 \thispagestyle{fancy}
 
 \begin{resp}
-\small Documento de consulta com a resolução das questões 1 a 5, mais os exercícios
+\small Documento de consulta com a resolução das dez questões, mais os exercícios
 do Yates e Goodman indicados nos slides (apêndice). Todos os resultados foram
 conferidos contra o gabarito da lista e validados numericamente por simulação de
 Monte Carlo.
@@ -800,6 +800,933 @@ $(1-e^{-y})^2$, cuja derivada é $2e^{-y}(1-e^{-y})$. E mínimo e máximo
 evidentemente não são independentes.
 
 \clearpage
+\section{Questão 6: densidade conjunta uniforme sobre uma região}
+
+\textbf{Enunciado.} $X$ e $Y$ têm densidade conjunta constante (igual a $k$) e não
+nula apenas na área sombreada da figura da lista: o quadrado $[0,10]\times[0,10]$
+mais o triângulo de vértices $(0,0)$, $(10,0)$ e $(0,-10)$.
+
+\subsection*{Descrevendo a região}
+
+A hipotenusa do triângulo liga $(0,-10)$ a $(10,0)$, ou seja, é a reta $y=x-10$.
+Descrevendo por fatias verticais:
+\begin{resp}
+\[
+R=\left\{(x,y):\ 0\le x\le 10 \ \text{ e }\ x-10\le y\le 10\right\}
+\]
+Para cada $x$ fixo, o $y$ percorre um intervalo de comprimento $20-x$.
+\end{resp}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.30,>={Latex[length=2.5mm]}]
+\fill[azul!18] (0,0) rectangle (10,10);
+\fill[teal!25] (0,0) -- (10,0) -- (0,-10) -- cycle;
+\draw[teal,thick] (0,-10) -- (10,0);
+\draw[azul,thick] (0,0) rectangle (10,10);
+\draw[->,cinza] (-3,0) -- (13.5,0) node[below right] {$x$};
+\draw[->,cinza] (0,-13) -- (0,13) node[left] {$y$};
+\draw[cinza,dashed] (0,0) -- (10,10);
+\node[azul] at (5,5) {\small área $100$};
+\node[teal] at (2.6,-3.3) {\small área $50$};
+\node[cinza,font=\scriptsize] at (12.2,9.6) {$y=x$};
+\draw[verm,very thick] (5,-5) -- (5,10);
+\node[verm,font=\scriptsize,right] at (5.3,-7) {corte $x=5$};
+\foreach \p in {10} \draw[cinza] (\p,-0.4) -- (\p,0.4) node[below=6pt,font=\scriptsize] {$10$};
+\foreach \p in {-10,10} \draw[cinza] (-0.4,\p) -- (0.4,\p) node[left=6pt,font=\scriptsize] {$\p$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{(a) Constante $k$}
+
+Densidade constante integrando $1$ significa $k\cdot\text{área}=1$. A área é
+$100$ (quadrado) $+\;50$ (triângulo) $=150$.
+
+\begin{resp}
+$k=\dfrac{1}{150}$, isto é, $f_{X,Y}(x,y)=\frac{1}{150}$ em $R$ e $0$ fora.
+É uma \emph{uniforme bidimensional} sobre $R$.
+\end{resp}
+
+\subsection*{(b) $\Pr[X\ge Y]$}
+
+Com densidade uniforme, probabilidade é \textbf{razão de áreas}. Fatiando
+verticalmente: para $x$ fixo, o $y$ vai de $x-10$ até $10$, e a condição $y\le x$
+corta o topo em $y=x$. Logo o $y$ útil vai de $x-10$ até $x$, comprimento
+constante $10$:
+\[
+\text{área favorável}=\int_0^{10} 10 \dd x = 100 .
+\]
+
+\begin{resp}
+$\displaystyle \Pr[X\ge Y]=\frac{100}{150}=\frac23 .$
+\end{resp}
+
+\subsection*{(c) Marginal $f_Y$}
+
+Integra-se em $x$, e o comprimento horizontal da fatia muda com a altura:
+\begin{itemize}[nosep,leftmargin=*]
+\item \textbf{$0\le y\le10$} (quadrado): $x$ de $0$ a $10$, comprimento $10$,
+      logo $f_Y(y)=10\cdot\frac1{150}=\frac1{15}$;
+\item \textbf{$-10\le y\le0$} (triângulo): $y\ge x-10 \Leftrightarrow x\le y+10$,
+      com $x\ge0$; comprimento $y+10$, logo $f_Y(y)=\frac{y+10}{150}$.
+\end{itemize}
+
+\begin{resp}
+\[
+f_Y(y)=\begin{cases}
+\dfrac{y+10}{150}, & -10\le y\le 0,\\[6pt]
+\dfrac{1}{15}, & 0\le y\le 10,\\[4pt]
+0, & \text{caso contrário.}
+\end{cases}
+\]
+\end{resp}
+
+\emph{Verificação:} $\int_{-10}^{0}\frac{y+10}{150}\dd y=\frac{50}{150}=\frac13$ e
+$\int_0^{10}\frac1{15}\dd y=\frac23$; soma $=1$. \checkmark
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=7.6cm,height=4.3cm,xmin=-13,xmax=13,ymin=0,ymax=0.085,
+  xlabel={$y$},ylabel={$f_Y(y)$},axis lines=left,
+  xtick={-10,-5,0,5,10},ytick={0,0.0667},yticklabels={$0$,$\frac1{15}$},
+  tick label style={font=\scriptsize},label style={font=\small}]
+\addplot[azul,very thick,domain=-13:-10,samples=2]{0};
+\addplot[azul,very thick,domain=-10:0,samples=2]{(x+10)/150};
+\addplot[azul,very thick,domain=0:10,samples=2]{1/15};
+\addplot[azul,very thick,domain=10:13,samples=2]{0};
+\draw[azul,very thick,opacity=.35] (axis cs:10,0.0667) -- (axis cs:10,0);
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[width=7.6cm,height=4.3cm,xmin=-13,xmax=13,ymin=0,ymax=1.15,
+  xlabel={$y$},ylabel={$F_Y(y)$},axis lines=left,
+  xtick={-10,-5,0,5,10},ytick={0,0.3333,1},yticklabels={$0$,$\frac13$,$1$},
+  tick label style={font=\scriptsize},label style={font=\small}]
+\addplot[teal,very thick,domain=-13:-10,samples=2]{0};
+\addplot[teal,very thick,domain=-10:0,samples=60]{(x+10)^2/300};
+\addplot[teal,very thick,domain=0:10,samples=2]{1/3+x/15};
+\addplot[teal,very thick,domain=10:13,samples=2]{1};
+\addplot[cinza,dashed,domain=-13:13,samples=2]{1};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\subsection*{(d) CDF marginal $F_Y$}
+
+Acumulando $f_Y$ desde $-\infty$:
+
+\noindent\textbf{Caso $y<-10$:} nada acumulado, $F_Y(y)=0$.
+
+\noindent\textbf{Caso $-10\le y<0$:}
+\[
+F_Y(y)=\int_{-10}^{y}\frac{u+10}{150}\dd u
+=\frac{1}{150}\left[\frac{(u+10)^2}{2}\right]_{-10}^{y}
+=\frac{(y+10)^2}{300},
+\qquad F_Y(0)=\frac13 .
+\]
+
+\noindent\textbf{Caso $0\le y<10$:} reaproveita-se o acumulado e soma-se o novo trecho,
+\[
+F_Y(y)=\underbrace{\frac13}_{F_Y(0)}+\int_0^{y}\frac{1}{15}\dd u=\frac13+\frac{y}{15},
+\qquad F_Y(10)=\frac13+\frac23=1 .
+\]
+
+\noindent\textbf{Caso $y\ge10$:} $F_Y(y)=1$.
+
+\begin{resp}
+\[
+F_Y(y)=\begin{cases}
+0, & y<-10,\\[3pt]
+\dfrac{(y+10)^2}{300}, & -10\le y<0,\\[6pt]
+\dfrac13+\dfrac{y}{15}, & 0\le y<10,\\[6pt]
+1, & y\ge10.
+\end{cases}
+\]
+\end{resp}
+
+\emph{Atalho geométrico} (vale por ser uniforme): $F_Y(y)$ é a área de $R$ abaixo da
+altura $y$, dividida por $150$. Para $-10\le y\le0$ essa parte é um triângulo de
+catetos $y+10$, área $(y+10)^2/2$; para $0\le y\le10$ é o triângulo inteiro ($50$)
+mais um retângulo $10\times y$. Os mesmos resultados saem sem integrar.
+
+\emph{Conferência por derivação:} $\frac{\dd}{\dd y}\frac{(y+10)^2}{300}=\frac{y+10}{150}$
+\checkmark \; e $\frac{\dd}{\dd y}\left(\frac13+\frac{y}{15}\right)=\frac1{15}$ \checkmark.
+Note que $F_Y$ é \textbf{contínua} (sem saltos), pois $Y$ é puramente contínua:
+parábola no trecho negativo (densidade em rampa) e reta no positivo (densidade constante).
+
+\subsection*{(e) Condicional $f_{Y\mid X}(y\mid X=5)$}
+
+Condicionar em $X=5$ é olhar a fatia vertical naquele $x$: ali
+$y$ vai de $5-10=-5$ até $10$, comprimento $15$. Como a conjunta é constante, a
+condicional é \textbf{uniforme} nesse intervalo. Formalmente, com
+$f_X(x)=\frac{20-x}{150}$ (fatia vertical de comprimento $20-x$), tem-se
+$f_X(5)=\frac{15}{150}=\frac1{10}$ e
+\[
+f_{Y\mid X}(y\mid 5)=\frac{f_{X,Y}(5,y)}{f_X(5)}=\frac{1/150}{1/10}=\frac{1}{15}.
+\]
+
+\begin{resp}
+$f_{Y\mid X}(y\mid 5)=\dfrac{1}{15}$ para $-5\le y\le 10$, e $0$ fora
+(uniforme em $[-5,10]$).
+\end{resp}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=8.2cm,height=4.0cm,xmin=-13,xmax=14,ymin=0,ymax=0.10,
+  xlabel={$y$},ylabel={$f_{Y\mid X}(y\mid 5)$},axis lines=left,
+  xtick={-10,-5,0,5,10},ytick={0,0.0667},yticklabels={$0$,$\frac1{15}$},
+  tick label style={font=\scriptsize},label style={font=\small}]
+\addplot[verm,very thick,domain=-13:-5,samples=2]{0};
+\addplot[verm,very thick,domain=-5:10,samples=2]{1/15};
+\addplot[verm,very thick,domain=10:14,samples=2]{0};
+\draw[verm,very thick,opacity=.35] (axis cs:-5,0) -- (axis cs:-5,0.0667);
+\draw[verm,very thick,opacity=.35] (axis cs:10,0.0667) -- (axis cs:10,0);
+\node[verm,font=\scriptsize] at (axis cs:2.5,0.030) {área $=15\times\frac1{15}=1$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\emph{Receita geral aqui:} traçada a vertical em $x$, o intervalo é $[x-10,\,10]$,
+de comprimento $L=20-x$, e a condicional é uniforme de altura $1/L$. Em $x=0$
+seria $1/20$; em $x=10$, $1/10$.
+
+\subsection*{(f) Covariância}
+
+Sempre por fatias verticais ($y$ de $x-10$ a $10$, comprimento $20-x$; e
+$\int_{x-10}^{10} y\dd y=\frac{20x-x^2}{2}$):
+\[
+\E[X]=\frac1{150}\int_0^{10}\! x(20-x)\dd x=\frac1{150}\cdot\frac{2000}{3}=\frac{40}{9},
+\qquad
+\E[Y]=\frac1{300}\int_0^{10}\!(20x-x^2)\dd x=\frac{20}{9},
+\]
+\[
+\E[XY]=\frac1{300}\int_0^{10}\! x(20x-x^2)\dd x
+=\frac1{300}\cdot\frac{12500}{3}=\frac{125}{9}.
+\]
+
+\begin{resp}
+\[
+\cov[X,Y]=\frac{125}{9}-\frac{40}{9}\cdot\frac{20}{9}
+=\frac{1125}{81}-\frac{800}{81}=\frac{325}{81}\approx 4{,}012 .
+\]
+\end{resp}
+
+Positiva, como o desenho sugere: $x$ maior empurra o piso da região para cima.
+
+\emph{Extra.} Com $\E[X^2]=\E[Y^2]=\frac{250}{9}$ vem $\var[X]=\frac{650}{81}$ e
+$\var[Y]=\frac{1850}{81}$, logo
+$\rho=\frac{325}{50\sqrt{481}}\approx0{,}296$: correlação fraca, coerente com uma
+região quase quadrada (onde haveria independência) com um apêndice triangular que
+introduz a dependência.
+
+\clearpage
+\section{Questão 7: régua quebrada duas vezes}
+
+\textbf{Enunciado.} Uma régua de comprimento unitário é quebrada em um ponto
+aleatório; o pedaço da esquerda é novamente quebrado. $X$ é o primeiro ponto de
+quebra e $Y$ o segundo, ambos medidos a partir da extremidade esquerda.
+
+\subsection*{Modelagem: a chave da questão}
+
+Diferente do usual, aqui não se recebe a conjunta: recebe-se um \textbf{experimento
+em duas etapas}, e é dele que a conjunta é construída. Traduzindo:
+\begin{resp}
+\[
+X\sim\text{Uniform}([0,1]),
+\qquad
+Y\mid X=x \;\sim\; \text{Uniform}([0,x]).
+\]
+\end{resp}
+A segunda etapa só pode ser descrita \emph{condicionada} a $X$, porque o pedaço a
+ser quebrado tem comprimento $X$. Por isso os itens vêm nessa ordem: marginal de
+$X$, condicional de $Y$, e só então a conjunta.
+
+\subsection*{(a) $f_X$}
+
+Uniforme em $[0,1]$: \quad $f_X(x)=1$ para $0\le x\le1$ (retângulo de altura $1$).
+
+\subsection*{(b) $f_{Y\mid X}(y\mid X=x)$}
+
+Uniforme em $[0,x]$: \quad $f_{Y\mid X}(y\mid x)=\dfrac1x$ para $0\le y\le x$.
+
+Note que \textbf{a altura muda com $x$}: para $x=1/4$ é um retângulo de altura $4$
+sobre $[0,1/4]$; para $x=3/4$, altura $4/3$ sobre $[0,3/4]$. Em ambos a área é $1$.
+Densidade maior para pedaço menor é esperado: a mesma probabilidade tem de caber
+num intervalo mais curto.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=7.0cm,height=4.3cm,xmin=-0.15,xmax=1.2,ymin=0,ymax=5,
+  xlabel={$y$},ylabel={$f_{Y\mid X}(y\mid x)$},axis lines=left,
+  xtick={0,0.25,0.75,1},ytick={0,1.333,4},yticklabels={$0$,$\frac43$,$4$},
+  legend style={font=\scriptsize,draw=none,fill=none},legend pos=north east,
+  tick label style={font=\scriptsize},label style={font=\small}]
+\addplot[verm,very thick,domain=0:0.25,samples=2]{4}; \addlegendentry{$x=1/4$}
+\addplot[verm,very thick,domain=0.25:1.2,samples=2]{0};
+\addplot[teal,very thick,domain=0:0.75,samples=2]{1.3333}; \addlegendentry{$x=3/4$}
+\addplot[teal,very thick,domain=0.75:1.2,samples=2]{0};
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}[scale=2.6]
+\fill[azul!22] (0,0) -- (1,0) -- (1,1) -- cycle;
+\draw[azul,thick] (0,0) -- (1,0) -- (1,1) -- cycle;
+\draw[->,cinza] (-0.1,0) -- (1.25,0) node[below right] {$x$};
+\draw[->,cinza] (0,-0.1) -- (0,1.25) node[left] {$y$};
+\node[azul,font=\small] at (0.68,0.22) {$f_{X,Y}=\frac1x$};
+\node[cinza,font=\scriptsize,rotate=45] at (0.42,0.50) {$y=x$};
+\draw[cinza] (1,-0.03) -- (1,0.03) node[below=3pt,font=\scriptsize] {$1$};
+\draw[cinza] (-0.03,1) -- (0.03,1) node[left=3pt,font=\scriptsize] {$1$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{(c) Conjunta $f_{X,Y}$}
+
+Pela regra do produto, $f_{X,Y}(x,y)=f_X(x)\,f_{Y\mid X}(y\mid x)$:
+\[
+f_{X,Y}(x,y)=1\cdot\Ind{0\le x\le1}\cdot\frac1x\Ind{0\le y\le x}.
+\]
+
+\begin{resp}
+\[
+f_{X,Y}(x,y)=\frac1x\,\Ind{0\le y\le x\le 1}.
+\]
+Suporte: o triângulo de vértices $(0,0)$, $(1,0)$ e $(1,1)$, isto é, a metade do
+quadrado unitário \emph{abaixo} da reta $y=x$ (pois a segunda quebra é sempre à
+esquerda da primeira).
+\end{resp}
+
+\emph{Verificação:}
+$\int_0^1\!\int_0^x \frac1x \dd y\dd x=\int_0^1 1 \dd x=1$. \checkmark
+
+\subsection*{(d) Marginal $f_Y$}
+
+\textbf{De onde saem os limites.} Os limites vêm do suporte, lidos com a outra
+variável congelada. Congelando $y$ e quebrando a cadeia $0\le y\le x\le1$ nas
+partes que envolvem $x$: de $y\le x$ vem $x\ge y$; de $x\le 1$ vem $x\le 1$. Logo
+$x$ vai \textbf{de $y$ a $1$}. Geometricamente: a reta \emph{horizontal} na altura
+$y$ entra no triângulo pela hipotenusa ($x=y$) e sai pela aresta direita ($x=1$).
+\[
+f_Y(y)=\int_{y}^{1}\frac1x\dd x=\Big[\ln x\Big]_{y}^{1}=-\ln y .
+\]
+
+\begin{resp}
+$f_Y(y)=\ln(1/y)$ para $0<y\le1$.
+\end{resp}
+
+\emph{Cuidado com a direção da fatia:} para a marginal de $X$ congela-se $x$ e a
+fatia é \emph{vertical}, com $y$ de $0$ a $x$; de fato
+$f_X(x)=\int_0^x\frac1x\dd y=1$, recuperando o item (a). Teste rápido: os limites
+nunca podem conter a variável que está sendo integrada.
+
+\emph{Sobre o $1/x$:} ele é a \textbf{altura da superfície} $f_{X,Y}$ sobre o ponto
+$(x,y)$. Ao longo da fatia horizontal o $x$ muda, logo a altura muda (vale $1/y$ na
+entrada e $1$ na saída), e por isso a integral não é um produto simples: a primitiva
+de $1/x$ é $\ln x$, daí o logaritmo. No item (b), por outro lado, $1/x$ era a altura
+\emph{constante} de um retângulo, porque ali $x$ é parâmetro e a função é de $y$.
+
+A densidade $\ln(1/y)$ explode quando $y\to0^+$ e vale $0$ em $y=1$, o que faz
+sentido: a segunda quebra tende a ficar perto da extremidade esquerda. Densidade
+infinita não é problema desde que a área seja finita: $\int_0^1\ln(1/y)\dd y=1$. \checkmark
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=7.0cm,height=4.3cm,xmin=-0.05,xmax=1.2,ymin=0,ymax=5,
+  xlabel={$y$},ylabel={$f_Y(y)$},axis lines=left,
+  xtick={0,0.25,0.5,0.75,1},
+  tick label style={font=\scriptsize},label style={font=\small}]
+\addplot[teal,very thick,domain=0.008:1,samples=200]{ln(1/x)};
+\addplot[teal,very thick,domain=1:1.2,samples=2]{0};
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[width=7.0cm,height=4.3cm,xmin=-0.05,xmax=1.2,ymin=0,ymax=5,
+  xlabel={$x$},ylabel={$f_{X\mid Y}(x\mid y)$},axis lines=left,
+  xtick={0,0.25,0.75,1},
+  legend style={font=\scriptsize,draw=none,fill=none},legend pos=north east,
+  tick label style={font=\scriptsize},label style={font=\small}]
+\addplot[verm,very thick,domain=0.25:1,samples=120]{1/(x*ln(4))}; \addlegendentry{$y=1/4$}
+\addplot[teal,very thick,domain=0.75:1,samples=60]{1/(x*ln(4/3))}; \addlegendentry{$y=3/4$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\subsection*{(e) Condicional $f_{X\mid Y}(x\mid Y=y)$}
+
+\[
+f_{X\mid Y}(x\mid y)=\frac{f_{X,Y}(x,y)}{f_Y(y)}=\frac{1/x}{\ln(1/y)} .
+\]
+
+\begin{resp}
+$f_{X\mid Y}(x\mid y)=\dfrac{1}{x\,\ln(1/y)}$ para $y\le x\le 1$.
+\end{resp}
+
+Diferente do item (b), esta \textbf{não é uniforme}: decai como $1/x$. Para
+$y=1/4$ vai de $\approx2{,}89$ até $\approx0{,}72$; para $y=3/4$, de $\approx4{,}64$
+até $\approx3{,}48$. Ou seja, conhecido $Y$, os valores de $X$ logo acima de $y$ são
+mais prováveis que os próximos de $1$.
+
+\subsection*{(f) Médias}
+
+$\E[X]=\frac12$ (uniforme). Para $\E[Y]$, três caminhos equivalentes:
+\[
+\E[Y]=\int_0^1 y\ln(1/y)\dd y=\frac14;
+\qquad
+\E[Y]=\int_0^1\!\!\int_0^x y\,\frac1x \dd y\dd x=\int_0^1\frac{x}{2}\dd x=\frac14;
+\]
+ou, por condicionamento (o mais rápido): $\E[Y\mid X]=X/2$, logo
+$\E[Y]=\E[X/2]=\frac14$.
+
+\begin{resp}
+$\mu_X=\dfrac12$ \qquad e \qquad $\mu_Y=\dfrac14$.
+\end{resp}
+
+\subsection*{(g) Variâncias}
+
+$\var[X]=\frac{(1-0)^2}{12}=\frac1{12}$. Para $Y$:
+\[
+\E[Y^2]=\int_0^1\!\!\int_0^x y^2\,\frac1x\dd y\dd x=\int_0^1\frac{x^2}{3}\dd x=\frac19,
+\qquad
+\var[Y]=\frac19-\left(\frac14\right)^2=\frac{16-9}{144}.
+\]
+
+\begin{resp}
+$\var[X]=\dfrac1{12}\approx0{,}0833$ \qquad e \qquad
+$\var[Y]=\dfrac{7}{144}\approx0{,}0486$.
+\end{resp}
+
+\subsection*{(h) Covariância e coeficiente de Pearson}
+
+\[
+\E[XY]=\int_0^1\!\!\int_0^x x\,y\,\frac1x\dd y\dd x
+=\int_0^1\!\!\int_0^x y \dd y\dd x=\int_0^1\frac{x^2}{2}\dd x=\frac16 .
+\]
+(O $x$ cancela com o $1/x$, o que torna a conta trivial.)
+
+\begin{resp}
+\[
+\cov[X,Y]=\frac16-\frac12\cdot\frac14=\frac{1}{24},
+\qquad
+\rho_{X,Y}=\frac{1/24}{\sqrt{\frac1{12}\cdot\frac{7}{144}}}
+=\frac{3}{\sqrt{21}}=\frac{\sqrt{21}}{7}\approx0{,}6547 .
+\]
+\end{resp}
+
+Correlação positiva e forte: quebrar mais à direita na primeira vez libera espaço
+para a segunda quebra também cair mais à direita.
+
+\subsection*{(i) Probabilidade de os três pedaços formarem um triângulo}
+
+\textbf{Passo 1, os pedaços.} Como $Y\le X$, os cortes em ordem são $0,Y,X,1$ e os
+comprimentos são
+\[
+a=Y,\qquad b=X-Y,\qquad c=1-X .
+\]
+
+\textbf{Passo 2, a condição.} Como $a+b+c=1$, a desigualdade triangular $a<b+c$
+equivale a $a<\frac12$; idem para os outros. Portanto:
+\emph{formam triângulo se e somente se nenhum pedaço passa de $1/2$}, isto é,
+\[
+Y<\tfrac12,\qquad Y>X-\tfrac12,\qquad X>\tfrac12 .
+\]
+
+\textbf{Passo 3, a região.} Para $x\in(\frac12,1)$, o $y$ vai de $x-\frac12$ a
+$\frac12$, comprimento $1-x$.
+
+\textbf{Passo 4, integrar.}
+\[
+\Pr[\triangle]=\int_{1/2}^{1}\!\!\int_{x-1/2}^{1/2}\frac1x\dd y\dd x
+=\int_{1/2}^{1}\frac{1-x}{x}\dd x
+=\int_{1/2}^{1}\left(\frac1x-1\right)\dd x
+=\Big[\ln x-x\Big]_{1/2}^{1}.
+\]
+
+\begin{resp}
+\[
+\Pr[\text{triângulo}]=(0-1)-\left(-\ln 2-\tfrac12\right)=\ln 2-\frac12\approx 19{,}31\% .
+\]
+\end{resp}
+
+Menos de um em cinco. A intuição de que "quase sempre dá triângulo" falha por causa
+do pedaço $c=1-X$: ele já passa de $1/2$ sempre que $X<\frac12$, ou seja, em metade
+dos casos logo de saída.
+
+\begin{center}
+\begin{tikzpicture}[scale=3.4]
+\fill[azul!12] (0,0) -- (1,0) -- (1,1) -- cycle;
+\draw[cinza] (0,0) -- (1,1);
+\fill[verm!35] (0.5,0) -- (1,0.5) -- (1,0.5) -- (0.5,0.5) -- cycle;
+\draw[verm,thick] (0.5,0) -- (1,0.5);
+\draw[verm,thick] (0.5,0.5) -- (1,0.5);
+\draw[verm,thick] (0.5,0) -- (0.5,0.5);
+\draw[azul,thick] (0,0) -- (1,0) -- (1,1) -- cycle;
+\draw[->,cinza] (-0.08,0) -- (1.2,0) node[below right] {$x$};
+\draw[->,cinza] (0,-0.08) -- (0,1.2) node[left] {$y$};
+\node[verm,font=\scriptsize] at (0.76,0.16) {forma $\triangle$};
+\foreach \p in {0.5,1} \draw[cinza] (\p,-0.025) -- (\p,0.025);
+\node[cinza,font=\scriptsize,below] at (0.5,-0.03) {$\frac12$};
+\node[cinza,font=\scriptsize,below] at (1,-0.03) {$1$};
+\foreach \p in {0.5,1} \draw[cinza] (-0.025,\p) -- (0.025,\p);
+\node[cinza,font=\scriptsize,left] at (-0.03,0.5) {$\frac12$};
+\node[cinza,font=\scriptsize,left] at (-0.03,1) {$1$};
+\end{tikzpicture}
+\end{center}
+
+\emph{Observação.} O Exemplo 2 do slide \texttt{pre-2-2} (páginas 33 a 54) resolve
+exatamente os itens (c) e (h) desta questão, e chega ao mesmo $\rho=\sqrt{21}/7$.
+
+\clearpage
+\section{Questão 8: vetor aleatório de retransmissões}
+
+\textbf{Enunciado.} Um terminal tem três mensagens a transmitir. Após enviar uma,
+espera confirmação; se não vier, reenvia. Cada transmissão tem probabilidade $p$
+de sucesso, independentemente das demais. $N_i$ é o número \emph{total} de
+transmissões no instante em que a mensagem $i$ é recebida com sucesso.
+
+\subsection*{Modelagem}
+
+Seja $G_i$ o número de transmissões gastas \emph{apenas} com a mensagem $i$.
+Como cada tentativa é um ensaio de Bernoulli$(p)$ independente e paramos no
+primeiro sucesso, $G_i\sim\text{Geométrica}(p)$, com
+$\Pr[G_i=g]=p(1-p)^{g-1}$ para $g\ge1$, e $G_1,G_2,G_3$ independentes.
+
+Como $N_i$ conta o total \emph{acumulado}:
+\begin{resp}
+\[
+N_1=G_1,\qquad N_2=G_1+G_2,\qquad N_3=G_1+G_2+G_3 .
+\]
+Equivalentemente, $G_1=N_1$, $G_2=N_2-N_1$ e $G_3=N_3-N_2$: o vetor $\vec N$ é a
+\textbf{soma acumulada} de três geométricas independentes.
+\end{resp}
+
+Daí já sai a restrição de suporte: os $G_i$ valem pelo menos $1$, logo
+\[
+1\le N_1<N_2<N_3 ,
+\]
+com desigualdades \emph{estritas}, pois cada mensagem consome ao menos uma
+transmissão.
+
+\subsection*{(a) PMF conjunta de $\vec N$}
+
+O evento $\{N_1=n_1, N_2=n_2, N_3=n_3\}$ é exatamente o evento
+$\{G_1=n_1,\; G_2=n_2-n_1,\; G_3=n_3-n_2\}$. Por independência, multiplicam-se as
+três geométricas:
+\[
+p_{\vec N}(n_1,n_2,n_3)
+= \underbrace{p(1-p)^{n_1-1}}_{G_1}
+\cdot \underbrace{p(1-p)^{n_2-n_1-1}}_{G_2}
+\cdot \underbrace{p(1-p)^{n_3-n_2-1}}_{G_3}.
+\]
+Os três fatores $p$ viram $p^3$ e os expoentes de $(1-p)$ se telescopam:
+\[
+(n_1-1)+(n_2-n_1-1)+(n_3-n_2-1) = n_3-3 .
+\]
+
+\begin{resp}
+\[
+p_{\vec N}(n_1,n_2,n_3)=p^3\,(1-p)^{\,n_3-3}\;\Ind{1\le n_1<n_2<n_3}.
+\]
+\end{resp}
+
+\emph{Leitura:} a conjunta \textbf{não depende} de $n_1$ e $n_2$ isoladamente, só
+de $n_3$. Faz sentido: dado que o total foi $n_3$, houve exatamente $3$ sucessos e
+$n_3-3$ falhas, e a ordem em que as falhas se distribuíram entre as três mensagens
+não altera a probabilidade. Todos os arranjos compatíveis são equiprováveis.
+
+\subsection*{(b) Marginais}
+
+\noindent\textbf{$N_1$.} É a própria primeira geométrica:
+\[
+p_{N_1}(n)=p(1-p)^{n-1}\Ind{n\ge1}.
+\]
+
+\noindent\textbf{$N_2$.} Soma de duas geométricas independentes, ou seja, uma
+\emph{Pascal de ordem 2} (binomial negativa): o evento $\{N_2=n\}$ significa
+``o segundo sucesso ocorreu na $n$-ésima transmissão''. Isso exige $1$ sucesso nas
+$n-1$ primeiras (de $\binom{n-1}{1}$ maneiras) e sucesso na $n$-ésima:
+\[
+p_{N_2}(n)=\binom{n-1}{1}p^2(1-p)^{n-2}=(n-1)\,p^2(1-p)^{n-2}\Ind{n\ge2}.
+\]
+
+\noindent\textbf{$N_3$.} Mesmo raciocínio com o terceiro sucesso na $n$-ésima
+transmissão, escolhendo as posições dos $2$ sucessos anteriores entre as $n-1$
+primeiras:
+\[
+p_{N_3}(n)=\binom{n-1}{2}p^3(1-p)^{n-3}=\frac{(n-1)(n-2)}{2}\,p^3(1-p)^{n-3}\Ind{n\ge3}.
+\]
+
+\begin{resp}
+\[
+p_{N_1}(n)=p(1-p)^{n-1}\Ind{n\ge1},\quad
+p_{N_2}(n)=(n-1)p^2(1-p)^{n-2}\Ind{n\ge2},
+\]
+\[
+p_{N_3}(n)=\tfrac{(n-1)(n-2)}{2}\,p^3(1-p)^{n-3}\Ind{n\ge3}.
+\]
+\end{resp}
+
+\emph{Pelo somatório da conjunta}, o mesmo resultado aparece como contagem. Por
+exemplo, para $N_3$:
+\[
+p_{N_3}(n_3)=\sum_{n_1<n_2<n_3} p^3(1-p)^{n_3-3}
+= p^3(1-p)^{n_3-3}\cdot\#\{(n_1,n_2): 1\le n_1<n_2<n_3\},
+\]
+e o número de pares é $\binom{n_3-1}{2}$. Como o somando é constante, a marginal é
+literalmente ``constante vezes contagem'', o que reforça a leitura do item (a).
+
+\emph{Médias}, se pedirem: $\E[N_i]=i/p$, pois cada geométrica tem média $1/p$.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=12cm,height=5.4cm,xmin=0.4,xmax=12.6,ymin=0,ymax=0.44,
+  xlabel={$n$ (total de transmissões)},ylabel={probabilidade},axis lines=left,
+  xtick={1,2,...,12},legend style={font=\scriptsize,draw=none,fill=none},
+  legend pos=north east,tick label style={font=\scriptsize},label style={font=\small},
+  title style={font=\small}, title={Marginais para $p=0{,}4$}]
+\addplot[azul,thick,mark=*,mark size=1.6]
+ coordinates {(1,0.4)(2,0.24)(3,0.144)(4,0.0864)(5,0.05184)(6,0.031104)(7,0.0186624)(8,0.0111974)(9,0.0067185)(10,0.0040311)(11,0.0024186)(12,0.0014512)};
+\addlegendentry{$p_{N_1}$ (Geométrica)}
+\addplot[teal,thick,mark=*,mark size=1.6]
+ coordinates {(2,0.16)(3,0.192)(4,0.1728)(5,0.13824)(6,0.10368)(7,0.0746496)(8,0.0522547)(9,0.0358318)(10,0.0241863)(11,0.0161242)(12,0.0106420)};
+\addlegendentry{$p_{N_2}$ (Pascal ordem 2)}
+\addplot[verm,thick,mark=*,mark size=1.6]
+ coordinates {(3,0.064)(4,0.1152)(5,0.13824)(6,0.13824)(7,0.124416)(8,0.1045094)(9,0.0836076)(10,0.0644973)(11,0.0483730)(12,0.0354735)};
+\addlegendentry{$p_{N_3}$ (Pascal ordem 3)}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\clearpage
+\section{Questão 9: XOR e independência par-a-par}
+
+\textbf{Enunciado.} $A,B\sim\text{Bernoulli}(1/2)$ independentes e
+$C=A\oplus B$ (soma módulo 2). Seja $\vec X=[A\;B\;C]^{\mathsf T}$.
+
+\subsection*{(a) PMF conjunta}
+
+Os pares $(A,B)$ são equiprováveis, cada um com probabilidade $1/4$, e $C$ fica
+\emph{determinado} por eles. Enumerando:
+
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+$a$ & $b$ & $c=a\oplus b$ & $\Pr$ \\
+\midrule
+0 & 0 & 0 & $1/4$ \\
+0 & 1 & 1 & $1/4$ \\
+1 & 0 & 1 & $1/4$ \\
+1 & 1 & 0 & $1/4$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{resp}
+\[
+p_{\vec X}(a,b,c)=\tfrac14\,\Ind{c=a\oplus b},\qquad a,b,c\in\{0,1\}.
+\]
+Dos $8$ pontos do cubo $\{0,1\}^3$, apenas $4$ têm probabilidade não nula (os de
+\emph{paridade par}); os outros $4$ têm probabilidade zero.
+\end{resp}
+
+\subsection*{(b) Marginais}
+
+Somando a conjunta sobre as demais variáveis, cada valor aparece em duas das
+quatro linhas, logo com probabilidade $2\times\frac14=\frac12$:
+
+\begin{resp}
+$A\sim\text{Bernoulli}(1/2)$, \quad $B\sim\text{Bernoulli}(1/2)$, \quad
+$C\sim\text{Bernoulli}(1/2)$.
+\end{resp}
+
+Para $C$ vale também o argumento direto:
+$\Pr[C=1]=\Pr[A\ne B]=\Pr[(0,1)]+\Pr[(1,0)]=\tfrac14+\tfrac14=\tfrac12$.
+
+\subsection*{(c) Independência par-a-par}
+
+Basta verificar $p_{U,V}(u,v)=p_U(u)\,p_V(v)$ para os três pares. Como todas as
+marginais valem $1/2$, o produto é sempre $1/4$; falta ver que cada conjunta de
+duas variáveis também vale $1/4$ nos quatro pontos.
+
+\noindent\textbf{$A$ e $B$:} independentes por hipótese do enunciado, e de fato
+$p_{A,B}(a,b)=1/4$ para os quatro pares.
+
+\noindent\textbf{$A$ e $C$:} fixando $a$, das duas linhas com aquele $a$ uma tem
+$c=0$ e a outra $c=1$. Logo $p_{A,C}(a,c)=1/4$ para todo par, que é
+$\tfrac12\cdot\tfrac12$. \checkmark
+
+\noindent\textbf{$B$ e $C$:} idem, por simetria entre $A$ e $B$. \checkmark
+
+\begin{center}
+\begin{tabular}{c|cc|c}
+\toprule
+$p_{A,C}$ & $c=0$ & $c=1$ & $p_A$ \\
+\midrule
+$a=0$ & $1/4$ & $1/4$ & $1/2$ \\
+$a=1$ & $1/4$ & $1/4$ & $1/2$ \\
+\midrule
+$p_C$ & $1/2$ & $1/2$ & $1$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{resp}
+As três conjuntas duas a duas fatoram, portanto $A,B,C$ são
+\textbf{independentes par-a-par}.
+\end{resp}
+
+\emph{Intuição:} saber apenas $A$ não diz nada sobre $C$, pois $B$ ainda é um
+``segredo'' uniforme que embaralha o resultado. É o mesmo princípio da cifra de
+Vernam (one-time pad): o texto cifrado, sozinho, não revela nada sobre a mensagem.
+
+\subsection*{(d) Não há independência mútua}
+
+Independência mútua exigiria
+$p_{\vec X}(a,b,c)=p_A(a)\,p_B(b)\,p_C(c)=\tfrac18$ para \emph{todos} os oito
+pontos. Basta um contraexemplo:
+\[
+p_{\vec X}(0,0,1)=0
+\qquad\text{mas}\qquad
+p_A(0)\,p_B(0)\,p_C(1)=\tfrac12\cdot\tfrac12\cdot\tfrac12=\tfrac18 .
+\]
+
+\begin{resp}
+$0\ne\tfrac18$, logo $A,B,C$ \textbf{não são mutuamente independentes}.
+\end{resp}
+
+O motivo estrutural: conhecidas \emph{duas} das variáveis, a terceira fica
+completamente determinada ($C=A\oplus B$, mas também $A=B\oplus C$ e
+$B=A\oplus C$). A dependência é de ordem três: ela só se manifesta quando se
+olham as três juntas.
+
+\subsection*{(e) Vetor média e matriz covariância de $\vec X$}
+
+Cada componente é Bernoulli$(1/2)$, logo $\E[\cdot]=\tfrac12$ e
+$\var[\cdot]=\tfrac12\cdot\tfrac12=\tfrac14$. As covariâncias cruzadas são nulas,
+pois independência par-a-par implica descorrelação par-a-par. Conferindo uma delas:
+\[
+\E[AC]=\Pr[A=1,C=1]=\tfrac14,
+\qquad
+\cov[A,C]=\tfrac14-\tfrac12\cdot\tfrac12=0 .
+\]
+
+\begin{resp}
+\[
+\vec\mu_{\vec X}=\begin{bmatrix}1/2\\1/2\\1/2\end{bmatrix},
+\qquad
+C_{\vec X}=\frac14\begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix}.
+\]
+\end{resp}
+
+\subsection*{(f) Comparação com três Bernoulli independentes}
+
+Para $\vec X'=[A'\;B'\;C']^{\mathsf T}$ com as três independentes, cada uma
+Bernoulli$(1/2)$: as médias são $1/2$, as variâncias $1/4$ e as covariâncias são
+nulas por independência.
+
+\begin{resp}
+\[
+\vec\mu_{\vec X'}=\begin{bmatrix}1/2\\1/2\\1/2\end{bmatrix},
+\qquad
+C_{\vec X'}=\frac14 I_3 ,
+\]
+\emph{exatamente iguais} aos do item (e).
+\end{resp}
+
+\textbf{Conclusão.} Os dois vetores têm o mesmo vetor média e a mesma matriz
+covariância, mas distribuições conjuntas completamente diferentes: $\vec X$ vive
+em apenas $4$ dos $8$ vértices do cubo, enquanto $\vec X'$ ocupa os $8$.
+
+Isso mostra que \textbf{média e covariância não caracterizam a distribuição
+conjunta}. Elas capturam apenas estatísticas de \emph{segunda ordem}, isto é,
+relações lineares duas a duas. A dependência do XOR é de terceira ordem e passa
+despercebida por completo.
+
+É o mesmo alerta da seção ``Descorrelação'' do slide \texttt{pre-2-2}:
+\emph{independência implica descorrelação, mas a recíproca é falsa}. Aqui, as
+variáveis são descorrelacionadas e até independentes par-a-par, e mesmo assim
+conhecer duas delas determina a terceira sem nenhuma incerteza.
+
+\clearpage
+\section{Questão 10: vetores de produtos e de somas acumuladas}
+
+\textbf{Enunciado.} $X_1,X_2,X_3 \overset{\text{i.i.d.}}{\sim}\text{Uniform}(-1,2)$.
+Em (a), $Y_1=X_1$, $Y_2=X_1X_2$, $Y_3=X_1X_2X_3$; em (b),
+$Z_1=Y_1$, $Z_2=Y_1+Y_2$, $Z_3=Y_1+Y_2+Y_3$, pela formulação matricial.
+
+\subsection*{Os dois momentos que resolvem tudo}
+
+Com $a=-1$ e $b=2$, a densidade é $f_X(x)=\frac13$ em $[-1,2]$ e, pela definição,
+\[
+\E[X]=\int_{-1}^{2}\frac{x}{3}\dd x=\frac13\left[\frac{x^2}{2}\right]_{-1}^{2}
+=\frac13\left(2-\tfrac12\right)=\frac12,
+\]
+\[
+\E[X^2]=\int_{-1}^{2}\frac{x^2}{3}\dd x=\frac13\left[\frac{x^3}{3}\right]_{-1}^{2}
+=\frac13\left(\tfrac83+\tfrac13\right)=1 .
+\]
+(Equivalentemente pelas fórmulas prontas: $\frac{a+b}{2}=\frac12$ e
+$\var=\frac{(b-a)^2}{12}=\frac34$, donde $\E[X^2]=\frac34+\frac14=1$.)
+
+\begin{resp}
+$\E[X]=\tfrac12$ \quad e \quad $\E[X^2]=1$.
+\end{resp}
+
+O valor $\E[X^2]=1$ é o que torna a questão viável à mão: todo fator ao quadrado
+simplesmente some das contas.
+
+\subsection*{(a) Vetor média de $\vec Y$}
+
+Por independência, a esperança do produto é o produto das esperanças:
+\[
+\E[Y_1]=\tfrac12,\qquad \E[Y_2]=\left(\tfrac12\right)^2=\tfrac14,
+\qquad \E[Y_3]=\left(\tfrac12\right)^3=\tfrac18 .
+\]
+
+\begin{resp}
+$\vec\mu_{\vec Y}=\left[\tfrac12\;\;\tfrac14\;\;\tfrac18\right]^{\mathsf T}$.
+\end{resp}
+
+\subsection*{(a) Matriz covariância de $\vec Y$}
+
+Escreva $Y_iY_j$ em termos dos $X$ e conte os expoentes: cada $X$ ao quadrado
+contribui $\E[X^2]=1$; cada $X$ sozinho contribui $\E[X]=\tfrac12$.
+
+\begin{center}
+\begin{tabular}{lccl}
+\toprule
+produto & em termos dos $X$ & expoentes & valor \\
+\midrule
+$Y_1^2$ & $X_1^2$ & $(2,0,0)$ & $1$ \\
+$Y_2^2$ & $X_1^2X_2^2$ & $(2,2,0)$ & $1$ \\
+$Y_3^2$ & $X_1^2X_2^2X_3^2$ & $(2,2,2)$ & $1$ \\
+$Y_1Y_2$ & $X_1^2X_2$ & $(2,1,0)$ & $1\cdot\tfrac12=\tfrac12$ \\
+$Y_1Y_3$ & $X_1^2X_2X_3$ & $(2,1,1)$ & $\tfrac12\cdot\tfrac12=\tfrac14$ \\
+$Y_2Y_3$ & $X_1^2X_2^2X_3$ & $(2,2,1)$ & $\tfrac12$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Subtraindo o produto das médias em cada caso:
+
+\begin{resp}
+\[
+C_{\vec Y}=
+\begin{bmatrix}
+3/4 & 3/8 & 3/16\\[2pt]
+3/8 & 15/16 & 15/32\\[2pt]
+3/16 & 15/32 & 63/64
+\end{bmatrix}
+\]
+\end{resp}
+
+\emph{Fórmula fechada}, útil para conferir: para $i\le j$,
+$\cov[Y_i,Y_j]=2^{\,i-j}-2^{-(i+j)}$. Exemplo: $i=2$, $j=3$ dá
+$\tfrac12-\tfrac1{32}=\tfrac{15}{32}$. \checkmark
+
+Todas as covariâncias são positivas porque os $Y_i$ \textbf{compartilham fatores}:
+todos contêm $X_1$, e $Y_2,Y_3$ compartilham $X_1X_2$.
+
+\subsection*{(b) Formulação matricial}
+
+Escreva $\vec Z=A\,\vec Y$ com $A$ triangular inferior de uns:
+\[
+A=\begin{bmatrix}1&0&0\\1&1&0\\1&1&1\end{bmatrix},
+\qquad
+\vec\mu_{\vec Z}=A\,\vec\mu_{\vec Y},
+\qquad
+C_{\vec Z}=A\,C_{\vec Y}\,A^{\mathsf T}.
+\]
+
+\emph{Por que essa fórmula:} de $\vec Z-\vec\mu_{\vec Z}=A(\vec Y-\vec\mu_{\vec Y})$
+segue
+$\E\!\left[A(\vec Y-\vec\mu)(\vec Y-\vec\mu)^{\mathsf T}A^{\mathsf T}\right]
+= A\,C_{\vec Y}\,A^{\mathsf T}$, pois $A$ é constante e sai da esperança. É o
+análogo matricial de $\var[aX]=a^2\var[X]$.
+
+\[
+\vec\mu_{\vec Z}=\left[\tfrac12,\;\tfrac12+\tfrac14,\;\tfrac12+\tfrac14+\tfrac18\right]^{\mathsf T}
+=\left[\tfrac12\;\;\tfrac34\;\;\tfrac78\right]^{\mathsf T}.
+\]
+
+\paragraph{Trabalhando em $1/64$.} Escrevendo $C_{\vec Y}$ com denominador comum
+$64$, ela vira a matriz de inteiros $\begin{bmatrix}48&24&12\\24&60&30\\12&30&63\end{bmatrix}$.
+
+\paragraph{Primeira multiplicação, $M=A\,C_{\vec Y}$.} A matriz da \emph{esquerda}
+entra com suas \textbf{linhas}, que percorrem as \textbf{colunas} de $C_{\vec Y}$
+(soma vertical). Linha $i$ de $A$ tem $1$ nas $i$ primeiras posições:
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+linha de $A$ & entrada $(i,1)$ & $(i,2)$ & $(i,3)$ \\
+\midrule
+$[1,0,0]$ & $48$ & $24$ & $12$ \\
+$[1,1,0]$ & $48{+}24=72$ & $24{+}60=84$ & $12{+}30=42$ \\
+$[1,1,1]$ & $48{+}24{+}12=84$ & $24{+}60{+}30=114$ & $12{+}30{+}63=105$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Segunda multiplicação, $C_{\vec Z}=M\,A^{\mathsf T}$.} Agora $M$ está à
+esquerda, então a \textbf{linha fica congelada} e percorrem-se as \textbf{colunas}
+de $A^{\mathsf T}$, que são $[1,0,0]$, $[1,1,0]$ e $[1,1,1]$ (as colunas de
+$A^{\mathsf T}$ são as linhas de $A$). O efeito é a soma acumulada \emph{de cada
+linha}, da esquerda para a direita:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+linha de $M$ & soma acumulada & \\
+\midrule
+$48,\;24,\;12$ & $48 \to 72 \to 84$ & \\
+$72,\;84,\;42$ & $72 \to 156 \to 198$ & \\
+$84,\;114,\;105$ & $84 \to 198 \to 303$ & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{resp}
+\[
+\vec\mu_{\vec Z}=\begin{bmatrix}1/2\\3/4\\7/8\end{bmatrix},
+\qquad
+C_{\vec Z}=\frac1{64}\begin{bmatrix}48&72&84\\72&156&198\\84&198&303\end{bmatrix}
+=\begin{bmatrix}
+3/4 & 9/8 & 21/16\\[2pt]
+9/8 & 39/16 & 99/32\\[2pt]
+21/16 & 99/32 & 303/64
+\end{bmatrix}
+\]
+\end{resp}
+
+\subsection*{Leitura e conferências}
+
+\textbf{Atalho.} Juntando as duas etapas (acumular por colunas, depois por linhas),
+cada entrada de $C_{\vec Z}$ é a \textbf{soma do bloco superior esquerdo}
+$i\times j$ de $C_{\vec Y}$:
+\[
+\cov[Z_i,Z_j]=\sum_{k\le i}\sum_{l\le j}\cov[Y_k,Y_l].
+\]
+Por exemplo $\cov[Z_2,Z_2]=48+24+24+60=156$ (em $1/64$), ou seja $39/16$; e
+$\var[Z_3]$ é a soma das nove entradas, $303/64$.
+
+\textbf{Conferência escalar.} A mesma entrada pela fórmula usual:
+\[
+\var[Z_2]=\var[Y_1+Y_2]=\var[Y_1]+\var[Y_2]+2\cov[Y_1,Y_2]
+=\tfrac34+\tfrac{15}{16}+2\cdot\tfrac38=\tfrac{39}{16}. \checkmark
+\]
+As quatro parcelas são exatamente as quatro entradas do bloco $2\times2$: as
+fórmulas escalares são a versão desenrolada da multiplicação matricial.
+
+\textbf{Erro comum.} Trocar linha por coluna em $A$. Dois testes pegam isso na
+hora: (i) $C_{\vec Z}$ tem de ser \emph{simétrica}; (ii) a entrada $(1,1)$ tem de
+ser $\var[Z_1]=\var[Y_1]=3/4$. Além disso, as variâncias na diagonal têm de
+\emph{crescer}, já que $Z_1$ soma um termo, $Z_2$ soma dois e $Z_3$ soma três
+variáveis positivamente correlacionadas: $\tfrac34<\tfrac{39}{16}<\tfrac{303}{64}$.
+\checkmark
+
+
+\clearpage
 \appendix
 \section{Apêndice: exercícios do Yates e Goodman (slides 1 a 3)}
 
@@ -873,9 +1800,8 @@ ponderada em mistura; é preciso passar por $\E[W^2]$. A parcela extra
 
 \section{Questões pendentes}
 
-Esta resolução cobre as questões 1 a 5. As questões 6 a 9 da lista
-(região sombreada com densidade constante; régua quebrada duas vezes; vetor
-aleatório de retransmissões; vetores média e matrizes covariância) ainda não foram
-resolvidas neste documento.
+Nenhuma. Esta resolução cobre as dez questões da lista, na numeração da
+versão atualizada (que inseriu a questão 9 sobre XOR e independência par-a-par,
+deslocando a antiga questão 9 para a posição 10).
 
 \end{document}
