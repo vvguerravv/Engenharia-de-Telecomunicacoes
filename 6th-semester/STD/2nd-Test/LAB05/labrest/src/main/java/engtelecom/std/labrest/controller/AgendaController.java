@@ -62,7 +62,7 @@ public class AgendaController {
     }
 
     @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(    )
     public void atualizarParcial(@PathVariable long id, @Valid @RequestBody PessoaEmailDTO dto) {
         Pessoa pessoa = this.pessoaService.buscarPorId(id);
         if (pessoa != null) {
