@@ -1,0 +1,244 @@
+% ------------------------------------------------------------%
+% Lista de Exercícios: Ácidos e Bases
+% Template IFSC (ifscarticle) - Câmpus São José
+% Compilar: pdflatex lista-acido-base.tex (duas vezes, por causa do sumário)
+% ------------------------------------------------------------%
+\documentclass[11pt]{ifscarticle}
+\usepackage{ifscutils}
+\usepackage[version=4]{mhchem}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{float}
+
+% ------------------------------------------------------------%
+% Caixa usada para reproduzir o enunciado de cada questão
+% ------------------------------------------------------------%
+\newtcolorbox{enunciado}{%
+  colback=black!4,
+  colframe=black!25,
+  boxrule=0.4pt,
+  arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  before skip=6pt, after skip=10pt
+}
+
+% ------------------------------------------------------------%
+% Cabeçalho de cada questão (sem numeração automática de seção)
+% #1 = número da questão  |  #2 = assunto, usado no sumário
+% ------------------------------------------------------------%
+\newcommand{\questao}[2]{%
+  \section*{Questão #1}%
+  \addcontentsline{toc}{section}{Questão #1: #2}%
+}
+
+\AtBeginDocument{\thispagestyle{empty}}
+
+\begin{document}
+
+% ------------------------------------------------------------%
+% Capa
+% ------------------------------------------------------------%
+\begin{titlepage}
+\begin{center}
+\includegraphics[scale=.7]{./figuras/ifsc-v}
+\vspace{2.5cm}
+
+\rule{\linewidth}{0.5pt}\\[6pt]
+\doublespacing
+{\huge\bfseries Lista de Exercícios: Ácidos e Bases}\\[4pt]
+{\large Resolução}\\
+
+\rule{\linewidth}{2pt}\\[10pt]
+\vspace{1cm}
+\end{center}
+
+\begin{minipage}{.9\linewidth}
+\begin{minipage}{0.20\textwidth}
+\begin{flushleft}\large
+\textbf{Curso:}\\
+\textbf{Componente:}\\
+\textbf{Professor:}\\
+\end{flushleft}
+\end{minipage}
+\hfill
+\begin{minipage}{0.78\textwidth}
+\begin{flushleft}\large
+Engenharia de Telecomunicações\\
+Química\\
+Dr. Maick Meneguzzo Prado\\
+\end{flushleft}
+\end{minipage}
+\end{minipage}
+
+\vspace{2.5cm}
+
+\begin{minipage}{.9\linewidth}
+\begin{flushright}
+\textbf{Aluno:}\\
+Victor Evandro de Lima Guerra\\
+\end{flushright}
+\end{minipage}
+
+\vfill
+
+\begin{center}
+São José, 13 de novembro de 2026
+\end{center}
+\end{titlepage}
+
+% ------------------------------------------------------------%
+% Sumário
+% ------------------------------------------------------------%
+\tableofcontents
+\clearpage
+\onehalfspacing
+
+% ------------------------------------------------------------%
+\questao{1}{teorias ácido-base}
+
+\begin{enunciado}
+Diferencie a definição de ácido segundo as teorias de Arrhenius, Brønsted-Lowry e Lewis.
+\end{enunciado}
+
+\begin{itemize}[nosep]
+  \item \textbf{Arrhenius:} ácido é toda substância que, em meio aquoso, sofre ionização liberando como único cátion o \ce{H+} (ou \ce{H3O+}). Ex.: \ce{HCl + H2O -> H3O+ + Cl^-}.
+  \item \textbf{Brønsted-Lowry:} ácido é toda espécie química capaz de doar um próton (\ce{H+}). Não precisa de água. Ex.: \ce{NH3 + HCl -> NH4+ + Cl^-}.
+  \item \textbf{Lewis:} ácido é toda espécie química que aceita receber um par de elétrons. Ex.: o \ce{BF3} recebe o par de elétrons da \ce{NH3}.
+\end{itemize}
+
+% ------------------------------------------------------------%
+\questao{2}{definição de base}
+
+\begin{enunciado}
+Como a definição de base expande-se da Teoria de Arrhenius para as teorias de Brønsted-Lowry e Lewis?
+\end{enunciado}
+
+\begin{itemize}[nosep]
+  \item \textbf{Arrhenius:} base é toda substância que, em meio aquoso, sofre dissociação liberando como único ânion a hidroxila, \ce{OH^-}. Ex.: \ce{NaOH -> Na+ + OH^-}.
+  \item \textbf{Brønsted-Lowry:} base é toda espécie química capaz de receber um próton (\ce{H+}). Deixa de ser necessário ter \ce{OH} na fórmula e ter água. Ex.: a \ce{NH3} recebe o próton do \ce{HCl}.
+  \item \textbf{Lewis:} base é toda espécie química capaz de oferecer um par de elétrons. Deixa de ser necessário o hidrogênio. Ex.: a \ce{NH3} fornece o par de elétrons ao \ce{BF3}.
+\end{itemize}
+
+% ------------------------------------------------------------%
+\questao{3}{pH}
+
+\begin{enunciado}
+Uma solução aquosa a \SI{25}{\celsius} apresenta concentração de íons hidrônio $[\ce{H3O+}] = 1{,}0\cdot10^{-3}$~mol/L. Determine o pH dessa solução e classifique-a como ácida, neutra ou básica.
+\end{enunciado}
+
+\begin{equation}
+\mathrm{pH} = -\log\,[\ce{H3O+}] = -\log\left(1{,}0\cdot10^{-3}\right) = 3{,}0
+\end{equation}
+
+Como o pH é menor que 7, a solução é \textbf{ácida}.
+
+% ------------------------------------------------------------%
+\questao{4}{hidrácidos e oxiácidos}
+
+\begin{enunciado}
+Classifique os seguintes ácidos em hidrácidos ou oxiácidos: \ce{HCl}, \ce{H2SO4}, \ce{HCN}, \ce{HNO3} e \ce{H2S}.
+\end{enunciado}
+
+Hidrácidos não têm oxigênio e oxiácidos têm.
+
+\begin{itemize}[nosep]
+  \item Hidrácidos: \ce{HCl}, \ce{HCN} e \ce{H2S}.
+  \item Oxiácidos: \ce{H2SO4} e \ce{HNO3}.
+\end{itemize}
+
+% ------------------------------------------------------------%
+\questao{5}{força dos oxiácidos}
+
+\begin{enunciado}
+Utilizando a regra empírica da diferença entre o número de oxigênios e hidrogênios ionizáveis, determine a força dos oxiácidos: \ce{H3BO3}, \ce{HNO2}, \ce{H2SO4} e \ce{HClO4}.
+\end{enunciado}
+
+Regra: $m = $ (nº de oxigênios) $-$ (nº de hidrogênios ionizáveis). Com $m = 3$ o ácido é muito forte, com $m = 2$ é forte, com $m = 1$ é semiforte e com $m = 0$ é fraco.
+
+\begin{itemize}[nosep]
+  \item \ce{H3BO3}: $m = 3 - 3 = 0$, ácido fraco.
+  \item \ce{HNO2}: $m = 2 - 1 = 1$, ácido semiforte.
+  \item \ce{H2SO4}: $m = 4 - 2 = 2$, ácido forte.
+  \item \ce{HClO4}: $m = 4 - 1 = 3$, ácido muito forte.
+\end{itemize}
+
+% ------------------------------------------------------------%
+\questao{6}{nomenclatura de bases}
+
+\begin{enunciado}
+Forneça a nomenclatura oficial para as seguintes bases: \ce{NaOH}, \ce{Ca(OH)2}, \ce{Fe(OH)2} e \ce{Fe(OH)3}.
+\end{enunciado}
+
+\begin{itemize}[nosep]
+  \item \ce{NaOH}: hidróxido de sódio.
+  \item \ce{Ca(OH)2}: hidróxido de cálcio.
+  \item \ce{Fe(OH)2}: hidróxido de ferro II (ferroso).
+  \item \ce{Fe(OH)3}: hidróxido de ferro III (férrico).
+\end{itemize}
+
+% ------------------------------------------------------------%
+\questao{7}{nomenclatura de ácidos}
+
+\begin{enunciado}
+Escreva os nomes oficiais dos ácidos: \ce{HBr}, \ce{HClO}, \ce{HClO2}, \ce{HClO3} e \ce{HClO4}.
+\end{enunciado}
+
+\begin{itemize}[nosep]
+  \item \ce{HBr}: ácido bromídrico.
+  \item \ce{HClO}: ácido hipocloroso.
+  \item \ce{HClO2}: ácido cloroso.
+  \item \ce{HClO3}: ácido clórico.
+  \item \ce{HClO4}: ácido perclórico.
+\end{itemize}
+
+% ------------------------------------------------------------%
+\questao{8}{neutralização}
+
+\begin{enunciado}
+Escreva as equações químicas balanceadas para a neutralização total e parcial entre o ácido sulfúrico (\ce{H2SO4}) e o hidróxido de sódio (\ce{NaOH}), identificando os sais formados.
+\end{enunciado}
+
+\textbf{Total:}
+\begin{equation}
+\ce{H2SO4 + 2NaOH -> Na2SO4 + 2H2O}
+\end{equation}
+Sal formado: \ce{Na2SO4}, sulfato de sódio.
+
+\textbf{Parcial:}
+\begin{equation}
+\ce{H2SO4 + NaOH -> NaHSO4 + H2O}
+\end{equation}
+Sal formado: \ce{NaHSO4}, hidrogenossulfato de sódio.
+
+% ------------------------------------------------------------%
+\questao{9}{funções inorgânicas}
+
+\begin{enunciado}
+Indique as quatro principais funções inorgânicas e associe cada uma das substâncias a seguir à sua respectiva função: \ce{HCl}, \ce{KOH}, \ce{NaCl} e \ce{CO2}.
+\end{enunciado}
+
+As quatro funções são ácidos, bases, sais e óxidos.
+
+\begin{itemize}[nosep]
+  \item \ce{HCl}: ácido.
+  \item \ce{KOH}: base.
+  \item \ce{NaCl}: sal.
+  \item \ce{CO2}: óxido.
+\end{itemize}
+
+% ------------------------------------------------------------%
+\questao{10}{força das bases}
+
+\begin{enunciado}
+Como é classificada a força das bases inorgânicas de acordo com a posição do metal na Tabela Periódica? Classifique \ce{NaOH}, \ce{Ca(OH)2} e \ce{Al(OH)3}.
+\end{enunciado}
+
+São bases fortes as dos metais alcalinos e alcalinoterrosos (exceto o \ce{Mg(OH)2}). As demais são fracas.
+
+\begin{itemize}[nosep]
+  \item \ce{NaOH}: base forte (metal alcalino).
+  \item \ce{Ca(OH)2}: base forte (metal alcalinoterroso).
+  \item \ce{Al(OH)3}: base fraca.
+\end{itemize}
+
+\end{document}
