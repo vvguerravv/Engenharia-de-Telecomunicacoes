@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="950" viewBox="0 0 900 950" font-family="Georgia, 'Times New Roman', serif" xmlns:c2pa="http://c2pa.org/manifest">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="ahs" markerWidth="8" markerHeight="8" refX="6" refY="2.5" orient="auto">
+      <path d="M0,0 L6,2.5 L0,5 z" fill="#b45309"/>
+    </marker>
+  </defs>
+  <rect width="900" height="950" fill="#ffffff"/>
+
+  <!-- ================= LINHA 1: funcoes-amostra ================= -->
+  <text x="40" y="38" font-size="18" fill="#1a1a1a">PASSO 1 &#8212; funcoes-amostra: cada A sorteado da UM pulso de largura 1 centrado em A</text>
+
+  <!-- painel A=0,6  (ox=40) -->
+  <text x="70" y="118" font-size="15" fill="#444">A = 0,6</text>
+  <line x1="42" y1="200" x2="245" y2="200" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="70" y1="205" x2="70" y2="130" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#ah)"/>
+  <path d="M42,200 L77,200 L77,140 L147,140 L147,200 L240,200" fill="none" stroke="#1d4ed8" stroke-width="2.6"/>
+  <text x="140" y="218" font-size="13" text-anchor="middle">1</text>
+  <text x="210" y="218" font-size="13" text-anchor="middle">2</text>
+  <text x="62" y="145" font-size="13" text-anchor="end">1</text>
+  <text x="252" y="206" font-size="14" font-style="italic">t</text>
+
+  <!-- painel A=1,0  (ox=340) -->
+  <text x="370" y="118" font-size="15" fill="#444">A = 1,0</text>
+  <line x1="342" y1="200" x2="545" y2="200" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="370" y1="205" x2="370" y2="130" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#ah)"/>
+  <path d="M342,200 L405,200 L405,140 L475,140 L475,200 L540,200" fill="none" stroke="#1d4ed8" stroke-width="2.6"/>
+  <text x="440" y="218" font-size="13" text-anchor="middle">1</text>
+  <text x="510" y="218" font-size="13" text-anchor="middle">2</text>
+  <text x="362" y="145" font-size="13" text-anchor="end">1</text>
+  <text x="552" y="206" font-size="14" font-style="italic">t</text>
+
+  <!-- painel A=1,4  (ox=640) -->
+  <text x="670" y="118" font-size="15" fill="#444">A = 1,4</text>
+  <line x1="642" y1="200" x2="845" y2="200" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="670" y1="205" x2="670" y2="130" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#ah)"/>
+  <path d="M642,200 L733,200 L733,140 L803,140 L803,200 L840,200" fill="none" stroke="#1d4ed8" stroke-width="2.6"/>
+  <text x="740" y="218" font-size="13" text-anchor="middle">1</text>
+  <text x="810" y="218" font-size="13" text-anchor="middle">2</text>
+  <text x="662" y="145" font-size="13" text-anchor="end">1</text>
+  <text x="852" y="206" font-size="14" font-style="italic">t</text>
+
+  <text x="40" y="246" font-size="14" fill="#555">O pulso desliza conforme A. Como A vai de 1/2 a 3/2, a borda esquerda vai de 0 a 1 e a direita de 1 a 2.</text>
+
+  <!-- ================= LINHA 2: janela / area ================= -->
+  <text x="40" y="300" font-size="18" fill="#1a1a1a">PASSO 2 &#8212; com t fixo: P[X(t) = 1] = area de f&#8336; dentro da janela (t &#8722; 1/2, t + 1/2)</text>
+
+  <!-- painel t = 0,3 -->
+  <text x="80" y="332" font-size="15" fill="#444">t = 0,3</text>
+  <!-- shade -->
+  <rect x="135" y="340" width="45" height="60" fill="#bfdbfe"/>
+  <!-- f_A -->
+  <path d="M80,400 L135,400 L135,340 L245,340 L245,400 L370,400" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+  <line x1="80" y1="400" x2="380" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="388" y="406" font-size="14" font-style="italic">a</text>
+  <text x="190" y="332" font-size="13" fill="#444">f&#8336;(a) = 1</text>
+  <text x="135" y="418" font-size="13" text-anchor="middle">1/2</text>
+  <text x="245" y="418" font-size="13" text-anchor="middle">3/2</text>
+  <!-- janela -->
+  <line x1="58" y1="440" x2="168" y2="440" stroke="#b45309" stroke-width="2.4"/>
+  <line x1="58" y1="432" x2="58" y2="448" stroke="#b45309" stroke-width="2.4"/>
+  <line x1="168" y1="432" x2="168" y2="448" stroke="#b45309" stroke-width="2.4"/>
+  <text x="58" y="464" font-size="12" fill="#b45309" text-anchor="middle">&#8722;0,2</text>
+  <text x="168" y="464" font-size="12" fill="#b45309" text-anchor="middle">0,8</text>
+  <text x="200" y="446" font-size="13" fill="#b45309">janela</text>
+  <text x="196" y="376" font-size="13" fill="#1d4ed8">area = 0,3</text>
+
+  <!-- painel t = 1,7 -->
+  <text x="520" y="332" font-size="15" fill="#444">t = 1,7</text>
+  <rect x="640" y="340" width="45" height="60" fill="#bfdbfe"/>
+  <path d="M520,400 L575,400 L575,340 L685,340 L685,400 L810,400" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+  <line x1="520" y1="400" x2="820" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="828" y="406" font-size="14" font-style="italic">a</text>
+  <text x="600" y="332" font-size="13" fill="#444">f&#8336;(a) = 1</text>
+  <text x="575" y="418" font-size="13" text-anchor="middle">1/2</text>
+  <text x="685" y="418" font-size="13" text-anchor="middle">3/2</text>
+  <line x1="652" y1="440" x2="762" y2="440" stroke="#b45309" stroke-width="2.4"/>
+  <line x1="652" y1="432" x2="652" y2="448" stroke="#b45309" stroke-width="2.4"/>
+  <line x1="762" y1="432" x2="762" y2="448" stroke="#b45309" stroke-width="2.4"/>
+  <text x="652" y="464" font-size="12" fill="#b45309" text-anchor="middle">1,2</text>
+  <text x="762" y="464" font-size="12" fill="#b45309" text-anchor="middle">2,2</text>
+  <text x="430" y="376" font-size="13" fill="#1d4ed8" text-anchor="end"></text>
+  <text x="700" y="376" font-size="13" fill="#1d4ed8">area = 0,3</text>
+
+  <!-- ================= LINHA 3: PMFs ================= -->
+  <text x="40" y="520" font-size="18" fill="#1a1a1a">(a)  PMF de primeira ordem &#8212; os dois esbocos pedidos</text>
+
+  <!-- PMF t=0,3 -->
+  <text x="150" y="552" font-size="15" fill="#444">X(0,3) ~ Bernoulli(0,3)</text>
+  <line x1="130" y1="680" x2="330" y2="680" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#ah)"/>
+  <line x1="150" y1="680" x2="150" y2="570" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#ah)"/>
+  <text x="338" y="686" font-size="14" font-style="italic">x</text>
+  <line x1="190" y1="680" x2="190" y2="596" stroke="#1d4ed8" stroke-width="3"/>
+  <circle cx="190" cy="596" r="5" fill="#1d4ed8"/>
+  <line x1="290" y1="680" x2="290" y2="644" stroke="#1d4ed8" stroke-width="3"/>
+  <circle cx="290" cy="644" r="5" fill="#1d4ed8"/>
+  <line x1="150" y1="596" x2="190" y2="596" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="150" y1="644" x2="290" y2="644" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="142" y="601" font-size="13" text-anchor="end">0,7</text>
+  <text x="142" y="649" font-size="13" text-anchor="end">0,3</text>
+  <text x="190" y="700" font-size="14" text-anchor="middle">0</text>
+  <text x="290" y="700" font-size="14" text-anchor="middle">1</text>
+
+  <!-- PMF t=1,7 -->
+  <text x="570" y="552" font-size="15" fill="#444">X(1,7) ~ Bernoulli(0,3)</text>
+  <line x1="550" y1="680" x2="750" y2="680" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#ah)"/>
+  <line x1="570" y1="680" x2="570" y2="570" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#ah)"/>
+  <text x="758" y="686" font-size="14" font-style="italic">x</text>
+  <line x1="610" y1="680" x2="610" y2="596" stroke="#1d4ed8" stroke-width="3"/>
+  <circle cx="610" cy="596" r="5" fill="#1d4ed8"/>
+  <line x1="710" y1="680" x2="710" y2="644" stroke="#1d4ed8" stroke-width="3"/>
+  <circle cx="710" cy="644" r="5" fill="#1d4ed8"/>
+  <line x1="570" y1="596" x2="610" y2="596" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="570" y1="644" x2="710" y2="644" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="562" y="601" font-size="13" text-anchor="end">0,7</text>
+  <text x="562" y="649" font-size="13" text-anchor="end">0,3</text>
+  <text x="610" y="700" font-size="14" text-anchor="middle">0</text>
+  <text x="710" y="700" font-size="14" text-anchor="middle">1</text>
+
+  <!-- ================= LINHA 4: media ================= -->
+  <text x="40" y="762" font-size="18" fill="#1a1a1a">(b)  Funcao media &#956;&#8339;(t) &#8212; e o proprio p(t), porque a media da Bernoulli e o parametro</text>
+  <line x1="80" y1="900" x2="790" y2="900" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#ah)"/>
+  <line x1="140" y1="905" x2="140" y2="782" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#ah)"/>
+  <text x="798" y="906" font-size="15" font-style="italic">t</text>
+  <text x="104" y="778" font-size="15">&#956;&#8339;(t)</text>
+  <path d="M80,900 L140,900 L340,790 L540,900 L790,900" fill="none" stroke="#1d4ed8" stroke-width="3"/>
+  <line x1="140" y1="790" x2="340" y2="790" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="340" y1="900" x2="340" y2="790" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="130" y="795" font-size="13" text-anchor="end">1</text>
+  <text x="140" y="922" font-size="14" text-anchor="middle">0</text>
+  <text x="340" y="922" font-size="14" text-anchor="middle">1</text>
+  <text x="540" y="922" font-size="14" text-anchor="middle">2</text>
+  <text x="228" y="836" font-size="14" fill="#1d4ed8" text-anchor="middle" transform="rotate(-29 228 836)">&#956; = t</text>
+  <text x="452" y="836" font-size="14" fill="#1d4ed8" text-anchor="middle" transform="rotate(29 452 836)">&#956; = 2 &#8722; t</text>
+<metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTplYTBiOGE1Yi1mZGU3LTQyNzMtOWZiNy05NzY4NzEyNjAyODQAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaCFgM6eKYyznFxHXDTi1XYYAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDpmNjMxNzVjMC0xOTZkLTQ4NTMtOTRkYS0wZjdmOWFlZGQxOWZscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNo5dU90O01JuUxfqKGRpxoKgAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggOZtULbs7D/l/UENV1QF240T0yf9Ev+gAL4Io600r4USkZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaHZFOweWRtx6rRrfU/vV6boAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYIHCGyPxFC/6wDYv31K4fp0KgWo22SkmA2kiOvaXBOW9XZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GSWBZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOmVhMGI4YTViLWZkZTctNDI3My05ZmI3LTk3Njg3MTI2MDI4NC9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOmQxYzEwOGNhLTUxMDYtNDVkMS1iNjFlLWUwMTI1YzM1NDRjNXJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCA5m1QtuzsP+X9QQ1XVAXbjRPTJ/0S/6AAvgijrTSvhRKJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggDNqsad2B9vgMhRoF9z9g8i8fH9kaBll0mJAvw81Ix9qiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggVb6iZGczR6SJeGXQ7Vi3nzMf+xawe23Wh4HkyB74dXR0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQDZNAUpgl1wq7HuZOeUeFisBIiizcyf3wBIKnPQ1DyKbjuNoHGcHQt2CUUzMmKKdTMZYxy2AsdtpeR7pBOkt0+s=</c2pa:manifest></metadata></svg>
